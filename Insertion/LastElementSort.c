@@ -18,25 +18,44 @@ void SortLastElement(int* arr, int size) {
 	int key = arr[size - 1];
 	int i;
 	for (i = size - 2; i > -1 && arr[i] > key; i--) {
-		arr[i + 1] = arr[i];
+		arr[i + 1] = arr[i]; // element shift to right side
 	}
-	arr[i + 1] = key;
+	arr[i + 1] = key; // put appropriate element
 }
 
+
+void SortLastElement_2(int* p_arr, int N)
+{
+	int key;
+	int i;
+	key = p_arr[N - 1];
+	i = N - 2;
+	while (i > -1)
+	{
+		if (p_arr[i] > key)
+		{
+			p_arr[i + 1] = p_arr[i];  // element shifting to right
+			i = i - 1; // maintain count
+		}
+		else
+			break; // found appropriate place 
+	}
+	p_arr[i + 1] = key; // add last ele to appropriate place
+}
 
 int main()
 {
 	int size = 5;
 	int arr[] = { 1,2,4,5,3 };
 	Print(arr, size, "before");
-	SortLastElement(&arr[0], size);
+	SortLastElement_1(&arr[0], size);
 	Print(arr, size, "after");
 
 	puts("----");
 
 	int arr2[] = { 10,21,27,30,19 };
 	Print(arr2, size, "before");
-	SortLastElement(&arr2[0], size);
+	SortLastElement_2(&arr2[0], size);
 	Print(arr2, size, "after");
 
 	return 0;
