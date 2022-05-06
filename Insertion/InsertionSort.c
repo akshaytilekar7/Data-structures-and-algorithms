@@ -50,7 +50,7 @@ void InsertionSortInOneWithWhile(int* arr, int size)
 	{
 		int key = arr[index - 1];
 		i = index - 2;
-		while (i > -1)
+		while (i >= 0) // (i > -1)
 		{
 			if (arr[i] > key)
 			{
