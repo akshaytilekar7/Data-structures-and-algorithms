@@ -7,8 +7,8 @@
 
 void Input(int* arr, int size);
 void Output(int* arr, int size, char* msg);
-void MergeProcedure(int arr[], int start, int mid, int end)
-void Merge(int arr[], int start, int end)
+void MergeProcedure(int arr[], int start, int mid, int end);
+void Merge(int arr[], int start, int end);
 
 void Input(int* arr, int size)
 {
