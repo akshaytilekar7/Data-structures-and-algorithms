@@ -29,6 +29,9 @@ void MergeProcedure(int arr[], int start, int mid, int end)
 	int j = 0;
 	int k = 0;
 
+	// arr[start + k] when k = 0
+	// arr[k] when k = start
+
 	int size1 = mid - start + 1; // [start, mid] 
 	int size2 = end - mid; // (mid, end] 
 
