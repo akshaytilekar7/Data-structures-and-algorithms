@@ -181,13 +181,32 @@ int PopLast(struct Node** head)
 	// more than 2 node (3,4,5...)
 	struct Node* fast = (*head);
 	while (fast->Next->Next != NULL)
-	{
 		fast = fast->Next;
-	}
 
 	data = fast->Next->Data;
 	fast->Next = NULL;
 	return data;
+}
+
+int RemoveFirstOccurence(struct Node** head, int data)
+{
+	// 1 ele
+	if ((*head)->Data == data)
+		return PopFirst(head);
+
+	struct Node* traverse = (*head);
+
+
+	while (traverse->Next != NULL) {
+		if (traverse->Next->Data == data)
+		{
+			traverse->Next = traverse->Next->Next;
+			return 1;
+		}
+		traverse = traverse->Next;
+	}
+
+	return -1;
 }
 
 int main(int argc, char* argv[])
@@ -216,13 +235,13 @@ int main(int argc, char* argv[])
 		head = Add(head, data);
 	}
 
-	head = AddFirst(head, 514);
+	/*head = AddFirst(head, 514);
 	int val1 = AddAfterIfExist(head, 5000, 50);
-	head = AddBeforeIfExist(head, 8000, 5000);
+	head = AddBeforeIfExist(head, 8000, 5000);*/
 
 	PrintList(head, NULL);
 
-	int first = GetFirst(head);
+	/*int first = GetFirst(head);
 	printf("Get First : %d\n", first);
 	int last = GetLast(head);
 	printf("Get last  : %d\n", last);
@@ -233,9 +252,13 @@ int main(int argc, char* argv[])
 	printf("Pop First : %d\n", first);
 
 	last = PopLast(&head);
-	printf("Pop Last  : %d\n", last);
+	printf("Pop Last  : %d\n", last);*/
 
 	PrintList(head, "at last");
+
+	int r = RemoveFirstOccurence(&head, 1000);
+
+	PrintList(head, "at last after RemoveFirstOccurence");
 
 	return (EXIT_SUCCESS);
 }
