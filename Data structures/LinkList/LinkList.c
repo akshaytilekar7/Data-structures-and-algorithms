@@ -221,6 +221,17 @@ int Length(struct Node* head)
 	return 1 + Length(head->Next);
 }
 
+bool Contains(struct Node* head, int data)
+{
+	if (head == NULL)
+		return false;
+
+	if (head->Data == data)
+		return true;
+
+	 Contains(head->Next, data);
+}
+
 int main(int argc, char* argv[])
 {
 	int N = 0;
@@ -270,6 +281,7 @@ int main(int argc, char* argv[])
 	PrintList(head, "at last after RemoveFirstOccurence");*/
 	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
 	printf("Length is : %d\n", Length(head));
+	printf("Conatins is : %s\n", Contains(head, 100) ? "true" : "false");
 
 	PrintList(head, "at last");
 
