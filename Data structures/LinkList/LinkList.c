@@ -10,10 +10,11 @@ struct Node {
 
 void PrintList(struct Node* head, char* msg)
 {
-	if (head == NULL)
-		return;
 	if (msg)
 		printf("%s\t ", msg);
+
+	if (head == NULL)
+		return;
 
 	printf("%d\n", head->Data);
 	PrintList(head->Next, msg);
@@ -229,7 +230,19 @@ bool Contains(struct Node* head, int data)
 	if (head->Data == data)
 		return true;
 
-	 Contains(head->Next, data);
+	Contains(head->Next, data);
+}
+
+void Destroy(struct Node** head)
+{
+	if ((*head) == NULL)
+		return;
+
+	while ((*head) != NULL)
+	{
+		Destroy(&((* head)->Next));
+		(*head) = NULL;
+	}
 }
 
 int main(int argc, char* argv[])
@@ -279,11 +292,16 @@ int main(int argc, char* argv[])
 
 	/*int r = RemoveFirstOccurence(&head, 1000);
 	PrintList(head, "at last after RemoveFirstOccurence");*/
-	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
 	printf("Length is : %d\n", Length(head));
 	printf("Conatins is : %s\n", Contains(head, 100) ? "true" : "false");
-
+	
 	PrintList(head, "at last");
+
+	//Destroy(&head);
+
+	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
+
+	PrintList(head, "after destory");
 
 	return (EXIT_SUCCESS);
 }
