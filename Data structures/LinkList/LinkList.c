@@ -144,6 +144,52 @@ int GetLast(struct Node* head)
 	return traverse->Data;
 }
 
+int PopFirst(struct Node** head)
+{
+	if ((*head) == NULL)
+		return -1;
+
+	int temp = (*head)->Data;
+	(*head) = (*head)->Next;
+	return temp;
+}
+
+int PopLast(struct Node** head)
+{
+	if ((*head) == NULL)
+		return -1;
+
+	struct Node* temp = (*head);
+	int data = -1;
+
+	// 1 node in list // HEAD CHANGE
+	if (temp->Next == NULL)
+	{
+		(*head) = NULL;
+		return temp->Data;;
+	}
+
+	// 2 node in list
+	if (temp->Next->Next == NULL)
+	{
+		//puts("2 ele\n");
+		data = temp->Next->Data;
+		temp->Next = NULL;
+		return data;
+	}
+
+	// more than 2 node (3,4,5...)
+	struct Node* fast = (*head);
+	while (fast->Next->Next != NULL)
+	{
+		fast = fast->Next;
+	}
+
+	data = fast->Next->Data;
+	fast->Next = NULL;
+	return data;
+}
+
 int main(int argc, char* argv[])
 {
 	int N = 0;
@@ -161,7 +207,7 @@ int main(int argc, char* argv[])
 
 	printf("Total Node : %d\n", N);
 
-	head = AddFirst(head, 564);
+	//head = AddFirst(head, 564);
 
 	for (int i = 1; i <= N; i++)
 	{
@@ -177,9 +223,19 @@ int main(int argc, char* argv[])
 	PrintList(head, NULL);
 
 	int first = GetFirst(head);
+	printf("Get First : %d\n", first);
 	int last = GetLast(head);
-	printf("First : %d\n", first);
-	printf("last  : %d\n", last);
+	printf("Get last  : %d\n", last);
+
+	PrintList(head, "at mid");
+
+	first = PopFirst(&head);
+	printf("Pop First : %d\n", first);
+
+	last = PopLast(&head);
+	printf("Pop Last  : %d\n", last);
+
+	PrintList(head, "at last");
 
 	return (EXIT_SUCCESS);
 }
