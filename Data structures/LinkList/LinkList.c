@@ -1,7 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <assert.h>
-
+#include <stdbool.h>
 
 struct Node {
 	int Data;
@@ -196,7 +196,6 @@ int RemoveFirstOccurence(struct Node** head, int data)
 
 	struct Node* traverse = (*head);
 
-
 	while (traverse->Next != NULL) {
 		if (traverse->Next->Data == data)
 		{
@@ -207,6 +206,11 @@ int RemoveFirstOccurence(struct Node** head, int data)
 	}
 
 	return -1;
+}
+
+bool IsEmpty(struct Node* head)
+{
+	return head == NULL;
 }
 
 int main(int argc, char* argv[])
@@ -250,8 +254,7 @@ int main(int argc, char* argv[])
 
 	first = PopFirst(&head);
 	printf("Pop First : %d\n", first);
-
-	last = PopLast(&head);
+	int last = PopLast(&head);
 	printf("Pop Last  : %d\n", last);*/
 
 	PrintList(head, "at last");
@@ -260,5 +263,6 @@ int main(int argc, char* argv[])
 
 	PrintList(head, "at last after RemoveFirstOccurence");
 
+	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
 	return (EXIT_SUCCESS);
 }
