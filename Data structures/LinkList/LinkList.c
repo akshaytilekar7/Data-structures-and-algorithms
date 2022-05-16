@@ -117,6 +117,32 @@ struct Node* AddBeforeIfExist(struct Node* head, int dataToAdd, int afterData)
 	return head;
 }
 
+int GetFirst(struct Node* head)
+{
+	if (head == NULL)
+		return -1;
+
+	return head->Data;
+}
+
+int GetLast(struct Node* head)
+{
+	// Empty
+	if (head == NULL)
+		return -1;
+
+	struct Node* traverse = head;
+
+	// only 1 node
+	if (traverse->Next == NULL)
+		return traverse->Data;
+
+	// more than 2 node
+	while (traverse->Next != NULL)
+		traverse = traverse->Next;
+
+	return traverse->Data;
+}
 
 int main(int argc, char* argv[])
 {
@@ -149,5 +175,11 @@ int main(int argc, char* argv[])
 	head = AddBeforeIfExist(head, 8000, 5000);
 
 	PrintList(head, NULL);
+
+	int first = GetFirst(head);
+	int last = GetLast(head);
+	printf("First : %d\n", first);
+	printf("last  : %d\n", last);
+
 	return (EXIT_SUCCESS);
 }
