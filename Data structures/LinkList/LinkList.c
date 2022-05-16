@@ -213,6 +213,14 @@ bool IsEmpty(struct Node* head)
 	return head == NULL;
 }
 
+int Length(struct Node* head)
+{
+	if (head == NULL)
+		return 0;
+
+	return 1 + Length(head->Next);
+}
+
 int main(int argc, char* argv[])
 {
 	int N = 0;
@@ -257,12 +265,13 @@ int main(int argc, char* argv[])
 	int last = PopLast(&head);
 	printf("Pop Last  : %d\n", last);*/
 
+
+	/*int r = RemoveFirstOccurence(&head, 1000);
+	PrintList(head, "at last after RemoveFirstOccurence");*/
+	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
+	printf("Length is : %d\n", Length(head));
+
 	PrintList(head, "at last");
 
-	int r = RemoveFirstOccurence(&head, 1000);
-
-	PrintList(head, "at last after RemoveFirstOccurence");
-
-	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
 	return (EXIT_SUCCESS);
 }
