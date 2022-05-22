@@ -10,11 +10,11 @@ struct Node {
 
 void PrintList(struct Node* head, char* msg)
 {
-	if (msg)
-		printf("%s\t ", msg);
-
 	if (head == NULL)
 		return;
+
+	if (msg)
+		printf("%s\t ", msg);
 
 	printf("%d\n", head->Data);
 	PrintList(head->Next, msg);
@@ -240,9 +240,22 @@ void Destroy(struct Node** head)
 
 	while ((*head) != NULL)
 	{
-		Destroy(&((* head)->Next));
+		Destroy(&((*head)->Next));
 		(*head) = NULL;
 	}
+}
+
+struct Node* Reverse(struct Node* head, struct Node* revese)
+{
+	if (head == NULL)
+	{
+		revese->Next = NULL;
+		return NULL;
+	}
+	struct Node* temp = Reverse(head->Next, revese);
+	revese->Next = temp;
+
+	return revese;
 }
 
 int main(int argc, char* argv[])
@@ -292,16 +305,15 @@ int main(int argc, char* argv[])
 
 	/*int r = RemoveFirstOccurence(&head, 1000);
 	PrintList(head, "at last after RemoveFirstOccurence");*/
-	printf("Length is : %d\n", Length(head));
-	printf("Conatins is : %s\n", Contains(head, 100) ? "true" : "false");
-	
-	PrintList(head, "at last");
-
+	//printf("Length is : %d\n", Length(head));
+	//printf("Conatins is : %s\n", Contains(head, 100) ? "true" : "false");
+	//printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
 	//Destroy(&head);
 
-	printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
-
-	PrintList(head, "after destory");
+	struct Node* reverse = (struct Node*)malloc(sizeof(struct Node));
+	PrintList(head, "before reverse");
+	reverse = Reverse(head, reverse);
+	PrintList(reverse, "after reverse");
 
 	return (EXIT_SUCCESS);
 }
