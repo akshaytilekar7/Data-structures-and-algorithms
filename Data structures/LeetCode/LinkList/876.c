@@ -1,12 +1,17 @@
 // https://leetcode.com/problems/middle-of-the-linked-list/
 // 876. Middle of the Linked List
 // https://leetcode.com/problems/middle-of-the-linked-list/discuss/2065543/C-Language
+// https://leetcode.com/problems/middle-of-the-linked-list/discuss/2065545/C-Language
 
 /*
 Runtime: 2 ms, faster than 45.65% of C online submissions for Middle of the Linked List.
 Memory Usage: 6 MB, less than 7.74% of C online submissions for Middle of the Linked List.
 */
 
+/*
+Runtime: 0 ms, faster than 100.00% of C online submissions for Middle of the Linked List.
+Memory Usage: 5.7 MB, less than 99.66% of C online submissions for Middle of the Linked List
+*/
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <assert.h>
@@ -55,6 +60,24 @@ struct ListNode* Add(struct ListNode* head, int data)
 }
 
 
+struct ListNode* middleNodeOld(struct ListNode* head) {
+
+	struct ListNode* slow = head;
+	struct ListNode* fast = head;
+
+	while (fast != NULL)
+	{
+		if (fast->next != NULL)
+		{
+			fast = fast->next->next;
+			slow = slow->next;
+		}
+		else fast = fast->next;
+	}
+
+	return slow;
+}
+
 struct ListNode* middleNode(struct ListNode* head) {
 
 	struct ListNode* slow = head;
@@ -72,6 +95,7 @@ struct ListNode* middleNode(struct ListNode* head) {
 
 	return slow;
 }
+
 
 int main(int argc, char* argv[])
 {
