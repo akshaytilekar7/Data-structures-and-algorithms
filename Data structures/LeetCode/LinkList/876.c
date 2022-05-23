@@ -1,17 +1,16 @@
-// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
-// 82. Remove Duplicates from Sorted List II
-// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/discuss/2065500/C-Language
+// https://leetcode.com/problems/middle-of-the-linked-list/
+// 876. Middle of the Linked List
+// https://leetcode.com/problems/middle-of-the-linked-list/discuss/2065543/C-Language
 
 /*
-Runtime: 16 ms, faster than 5.23% of C online submissions for Remove Duplicates from Sorted List II.
-Memory Usage: 6.2 MB, less than 95.04% of C online submissions for Remove Duplicates from Sorted List II.
+Runtime: 2 ms, faster than 45.65% of C online submissions for Middle of the Linked List.
+Memory Usage: 6 MB, less than 7.74% of C online submissions for Middle of the Linked List.
 */
 
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <assert.h>
 #include <string.h>
-#include <stdbool.h>
 
 struct ListNode {
 	int val;
@@ -29,6 +28,7 @@ void PrintList(struct ListNode* head, char* msg)
 	printf("%d\n", head->val);
 	PrintList(head->next, msg);
 }
+
 
 struct ListNode* Add(struct ListNode* head, int data)
 {
@@ -54,49 +54,33 @@ struct ListNode* Add(struct ListNode* head, int data)
 	return head;
 }
 
-struct ListNode* deleteDuplicates(struct ListNode* head) {
 
-	if (head == NULL)
-		return head;
+struct ListNode* middleNode(struct ListNode* head) {
 
 	struct ListNode* slow = head;
 	struct ListNode* fast = head;
 
-	bool isDuplicate = false;
-
 	while (fast != NULL)
 	{
-		while (fast->next != NULL && fast->val == fast->next->val)
+		if (fast->next != NULL)
 		{
-			if (fast == head)
-			{
-				while (fast->next != NULL && fast->val == fast->next->val)
-					fast->next = fast->next->next;
-				head = head->next;
-			}
-			else 
-			{
-				while (slow != fast && slow->next != fast && slow->next->val != fast->val)
-					slow = slow->next;
-
-				fast->next = fast->next->next;
-				slow->next = fast->next;
-			}
+			fast = fast->next->next;
+			slow = slow->next;
 		}
-
-		fast = fast->next;
+		else fast = fast->next;
 	}
 
-	return head;
+	return slow;
 }
 
 int main(int argc, char* argv[])
 {
 	int cnt1 = atoi(argv[1]);
+	int cnt2 = atoi(argv[2]);
 	printf("count 1 is %d \n", cnt1);
 
 	struct ListNode* A1 = NULL;
-	for (int i = 0; i < cnt1; i++)
+	for (int i = 1; i <= cnt1; i++)
 	{
 		int t = 0;
 		printf("Enter Number for %d : ", i);
@@ -104,7 +88,9 @@ int main(int argc, char* argv[])
 		A1 = Add(A1, t);
 	}
 
-	struct ListNode* temp = deleteDuplicates(A1);
+	PrintList(A1, "before");
+
+	struct ListNode* temp = middleNode(A1);
 
 	PrintList(temp, "result");
 
