@@ -108,12 +108,7 @@ int main(int argc, char* argv[])
 
 	struct ListNode* traverse = NULL;
 	for (int i = 0; i < arg1; i++)
-	{
-		/*int t = 0;
-		printf("Enter Number for %d : ", i);
-		scanf("%d", &t);*/
 		traverse = Add(traverse, i * 10);
-	}
 
 	PrintList(traverse, "before");
 
