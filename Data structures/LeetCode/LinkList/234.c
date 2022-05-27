@@ -3,8 +3,8 @@
 // https://leetcode.com/problems/palindrome-linked-list/discuss/2080230/C-Language
 
 /*
-Runtime: 335 ms, faster than 5.88% of C online submissions for Palindrome Linked List.
-Memory Usage: 41.8 MB, less than 33.82% of C online submissions for Palindrome Linked List.
+Runtime: 142 ms, faster than 91.44% of C online submissions for Palindrome Linked List.
+Memory Usage: 41.4 MB, less than 70.33% of C online submissions for Palindrome Linked List.
 */
 
 #include <stdio.h> 
@@ -39,15 +39,17 @@ bool isPalindrome(struct ListNode* head) {
 
 	struct ListNode* slow = head;
 	struct ListNode* fast = head;
+	int size = 0;
 
 	while (fast != NULL && fast->next != NULL)
 	{
 		slow = slow->next;
 		fast = fast->next->next;
+		size++;
 	}
 
 	struct ListNode* temp = slow;
-	int arr[100000];
+	int arr[size + 1];
 	int index = 0;
 	while (temp != NULL)
 	{
