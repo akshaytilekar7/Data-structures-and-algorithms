@@ -245,19 +245,6 @@ void Destroy(struct Node** head)
 	}
 }
 
-struct Node* Reverse(struct Node* head, struct Node* revese)
-{
-	if (head == NULL)
-	{
-		revese->Next = NULL;
-		return NULL;
-	}
-	struct Node* temp = Reverse(head->Next, revese);
-	revese->Next = temp;
-
-	return revese;
-}
-
 int main(int argc, char* argv[])
 {
 	int N = 0;
@@ -309,11 +296,6 @@ int main(int argc, char* argv[])
 	//printf("Conatins is : %s\n", Contains(head, 100) ? "true" : "false");
 	//printf("is Empty : %s\n", IsEmpty(head) ? "true" : "false");
 	//Destroy(&head);
-
-	struct Node* reverse = (struct Node*)malloc(sizeof(struct Node));
-	PrintList(head, "before reverse");
-	reverse = Reverse(head, reverse);
-	PrintList(reverse, "after reverse");
 
 	return (EXIT_SUCCESS);
 }
