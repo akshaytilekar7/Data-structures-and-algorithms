@@ -1,3 +1,12 @@
+// https://leetcode.com/problems/sort-an-array/
+// 912. Sort an Array
+// https://leetcode.com/problems/sort-an-array/discuss/2097753/C-Language
+
+/*
+Runtime: 436 ms, faster than 5.26% of C online submissions for Sort an Array.
+Memory Usage: 71.3 MB, less than 5.26% of C online submissions for Sort an Array.
+*/
+	
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <assert.h> 
