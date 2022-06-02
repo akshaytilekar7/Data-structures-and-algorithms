@@ -39,7 +39,6 @@ bool IsExist(ListType* list, dataType data) {
 }
 
 static NodeType* Search(ListType* list, dataType data) {
-
 	ListType* traverse = list->Next;
 	while (traverse != NULL)
 	{
@@ -52,7 +51,6 @@ static NodeType* Search(ListType* list, dataType data) {
 dataType GetLength(ListType* list)
 {
 	ListType* traverse = list->Next;
-
 	int cnt = 0;
 	while (traverse != NULL)
 	{
@@ -185,7 +183,6 @@ statusType RemoveFirstOccurenceOfData(ListType* list, dataType data)
 
 statusType RemoveLastOccurenceOfData(ListType* list, dataType data)
 {
-
 	ListType* travel = list->Next;
 	ListType* prev = list;
 	ListType* deleteNode = NULL;
@@ -245,7 +242,6 @@ statusType InsertAtEnd(ListType* list, dataType data)
 statusType InsertAfter(ListType* list, dataType data, dataType newData)
 {
 	ListType* travel = list->Next;
-
 	while (travel != NULL)
 	{
 		if (travel->Data == data)
@@ -312,8 +308,6 @@ statusType ConcatMutable(ListType* list1, ListType* list2)
 }
 
 ListType* GetReverseList(ListType* list) {}
-
 static void GetReverseListRecursiveRetrunNew(ListType* list, ListType* end, ListType* result) {}
-
 statusType ReverseListBySwap(ListType* list) {}
 statusType ReverseListByNode(ListType* list) {}
