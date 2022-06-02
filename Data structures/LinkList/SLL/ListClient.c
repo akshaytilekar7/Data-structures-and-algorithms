@@ -111,43 +111,44 @@ int main(void)
 	if (IsExist(p_list, 2) == TRUE)
 		puts("2 is present in list");
 
-	/*
+	
 	while (IsEmpty(p_list) != TRUE)
 		assert(RemoveEnd(p_list) == SUCCESS);
 
 	assert(IsEmpty(p_list) == TRUE);
 
-	PrintList(p_list, "Should be empty");
+	/*PrintList(p_list, "Should be empty");
 	assert(reverse_list(p_list) == SUCCESS);
-	PrintList(p_list, "Reversed of empty list should be empty as well");
+	PrintList(p_list, "Reversed of empty list should be empty as well");*/
 
-	assert(InsertAtEnd(p_list, 100) == SUCCESS);
+	/*assert(InsertAtEnd(p_list, 100) == SUCCESS);
 	PrintList(p_list, "Should contain one element");
 	assert(reverse_list(p_list) == SUCCESS);
-	PrintList(p_list, "Reversed version of list with one element is same list");
+	PrintList(p_list, "Reversed version of list with one element is same list");*/
 
 	// assert(destroy_list(&p_list) == SUCCESS && p_list == NULL);
-	*/
 	
-	//puts("Testing inter-list routines");
-	//p_list_1 = CreateList();
-	//p_list_2 = CreateList();
-	//assert(IsEmpty(p_list_1) && IsEmpty(p_list_2));
+	
 
-	//for (data = 5; data < 8; data += 1)
-	//	assert(InsertAtEnd(p_list_1, data) == SUCCESS);
+	puts("Testing inter-list routines");
+	p_list_1 = CreateList();
+	p_list_2 = CreateList();
+	assert(IsEmpty(p_list_1) && IsEmpty(p_list_2));
 
-	//for (data = 20; data <= 23; data += 1)
-	//	assert(InsertAtEnd(p_list_2, data) == SUCCESS);
+	for (data = 5; data < 8; data += 1)
+		assert(InsertAtEnd(p_list_1, data) == SUCCESS);
 
-	//PrintList(p_list_1, "p_list_1 ");
-	//PrintList(p_list_2, "p_list_2 ");
+	for (data = 20; data <= 23; data += 1)
+		assert(InsertAtEnd(p_list_2, data) == SUCCESS);
 
-	//assert(ConcatMutable(p_list_1, p_list_2) == SUCCESS);
-	//PrintList(p_list_1, "SLL After ConcatMutable 1 ");
+	PrintList(p_list_1, "p_list_1 ");
+	PrintList(p_list_2, "p_list_2 ");
 
-	//ListType* list3 = ConcatImmutable(p_list_1, p_list_1);
-	//PrintList(list3, "SLL After ConcatImmutable XXXX ");
+	assert(ConcatMutable(p_list_1, p_list_2) == SUCCESS);
+	PrintList(p_list_1, "SLL After ConcatMutable 1 ");
+
+	ListType* list3 = ConcatImmutable(p_list_1, p_list_1);
+	PrintList(list3, "SLL After ConcatImmutable XXXX ");
 
 	//ListType* p_list_5 = CreateList();
 

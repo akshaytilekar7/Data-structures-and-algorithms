@@ -276,9 +276,40 @@ statusType InsertBefore(ListType* list, dataType data, dataType newData)
 	return DataNotFound;
 }
 
-ListType* ConcatImmutable(ListType* list1, ListType* list2) {}
+ListType* ConcatImmutable(ListType* list1, ListType* list2)
+{
+	ListType* result = CreateList();
 
-statusType ConcatMutable(ListType* list1, ListType* list2) {}
+	ListType* lastNode1 = list1->Next;
+	while (lastNode1 != NULL && lastNode1->Next != NULL)
+	{
+		InsertAtEnd(result, lastNode1->Data);
+		lastNode1 = lastNode1->Next;
+	}
+
+	ListType* lastNode2 = list2->Next;
+	while (lastNode2 != NULL && lastNode2->Next != NULL)
+	{
+		InsertAtEnd(result, lastNode2->Data);
+		lastNode2 = lastNode2->Next;
+	}
+
+	return result;
+}
+
+statusType ConcatMutable(ListType* list1, ListType* list2)
+{
+	if (IsEmpty(list2)) return SUCCESS;
+
+	ListType* lastNode1 = list1->Next;
+	while (lastNode1 != NULL && lastNode1->Next != NULL)
+		lastNode1 = lastNode1->Next;
+
+	lastNode1->Next = list2->Next;
+	list2 = NULL;
+
+	return SUCCESS;
+}
 
 ListType* GetReverseList(ListType* list) {}
 
