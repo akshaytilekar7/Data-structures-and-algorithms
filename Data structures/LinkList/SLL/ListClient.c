@@ -43,10 +43,8 @@ int main(void)
 	assert(InsertAfter(p_list, 3, 50) == SUCCESS);
 	PrintList(p_list, "SLL After InsertAfter 3 5:");
 
-
 	assert(InsertBefore(p_list, 9, 50) == SUCCESS);
 	PrintList(p_list, "SLL After InsertBefore:9 50");
-
 
 	assert(InsertAfter(p_list, 10, 7) == SUCCESS);
 	PrintList(p_list, "SLL After InsertAfter: 10 7");
@@ -78,7 +76,6 @@ int main(void)
 	printf("Poped End Data:%d\n", data);
 	PrintList(p_list, "SLL After PopEnd:");
 
-	
 	assert(RemoveFirst(p_list) == SUCCESS);
 	PrintList(p_list, "SLL After RemoveFirst:");
 	
@@ -86,8 +83,6 @@ int main(void)
 	PrintList(p_list, "SLL After RemoveEnd:");
 	
 	assert(RemoveFirstOccurenceOfData(p_list, -10) == DataNotFound);
-
-	
 
 	assert(RemoveFirstOccurenceOfData(p_list, 3) == SUCCESS);
 	PrintList(p_list, "SLL After RemoveFirstOccurenceOfData 3 ");
@@ -110,15 +105,11 @@ int main(void)
 
 	assert(IsEmpty(p_list) == FALSE);
 
-	
 	if (IsExist(p_list, -10) == FALSE)
 		puts("-10 is not present in list");
 
-	
-	
 	if (IsExist(p_list, 2) == TRUE)
 		puts("2 is present in list");
-
 
 	/*
 	while (IsEmpty(p_list) != TRUE)
