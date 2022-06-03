@@ -140,8 +140,7 @@ int main(void)
 	PrintList(p_list, "after reverse ReverseListImmutable input list");
 	PrintList(list11, "after reverse ReverseListImmutable output list");
 
-	puts("********");
-	return 0;
+	
 	// assert(destroy_list(&p_list) == SUCCESS && p_list == NULL);
 
 	puts("Testing inter-list routines");
@@ -164,15 +163,27 @@ int main(void)
 	ListType* list3 = ConcatImmutable(p_list_1, p_list_1);
 	PrintList(list3, "SLL After ConcatImmutable XXXX ");
 
-	//ListType* p_list_5 = CreateList();
+	ListType* p_list_5 = CreateList();
 
-	//for (data = 0; data <= 1; data += 1)
-	//	assert(InsertAtEnd(p_list_5, data) == SUCCESS);
+	for (data = 0; data <= 5; data += 1)
+		assert(InsertAtEnd(p_list_5, data) == SUCCESS);
 
-	//PrintList(p_list_5, "SLL After new p_list_5 ");
+	PrintList(p_list_5, "SLL After new p_list_5 ");
+	PrintReverse(p_list_5, "reverse print");
+	
+	
+	PrintList(p_list_5, "Before p_list_5 print");
+	ListType* p_list_6 = ReverseListImmutable(p_list_5);
+	PrintList(p_list_6, "After p_list_5 ReverseListImmutable");
 
-	//ListType* list4 = GetReverseList(p_list_5);
-	//PrintList(list4, "SLL After GetReverseList ");
+	ListType* p_list_7 = CreateList();
+
+	for (data = 0; data <= 1; data += 1)
+		assert(InsertAtEnd(p_list_7, data) == SUCCESS);
+
+	PrintList(p_list_7, "Before p_list_7 print");
+	ListType* p_list_8 = ReverseListImmutable(p_list_7);
+	PrintList(p_list_8, "After p_list_7 ReverseListImmutable");
 
 	puts("Implementation successful");
 

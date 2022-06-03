@@ -323,7 +323,7 @@ statusType ReverseListMutableIterative(ListType* list)
 		curr = next;
 	}
 
-	list->Next =  prev;
+	list->Next = prev;
 	return SUCCESS;
 }
 
@@ -345,3 +345,47 @@ ListType* ReverseListMutableHelper(ListType* list)
 	return prev;
 }
 
+ListType* ReverseListImmutable(ListType* list)
+{
+	int len = GetLength(list);
+	int arr[len];
+	int index = 0;
+
+	ListType* travel = list;
+
+	while (travel != NULL)
+	{
+		arr[index++] = travel->Data;
+		travel = travel->Next;
+	}
+
+	ListType* result = CreateList();
+	ListType* travel2 = result;
+
+	for (int i = index - 1; i > 0; i--)
+	{
+		travel2->Next = GetNewNode(arr[i]);
+		travel2 = travel2->Next;
+	}
+
+	return result;
+}
+
+
+void PrintReverse(ListType* list, char* msg)
+{
+	if (msg)
+		printf("%s\n", msg);
+
+	printf("[START]->");
+	PrintReverseHelper(list->Next);
+	printf("[END]\n");
+}
+
+void PrintReverseHelper(ListType* list)
+{
+	if (list == NULL)
+		return;
+	PrintReverseHelper(list->Next);
+	printf("[%d]->", list->Data);
+}

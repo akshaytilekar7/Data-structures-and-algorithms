@@ -55,6 +55,10 @@ statusType ConcatMutable(ListType* list1, ListType* list2);
 statusType ReverseListMutableIterative(ListType* list);
 ListType* ReverseListMutableRecursive(ListType* list);
 ListType* ReverseListMutableHelper(ListType* list);
+ListType* ReverseListImmutable(ListType* list);
+
+void PrintReverse(ListType* list, char *msg);
+void PrintReverseHelper(ListType* list);
 
 /* Auxilory functions*/
 static void GenericInsert(NodeType* start, NodeType* midNode, NodeType* end);
