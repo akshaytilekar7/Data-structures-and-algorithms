@@ -81,6 +81,24 @@ void PrintList(ListType* list, char* msg)
 	printf("[END]\n");
 }
 
+void PrintReverse(ListType* list, char* msg)
+{
+	if (msg)
+		printf("%s\n", msg);
+
+	printf("[START]->");
+	PrintReverseHelper(list->Next);
+	printf("[END]\n");
+}
+
+void PrintReverseHelper(ListType* list)
+{
+	if (list == NULL)
+		return;
+	PrintReverseHelper(list->Next);
+	printf("[%d]->", list->Data);
+}
+
 statusType GetStart(ListType* list, dataType* pData)
 {
 	if (IsEmpty(list)) return ListIsEmpty;
@@ -369,22 +387,4 @@ ListType* ReverseListImmutable(ListType* list)
 	}
 
 	return result;
-}
-
-void PrintReverse(ListType* list, char* msg)
-{
-	if (msg)
-		printf("%s\n", msg);
-
-	printf("[START]->");
-	PrintReverseHelper(list->Next);
-	printf("[END]\n");
-}
-
-void PrintReverseHelper(ListType* list)
-{
-	if (list == NULL)
-		return;
-	PrintReverseHelper(list->Next);
-	printf("[%d]->", list->Data);
 }
