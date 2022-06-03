@@ -371,7 +371,6 @@ ListType* ReverseListImmutable(ListType* list)
 	return result;
 }
 
-
 void PrintReverse(ListType* list, char* msg)
 {
 	if (msg)
