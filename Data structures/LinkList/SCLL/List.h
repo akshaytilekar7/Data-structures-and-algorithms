@@ -51,10 +51,10 @@ void PrintList(ListType* list, char* msg);
 //statusType Destroy(ListType** list);
 ListType* ConcatImmutable(ListType* list1, ListType* list2);
 statusType ConcatMutable(ListType* list1, ListType* list2);
-ListType* GetReverseList(ListType* list);
-static void GetReverseListRecursiveRetrunNew(ListType* list, ListType* end, ListType* result);
-statusType ReverseListBySwap(ListType* list);
-statusType ReverseListByNode(ListType* list);
+
+ListType* ReverseListImmutable(ListType* list);
+static void GetReverseListHelper(ListType* list, ListType* end, ListType* result);
+statusType ReverseListMutableIterative(ListType* list);
 
 /* Auxilory functions*/
 static void GenericInsert(NodeType* start, NodeType* midNode, NodeType* end);

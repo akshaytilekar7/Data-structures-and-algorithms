@@ -141,13 +141,18 @@ int main(void)
 
 	ListType*  p_list_5 = CreateList();
 
-	for (data = 0; data <= 1; data += 1)
+	for (data = 0; data <= 10; data += 1)
 		assert(InsertAtEnd(p_list_5, data) == SUCCESS);
 
 	PrintList(p_list_5, "DSLL After new p_list_5 ");
 
-	ListType* list4 = GetReverseList(p_list_5);
-	PrintList(list4, "DSLL After GetReverseList ");
+	ListType* list4 = ReverseListImmutable(p_list_5);
+	PrintList(list4, "DSLL After ReverseListImmutable ");
+
+
+	PrintList(list4, "DSLL Before ReverseListMutableIterative ");
+	assert(ReverseListMutableIterative(list4) == SUCCESS);
+	PrintList(list4, "DSLL After ReverseListMutableIterative ");
 
 	puts("Implementation successful");
 
