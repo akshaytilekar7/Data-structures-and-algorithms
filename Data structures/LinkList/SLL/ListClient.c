@@ -36,7 +36,7 @@ int main(void)
 		assert(InsertAtEnd(p_list, data) == SUCCESS);
 	PrintList(p_list, "SLL After InsertAtEnd:");
 
-	assert(InsertAfter(p_list, -10, 100) == DataNotFound);
+	/*assert(InsertAfter(p_list, -10, 100) == DataNotFound);
 	assert(InsertBefore(p_list, 13, 5) == DataNotFound);
 	assert(InsertBefore(p_list, 19, 5) == DataNotFound);
 
@@ -111,24 +111,38 @@ int main(void)
 	if (IsExist(p_list, 2) == TRUE)
 		puts("2 is present in list");
 
-	
+	*/
 	while (IsEmpty(p_list) != TRUE)
 		assert(RemoveEnd(p_list) == SUCCESS);
 
 	assert(IsEmpty(p_list) == TRUE);
 
-	/*PrintList(p_list, "Should be empty");
-	assert(reverse_list(p_list) == SUCCESS);
-	PrintList(p_list, "Reversed of empty list should be empty as well");*/
+	PrintList(p_list, "Should be empty");
+	assert(ReverseListMutableIterative(p_list) == SUCCESS);
+	PrintList(p_list, "Reversed of empty list should be empty as well");
 
-	/*assert(InsertAtEnd(p_list, 100) == SUCCESS);
+	assert(InsertAtEnd(p_list, 100) == SUCCESS);
+	
 	PrintList(p_list, "Should contain one element");
-	assert(reverse_list(p_list) == SUCCESS);
-	PrintList(p_list, "Reversed version of list with one element is same list");*/
+	assert(ReverseListMutableIterative(p_list) == SUCCESS);
+	PrintList(p_list, "Reversed version of list with one element is same list");
 
+	assert(InsertAtEnd(p_list, 200) == SUCCESS);
+	assert(InsertAtEnd(p_list, 300) == SUCCESS);
+	assert(InsertAtEnd(p_list, 400) == SUCCESS);
+	
+	PrintList(p_list, "before reverse ReverseListMutableIterative");
+	assert(ReverseListMutableIterative(p_list) == SUCCESS);
+	PrintList(p_list, "after reverse ReverseListMutableIterative");
+
+	PrintList(p_list, "before reverse ReverseListImmutable" );
+	ListType* list11 = ReverseListMutableRecursive(p_list);
+	PrintList(p_list, "after reverse ReverseListImmutable input list");
+	PrintList(list11, "after reverse ReverseListImmutable output list");
+
+	puts("********");
+	return 0;
 	// assert(destroy_list(&p_list) == SUCCESS && p_list == NULL);
-	
-	
 
 	puts("Testing inter-list routines");
 	p_list_1 = CreateList();

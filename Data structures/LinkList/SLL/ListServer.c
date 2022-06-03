@@ -307,7 +307,41 @@ statusType ConcatMutable(ListType* list1, ListType* list2)
 	return SUCCESS;
 }
 
-ListType* GetReverseList(ListType* list) {}
-static void GetReverseListRecursiveRetrunNew(ListType* list, ListType* end, ListType* result) {}
-statusType ReverseListBySwap(ListType* list) {}
-statusType ReverseListByNode(ListType* list) {}
+statusType ReverseListMutableIterative(ListType* list)
+{
+	ListType* prev = NULL;
+	ListType* curr = list->Next;
+	ListType* next = NULL;
+
+	while (curr != NULL)
+	{
+		next = curr->Next;
+
+		curr->Next = prev;
+
+		prev = curr;
+		curr = next;
+	}
+
+	list->Next =  prev;
+	return SUCCESS;
+}
+
+ListType* ReverseListMutableRecursive(ListType* list)
+{
+	list->Next = ReverseListMutableHelper(list->Next);
+	return list;
+}
+
+ListType* ReverseListMutableHelper(ListType* list)
+{
+	if (list == NULL) return NULL;
+
+	if (list->Next == NULL) return list;
+
+	ListType* prev = ReverseListMutableHelper(list->Next);
+	list->Next->Next = list;
+	list->Next = NULL;
+	return prev;
+}
+
