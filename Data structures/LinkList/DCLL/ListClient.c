@@ -136,11 +136,13 @@ int main(void)
 	ListType* list3 = ConcatImmutable(p_list_1, p_list_1);
 	PrintList(list3, "After ConcatImmutable XXXX");
 
-	ListType* list4 = GetReverseList(list3);
-	PrintList(list4, "After GetReverseList");
+	PrintList(list3, "Before ReverseListImmutable list3");
+	ListType* list4 = ReverseListImmutable(list3);
+	PrintList(list4, "After ReverseListImmutable list4");
 
-	ReverseListBySwap(p_list_1);
-	PrintList(p_list_1, "Again GetReverseList 1 1");
+	PrintList(p_list_1, "before ReverseListMutableBySwap p_list_1");
+	ReverseListMutableBySwap(p_list_1);
+	PrintList(p_list_1, "Again ReverseListMutableBySwap p_list_1");
 
 	puts("Implementation successful");
 

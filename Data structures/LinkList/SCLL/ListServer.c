@@ -337,6 +337,7 @@ statusType ReverseListMutableIterative(ListType* list)
 		prev = curr;
 		curr = next;
 	}
+
 	list->Next = prev;
 	lastNodeAfterReverse->Next = list;
 	return SUCCESS;

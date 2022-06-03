@@ -52,8 +52,8 @@ void PrintList(ListType* list, char* msg);
 //statusType Destroy(ListType** list);
 ListType* ConcatImmutable(ListType* list1, ListType* list2);
 statusType ConcatMutable(ListType* list1, ListType* list2);
-ListType* GetReverseList(ListType* list);
-statusType ReverseListBySwap(ListType* list);
+ListType* ReverseListImmutable(ListType* list);
+statusType ReverseListMutableBySwap(ListType* list);
 statusType ReverseListByNode(ListType* list);
 
 

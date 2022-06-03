@@ -274,7 +274,7 @@ statusType ConcatMutable(ListType* list1, ListType* list2)
 	return SUCCESS;
 }
 
-ListType* GetReverseList(ListType* list)
+ListType* ReverseListImmutable(ListType* list)
 {
 	ListType* travel = list->Prev;
 	ListType* result = CreateList();
@@ -288,7 +288,7 @@ ListType* GetReverseList(ListType* list)
 	return result;
 }
 
-statusType ReverseListBySwap(ListType* list)
+statusType ReverseListMutableBySwap(ListType* list)
 {
 	if (IsEmpty(list)) return ListIsEmpty;
 
