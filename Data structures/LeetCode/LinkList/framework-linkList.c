@@ -72,11 +72,11 @@ int main(int argc, char* argv[])
 		traverse = Add(traverse, t);
 	}
 	
-	PrintList(traverse, "After");
+	PrintList(traverse, "Before");
 
 	struct ListNode* result = reverseBetween(traverse, arg2, arg3);
 
-	PrintList(result, "Before");
+	PrintList(result, "After");
 
 	return 0;
 }
