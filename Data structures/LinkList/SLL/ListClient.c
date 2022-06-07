@@ -78,10 +78,10 @@ int main(void)
 
 	assert(RemoveFirst(p_list) == SUCCESS);
 	PrintList(p_list, "SLL After RemoveFirst:");
-	
+
 	assert(RemoveEnd(p_list) == SUCCESS);
 	PrintList(p_list, "SLL After RemoveEnd:");
-	
+
 	assert(RemoveFirstOccurenceOfData(p_list, -10) == DataNotFound);
 
 	assert(RemoveFirstOccurenceOfData(p_list, 3) == SUCCESS);
@@ -98,7 +98,7 @@ int main(void)
 	assert(RemoveAllOccurenceOfData(p_list, 7) == SUCCESS);
 	PrintList(p_list, "SLL After RemoveAllOccurenceOfData 7 ");
 
-	
+
 	printf("Length = %d\n", GetLength(p_list));
 	printf("Recursive Length = %d\n", RecusiveGetLength(p_list));
 	printf("Recursive Length = %d\n", RecusiveGetLength(p_list));
@@ -122,7 +122,7 @@ int main(void)
 	PrintList(p_list, "Reversed of empty list should be empty as well");
 
 	assert(InsertAtEnd(p_list, 100) == SUCCESS);
-	
+
 	PrintList(p_list, "Should contain one element");
 	assert(ReverseListMutableIterative(p_list) == SUCCESS);
 	PrintList(p_list, "Reversed version of list with one element is same list");
@@ -130,17 +130,17 @@ int main(void)
 	assert(InsertAtEnd(p_list, 200) == SUCCESS);
 	assert(InsertAtEnd(p_list, 300) == SUCCESS);
 	assert(InsertAtEnd(p_list, 400) == SUCCESS);
-	
+
 	PrintList(p_list, "before reverse ReverseListMutableIterative");
 	assert(ReverseListMutableIterative(p_list) == SUCCESS);
 	PrintList(p_list, "after reverse ReverseListMutableIterative");
 
-	PrintList(p_list, "before reverse ReverseListImmutable" );
+	PrintList(p_list, "before reverse ReverseListImmutable");
 	ListType* list11 = ReverseListMutableRecursive(p_list);
 	PrintList(p_list, "after reverse ReverseListImmutable input list");
 	PrintList(list11, "after reverse ReverseListImmutable output list");
 
-	
+
 	// assert(destroy_list(&p_list) == SUCCESS && p_list == NULL);
 
 	puts("Testing inter-list routines");
@@ -170,20 +170,26 @@ int main(void)
 
 	PrintList(p_list_5, "SLL After new p_list_5 ");
 	PrintReverse(p_list_5, "reverse print");
-	
-	
+
+
 	PrintList(p_list_5, "Before p_list_5 print");
 	ListType* p_list_6 = ReverseListImmutable(p_list_5);
 	PrintList(p_list_6, "After p_list_5 ReverseListImmutable");
 
 	ListType* p_list_7 = CreateList();
 
-	for (data = 0; data <= 1; data += 1)
+	for (data = 0; data <= 10; data += 1)
 		assert(InsertAtEnd(p_list_7, data) == SUCCESS);
 
 	PrintList(p_list_7, "Before p_list_7 print");
 	ListType* p_list_8 = ReverseListImmutable(p_list_7);
 	PrintList(p_list_8, "After p_list_7 ReverseListImmutable");
+
+	dataType* size;
+	dataType* arr = ToArray(p_list_8, size);
+	PrintArray(arr, size);
+	ListType* p_list_10 = ToList(arr, *size);
+	PrintList(p_list_10, "ToList");
 
 	puts("Implementation successful");
 

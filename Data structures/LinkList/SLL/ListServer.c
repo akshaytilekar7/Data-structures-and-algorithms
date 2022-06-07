@@ -388,3 +388,39 @@ ListType* ReverseListImmutable(ListType* list)
 
 	return result;
 }
+
+ListType* ToList(dataType* arr, dataType size)
+{
+	ListType* list = CreateList();
+	if (size == 0) return list;
+
+	for (int i = 0; i < size; i++)
+		InsertAtEnd(list, arr[i]);
+
+	return list;
+
+}
+
+dataType* ToArray(ListType* list, dataType* size)
+{
+	dataType len = GetLength(list);
+	ListType* travel = list->Next;
+	dataType* arr = (dataType*)malloc(len * sizeof(dataType));
+	(*size) = 0;
+	while (travel != NULL)
+	{
+		arr[(*size)] = travel->Data;
+		travel = travel->Next;
+		(*size)++;
+	}
+	return arr;
+}
+
+void PrintArray(dataType* arr, dataType* size)
+{
+	printf("[ARRAYSTART]");
+	for (int i = 0; i < (*size); i++)
+		printf("  [%d]  ", arr[i]);
+	printf("[ARRAYEND]\n");
+
+}

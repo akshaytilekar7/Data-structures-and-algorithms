@@ -57,7 +57,12 @@ ListType* ReverseListMutableRecursive(ListType* list);
 ListType* ReverseListMutableHelper(ListType* list);
 ListType* ReverseListImmutable(ListType* list);
 
-void PrintReverse(ListType* list, char *msg);
+ListType* ToList(dataType* arr, dataType size);
+dataType* ToArray(ListType* list, dataType* size);
+void PrintArray(dataType* arr, dataType* size);
+
+
+void PrintReverse(ListType* list, char* msg);
 void PrintReverseHelper(ListType* list);
 
 /* Auxilory functions*/
