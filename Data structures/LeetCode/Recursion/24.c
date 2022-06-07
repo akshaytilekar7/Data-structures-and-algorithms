@@ -5,6 +5,9 @@
 /*
 Runtime: 0 ms, faster than 100.00% of C online submissions for Swap Nodes in Pairs.
 Memory Usage: 5.8 MB, less than 58.32% of C online submissions for Swap Nodes in Pairs.
+
+Runtime: 2 ms, faster than 54.97% of C online submissions for Swap Nodes in Pairs.
+Memory Usage: 6 MB, less than 39.58% of C online submissions for Swap Nodes in Pairs.
 */
 
 #include <stdio.h> 
@@ -119,29 +122,59 @@ int GetLength(struct ListNode* list)
 
 struct ListNode* swapPairs(struct ListNode* head) {
 
-	struct ListNode* first = head;
+	if (head == NULL) return NULL;
+	if (head->next == NULL) return head;
+	
+	struct ListNode* newHead = head->next;
+	
 	struct ListNode* prev = NULL;
+	struct ListNode* first = head;
+	struct ListNode* second = NULL;
+	struct ListNode* third = NULL;
 
-	int firstTime = 1;
-	while (first != NULL)
+	while (first != NULL && first->next != NULL)
 	{
-		struct ListNode* second = first->next;
+		second = first->next;
+		third = second->next;
 		
-		if (second == NULL) break;
+		if (prev != NULL) 
+			prev->next = second;
 
-		struct ListNode* third = second->next;
-		
-		if (prev != NULL) prev->next = second;
-		
 		second->next = first;
 		first->next = third;
-		if (firstTime == 1)
-			head = second;
-		firstTime = 0;
+
 		prev = first;
-		first = first->next;
+		first = third;
 	}
 
+	return newHead;
+}
+
+struct ListNode* swapPairs(struct ListNode* head) {
+
+	if (head == NULL || head->next == NULL) 
+		return head;
+
+	struct ListNode* second = head->next;
+	struct ListNode* reversed = swapPairs(second->next);
+	second->next = head;
+	head->next = reversed;
+	reversed = second;
+	return reversed;
+
+}
+
+
+struct ListNode* swapPairs(struct ListNode* head) {
+	if ((!head) || (!head->next))
+		return head;
+
+	struct ListNode* tmp = head;
+	head = head->next;
+	tmp->next = head->next;
+	head->next = tmp;
+
+	head->next->next = swapPairs(head->next->next);
 	return head;
 }
 
