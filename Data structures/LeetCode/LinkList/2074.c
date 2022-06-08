@@ -148,22 +148,21 @@ bool IsEvenGroup(int num)
 			grp[1] = 1;
 		}
 		else
+		{
 			grp[i] = i + grp[i - 1];
-
+			if (grp[i] >= num)
+				return IsEven(i);;
+		}
 	}
 
-	for (int i = 1; i <= num; i++)
-	{
-		if (grp[i] >= num)
-			return IsEven(i);;
-	}
+	return false;
+
 }
 
 struct ListNode* reverseEvenLengthGroups(struct ListNode* head)
 {
 	if (head == NULL)
 		return NULL;
-
 
 	struct ListNode* dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
 	dummy->val = -1;
@@ -173,24 +172,23 @@ struct ListNode* reverseEvenLengthGroups(struct ListNode* head)
 	struct ListNode* pp_prev = dummy;
 
 	struct ListNode* start = dummy->next;
-
 	while (start != NULL)
 	{
-		if (IsEvenGroup(index)) // TODO
+		if (IsEvenGroup(index))
 		{
+			printf("IF index %d\n", index);
+
 			struct ListNode* end = start;
 			int temp = 0;
-			while (temp < index - 1 && end != NULL)
+			while (temp < index - 1 && end->next != NULL)
 			{
 				end = end->next;
 				temp++;
-
 			}
 			if (end == NULL) break;
 			struct ListNode* aa_after = end->next;
 
 			// REVERSE START
-
 			pp_prev->next = NULL;
 			end->next = NULL;
 			struct ListNode* lastAfterReverse = start;
@@ -211,15 +209,11 @@ struct ListNode* reverseEvenLengthGroups(struct ListNode* head)
 			// REVERSE END
 			pp_prev = lastAfterReverse;
 			start = pp_prev->next;
-			//printf("temp %d and index %d\n", temp, index);
-			index = index + temp;
-			//printf("index %d\n", index);
-
+			index = index + temp + 1;
 		}
 		else
 		{
-			//printf("HH odd index %d\n", index);
-
+			printf("index %d\n", index);
 			pp_prev = start;
 			start = start->next;
 			index++;
@@ -230,8 +224,8 @@ struct ListNode* reverseEvenLengthGroups(struct ListNode* head)
 
 int main(int argc, char* argv[])
 {
-	int size = 10;
-	int arr[] = { 5,2,6,3,9,1,7,3,8,4 }; //{ 5,2,6,3,9,1,7,3,8,4 };
+	int size = 5;
+	int arr[] = { 1,1,0,6,5 };
 	int len = 0;
 
 	struct ListNode* list = ToList(arr, size);
