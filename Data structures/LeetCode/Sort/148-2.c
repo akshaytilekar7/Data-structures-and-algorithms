@@ -1,7 +1,7 @@
 
 // https://leetcode.com/problems/sort-list/
 // 148. Sort List
-// 
+// https://leetcode.com/problems/sort-list/discuss/2125261/C-Language-Quick-Sort-TLE
 
 
 /*
@@ -18,9 +18,6 @@ struct ListNode {
 	int val;
 	struct ListNode* next;
 };
-
-void PrintList(struct ListNode* head, char* msg);
-struct ListNode* Add(struct ListNode* head, int data);
 
 void PrintList(struct ListNode* list, char* msg)
 {
@@ -61,9 +58,10 @@ struct ListNode* Add(struct ListNode* head, int data)
 	return head;
 }
 
-/******RUNNING QUICK SORT******/
+/******RUNNING BUT TLE QUICK SORT******/
 
-bool IsValid(struct ListNode* head, struct ListNode* start, struct ListNode* end)
+// check end is always ahead of start
+bool IsInValidRange(struct ListNode* head, struct ListNode* start, struct ListNode* end)
 {
 	struct ListNode* travel = head;
 	bool startFound = 0;
@@ -130,7 +128,7 @@ void Partition(struct ListNode* head, struct ListNode* end,
 
 void QuickSort(struct ListNode* head, struct ListNode* start, struct ListNode* end)
 {
-	if (IsValid(head, start, end))
+	if (IsInValidRange(head, start, end))
 	{
 		struct ListNode* partitionPrevNode = NULL;
 		struct ListNode* partitionNextNode = NULL;
@@ -160,25 +158,18 @@ void Sort(struct ListNode* head)
 	QuickSort(head, head, end);
 }
 
-/******RUNNING QUICK SORT******/
-
+/******RUNNING BUT TLE QUICK SORT******/
 
 int main(int argc, char* argv[])
 {
 	int arg1 = atoi(argv[1]);
 
-	int arr[] = { 5,1,6,3,4 };
 	struct ListNode* traverse = NULL;
 	for (int i = 0; i < arg1; i++)
-	{
 		traverse = Add(traverse, rand());
-	}
 
 	PrintList(traverse, "Before");
-
-	//struct ListNode* result = QuickSort(traverse, NULL);
 	Sort(traverse);
-
 	PrintList(traverse, "After");
 
 	return 0;
