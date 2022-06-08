@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <assert.h>
+#include <time.h>
 
 void input(int* a, int N);
 void output(int* a, int N, const char* msg);
@@ -9,7 +10,7 @@ void Swap(int** arr, int x, int y);
 int Partition(int arr[], int start, int end);
 void QuickSort(int arr[], int start, int end);
 
-int main(int argc, char* argv[])
+int mainold(int argc, char* argv[])
 {
 	int* a = NULL;
 	int N = 0;
@@ -39,9 +40,17 @@ int main(int argc, char* argv[])
 
 void input(int* a, int N)
 {
-	int i;
+	/*int i;
 
 	for (i = 0; i < N; ++i)
+	{
+		printf("enter number for %d :", i);
+		int n;
+		scanf("%d", &n);
+		a[i] = n;
+	}*/
+
+	for (int i = 0; i < N; i++)
 		a[i] = rand();
 }
 
@@ -94,4 +103,28 @@ void QuickSort(int arr[], int start, int end)
 void sort(int* a, int N)
 {
 	QuickSort(a, 0, N - 1);
+}
+
+
+int main(int argc, char* argv[])
+{
+	int n = atoi(argv[1]);
+	time_t start_t, end_t;
+	double diff_t;
+
+	int* arr = (int*)malloc(n * sizeof(int));
+	input(arr, n);
+
+	//output(arr, n, "before");
+
+	time(&start_t);
+	sort(arr, n);
+	time(&end_t);
+
+	//output(arr, n, "after");
+
+	diff_t = difftime(end_t, start_t);
+
+	printf("Execution time to sort = %f\n", diff_t);
+
 }

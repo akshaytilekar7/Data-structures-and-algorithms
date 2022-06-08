@@ -110,13 +110,13 @@ int main(int argc, char* argv[])
 	int* arr = (int*)malloc(n * sizeof(int));
 	Input(arr, n);
 
-	Output(arr, n, "before");
+	//Output(arr, n, "before");
 	
 	time(&start_t);
 	Merge(arr, 0, n - 1);
 	time(&end_t);
 
-	Output(arr, n, "after");
+	//Output(arr, n, "after");
 
 	diff_t = difftime(end_t, start_t);
 
