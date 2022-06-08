@@ -69,25 +69,23 @@ bool IsValid(struct ListNode* head, struct ListNode* start, struct ListNode* end
 	bool startFound = 0;
 	bool endFound = 0;
 
-	//printf("s %d\n", start->val);
-	//printf("e %d\n", end->val);
-
 	while (travel != NULL)
 	{
 		if (travel == end && end == start)
 			return false;
 
 		if (travel == start)
+		{
 			startFound = 1;
+			if (endFound == 0) return true;
+		}
 
 		if (travel == end)
-			endFound = 1;
-
-		if (startFound == 0 && endFound == 1)
 		{
-			//printf("CROSSED\n");
-			return false;
+			endFound = 1;
+			if (startFound == 0) return false;
 		}
+
 		travel = travel->next;
 	}
 
