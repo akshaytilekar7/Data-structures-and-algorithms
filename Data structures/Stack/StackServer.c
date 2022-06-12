@@ -34,7 +34,7 @@ static void GenericDelete(NodeType* prev)
 	deleteNode = NULL;
 }
 
-statusType InsertAtEnd(ListType* list, dataType data)
+statusType Push(ListType* list, dataType data)
 {
 	GenericInsert(list->Prev, GetNewNode(data), list);
 	return SUCCESS;

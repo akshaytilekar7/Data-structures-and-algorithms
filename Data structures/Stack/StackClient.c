@@ -19,12 +19,12 @@ int main(void)
 	assert(Pop(p_list, &data) == StackIsEmpty);
 
 	for (data = 1; data <= 5; ++data)
-		assert(InsertAtEnd(p_list, data) == SUCCESS);
+		assert(Push(p_list, data) == SUCCESS);
 	PrintList(p_list, "After InsertAtStart:");
 
 	for (data = 10; data <= 15; ++data)
-		assert(InsertAtEnd(p_list, data) == SUCCESS);
-	PrintList(p_list, "After InsertAtEnd:");
+		assert(Push(p_list, data) == SUCCESS);
+	PrintList(p_list, "After Push:");
 
 	assert(IsEmpty(p_list) == FALSE);
 	assert(GetLength(p_list) != 0);

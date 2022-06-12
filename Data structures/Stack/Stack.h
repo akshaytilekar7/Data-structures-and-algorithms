@@ -26,7 +26,7 @@ typedef struct Node NodeType;
 typedef NodeType ListType;
 
 ListType* CreateList();
-statusType InsertAtEnd(ListType* list, dataType data);
+statusType Push(ListType* list, dataType data);
 
 statusType Peek(ListType* list, dataType* pData);
 statusType Pop(ListType* list, dataType* pData);
