@@ -34,27 +34,6 @@ static void GenericDelete(NodeType* prev)
 	deleteNode = NULL;
 }
 
-statusType Enqueue(ListType* list, dataType data)
-{
-	GenericInsert(list, GetNewNode(data), list->Next);
-	return SUCCESS;
-}
-
-statusType Peek(ListType* list, dataType* pData)
-{
-	if (IsEmpty(list)) return StackIsEmpty;
-	*pData = list->Next->Data;
-	return SUCCESS;
-}
-
-statusType Dequeue(ListType* list, dataType* pData)
-{
-	if (IsEmpty(list)) return StackIsEmpty;
-	*pData = list->Next->Data;
-	GenericDelete(list);
-	return SUCCESS;
-}
-
 statusType IsEmpty(ListType* list)
 {
 	if (list == NULL) return StackIsEmpty;
@@ -86,4 +65,25 @@ void PrintList(ListType* list, char* msg)
 		travel = travel->Next;
 	}
 	printf("[END]\n");
+}
+
+statusType Enqueue(ListType* list, dataType data)
+{
+	GenericInsert(list, GetNewNode(data), list->Next);
+	return SUCCESS;
+}
+
+statusType Peek(ListType* list, dataType* pData)
+{
+	if (IsEmpty(list)) return StackIsEmpty;
+	*pData = list->Next->Data;
+	return SUCCESS;
+}
+
+statusType Dequeue(ListType* list, dataType* pData)
+{
+	if (IsEmpty(list)) return StackIsEmpty;
+	*pData = list->Next->Data;
+	GenericDelete(list);
+	return SUCCESS;
 }
