@@ -2,10 +2,11 @@
 // 148. Sort List
 // 
 /*
-    list to array 
-    merge sort
-	array to list
-	
+* 
+	QuickSort
+		list to array 
+		merge sort
+		array to list
 	TLE error	
 */
 
