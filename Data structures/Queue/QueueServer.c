@@ -26,10 +26,10 @@ static void GenericInsert(NodeType* prev, NodeType* mid, NodeType* next)
 	next->Prev = mid;
 }
 
-static void GenericDelete(NodeType* prev)
+static void GenericDelete(NodeType* deleteNode)
 {
-	NodeType* deleteNode = prev->Next;
-	prev->Next = prev->Next->Next;
+	deleteNode->Prev->Next = deleteNode->Next;
+	deleteNode->Next->Prev = deleteNode->Prev;
 	free(deleteNode);
 	deleteNode = NULL;
 }
@@ -69,21 +69,24 @@ void PrintList(ListType* list, char* msg)
 
 statusType Enqueue(ListType* list, dataType data)
 {
+	// start
 	GenericInsert(list, GetNewNode(data), list->Next);
 	return SUCCESS;
 }
 
 statusType Peek(ListType* list, dataType* pData)
 {
+	// last
 	if (IsEmpty(list)) return StackIsEmpty;
-	*pData = list->Next->Data;
+	*pData = list->Prev->Data;
 	return SUCCESS;
 }
 
 statusType Dequeue(ListType* list, dataType* pData)
 {
+	// last
 	if (IsEmpty(list)) return StackIsEmpty;
-	*pData = list->Next->Data;
-	GenericDelete(list);
+	*pData = list->Prev->Data;
+	GenericDelete(list->Prev);
 	return SUCCESS;
 }
