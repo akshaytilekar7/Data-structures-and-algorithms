@@ -24,6 +24,7 @@ ListType* CreateList()
 	employee->FirstName = "dummy first name";
 	employee->LastName = "dummy first name";
 	employee->RollNumber = -1;
+	employee->Attendance = -1;
 	list = GetNewNode(employee);
 	return list;
 }
@@ -68,11 +69,12 @@ void PrintList(ListType* list, char* msg)
 		printf("%s\n", msg);
 
 	ListType* travel = list->Next;
-	printf("[START]");
+	printf("[START]\n");
 	while (travel != list)
 	{
-		printf("<-[%d_%s_%s]->",
+		printf("<-[RollNumber %d] [Attendance %d] [FirstName %s] [LastName %s]->\n",
 			travel->Employee->RollNumber,
+			travel->Employee->Attendance,
 			travel->Employee->FirstName,
 			travel->Employee->LastName);
 
@@ -89,7 +91,7 @@ void PrintEmployee(char* msg, EmployeeType* data)
 	if (data == NULL)
 		printf("data is empty\n");
 
-	printf("\t[%d] [%s] [%s]\n", data->RollNumber, data->FirstName, data->LastName);
+	printf("\t[%d] [%d] [%s] [%s]\n", data->RollNumber, data->Attendance, data->FirstName, data->LastName);
 
 }
 
@@ -104,9 +106,22 @@ statusType Peek(ListType* list, EmployeeType* employee)
 {
 	// last
 	if (IsEmpty(list)) return StackIsEmpty;
-	employee->LastName = list->Prev->Employee->LastName;
-	employee->FirstName = list->Prev->Employee->FirstName;
-	employee->RollNumber = list->Prev->Employee->RollNumber;
+	NodeType** deleteNode = (NodeType**)malloc(sizeof(NodeType*));
+	dataType status = SearchCrieria(list, deleteNode);
+
+	if (status == SUCCESS)
+	{
+		employee->Attendance = (*deleteNode)->Employee->Attendance;
+		employee->RollNumber = (*deleteNode)->Employee->RollNumber;
+		employee->FirstName = (*deleteNode)->Employee->FirstName;
+		employee->LastName = (*deleteNode)->Employee->LastName;
+	}
+	else
+	{
+		printf("something went wrong...\n");
+		return FALSE;
+
+	}
 	return SUCCESS;
 }
 
@@ -114,9 +129,43 @@ statusType Dequeue(ListType* list, EmployeeType* employee)
 {
 	// last
 	if (IsEmpty(list)) return StackIsEmpty;
-	employee->LastName = list->Prev->Employee->LastName;
-	employee->FirstName = list->Prev->Employee->FirstName;
-	employee->RollNumber = list->Prev->Employee->RollNumber;
-	GenericDelete(list->Prev);
+	NodeType** deleteNode = (NodeType**)malloc(sizeof(NodeType*));
+	dataType status = SearchCrieria(list, deleteNode);
+
+	if (status == SUCCESS)
+	{
+		employee->Attendance = (*deleteNode)->Employee->Attendance;
+		employee->RollNumber = (*deleteNode)->Employee->RollNumber;
+		employee->FirstName = (*deleteNode)->Employee->FirstName;
+		employee->LastName = (*deleteNode)->Employee->LastName;
+
+		GenericDelete(*deleteNode);
+	}
+	else
+	{
+		printf("something went wrong...\n");
+		return FALSE;
+	}
+	return SUCCESS;
+}
+
+statusType SearchCrieria(ListType* list, ListType** maxNode)
+{
+	if (IsEmpty(list)) return StackIsEmpty;
+
+	dataType max = list->Next->Employee->Attendance;
+
+	ListType* traverse = list->Next;
+
+	while (traverse != list)
+	{
+		dataType val = traverse->Employee->Attendance;
+		if (max <= val)  // for max use <= and for min use >=
+		{
+			max = val;
+			*maxNode = traverse;
+		}
+		traverse = traverse->Next;
+	}
 	return SUCCESS;
 }

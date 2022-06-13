@@ -19,6 +19,7 @@ typedef int bool;
 struct Employee
 {
 	dataType RollNumber;
+	dataType Attendance;
 	char* FirstName;
 	char* LastName;
 };
@@ -48,6 +49,8 @@ void PrintEmployee(char *msg, EmployeeType* data);
 static void GenericInsert(NodeType* prev, NodeType* mid, NodeType* next);
 static void GenericDelete(NodeType* deleteNode);
 static NodeType* GetNewNode(EmployeeType* employee);
+
+statusType SearchCrieria(ListType* list, ListType** maxNode);
 
 #endif 
 
