@@ -17,7 +17,7 @@ struct ListNode {
 };
 
 /******RUNNING******/
-
+// CREATE NEW NODE
 static struct ListNode* GetNewNode(int data)
 {
 	struct ListNode* node = (struct ListNode*)calloc(1, sizeof(struct ListNode));

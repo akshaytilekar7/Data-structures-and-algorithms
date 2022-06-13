@@ -19,6 +19,7 @@ struct ListNode {
 };
 
 /******RUNNING******/
+// USE SAME NODE
 
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2)
 {

@@ -59,7 +59,8 @@ struct ListNode* Add(struct ListNode* head, int data)
 }
 
 /******RUNNING BUT TLE QUICK SORT******/
-
+// for partition - 2 pointer prev and next
+ 
 // check end is always ahead of start
 bool IsInValidRange(struct ListNode* head, struct ListNode* start, struct ListNode* end)
 {

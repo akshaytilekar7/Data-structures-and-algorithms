@@ -59,6 +59,7 @@ struct ListNode* Add(struct ListNode* head, int data)
 }
 
 /******RUNNING BUT Time Limit Exceeded QUICK SORT******/
+// for Partition only 1 pointer prev
 
 // check end node is always ahead of start node
 bool IsInValidRange(struct ListNode* head, struct ListNode* start, struct ListNode* end)
