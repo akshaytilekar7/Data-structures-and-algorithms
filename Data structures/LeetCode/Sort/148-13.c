@@ -20,9 +20,6 @@ struct ListNode {
 	struct ListNode* next;
 };
 
-void PrintList(struct ListNode* head, char* msg);
-struct ListNode* Add(struct ListNode* head, int data);
-
 void PrintList(struct ListNode* head, char* msg)
 {
 	if (head == NULL)
@@ -33,30 +30,6 @@ void PrintList(struct ListNode* head, char* msg)
 
 	printf("%d\n", head->val);
 	PrintList(head->next, msg);
-}
-
-struct ListNode* Add(struct ListNode* head, int data)
-{
-	struct ListNode* temp = (struct ListNode*)malloc(sizeof(struct ListNode));
-	temp->val = data;
-	temp->next = NULL;
-
-	if (head == NULL)
-	{
-		head = (struct ListNode*)malloc(sizeof(struct ListNode));
-		head->val = data;
-		head->next = NULL;
-	}
-	else
-	{
-		struct ListNode* traverse = head;
-		while (traverse->next != NULL)
-		{
-			traverse = traverse->next;
-		}
-		traverse->next = temp;
-	}
-	return head;
 }
 
 static struct ListNode* GetNewNode(int data)
