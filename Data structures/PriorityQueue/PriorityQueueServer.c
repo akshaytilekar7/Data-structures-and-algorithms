@@ -5,7 +5,7 @@
 // higher priority elements are served first.
 // same priority occur, they are served according to their order in the queue.
 // normal queue		-   first-in-first-out rule
-// priority queue	-	on the basis of priority
+// priority queue	-	on the basis of priority like attendance or roll number
 //					-	implement by  array / linked list / heap (faster)
 
 static NodeType* GetNewNode(EmployeeType* employee)
@@ -120,7 +120,6 @@ statusType Peek(ListType* list, EmployeeType* employee)
 	{
 		printf("something went wrong...\n");
 		return FALSE;
-
 	}
 	return SUCCESS;
 }
