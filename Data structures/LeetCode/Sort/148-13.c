@@ -77,8 +77,23 @@ struct ListNode* ToList(int arr[], int size)
 
 int GetLength(struct ListNode* list)
 {
+	if (list == NULL) return 1;
 	if (list->next == NULL) return 1;
-	return 1 + GetLength(list->next);
+
+	struct ListNode* slow = list;
+	struct ListNode* fast = list;
+	int len = 1;
+
+	while (fast != NULL && fast->next != NULL)
+	{
+		len++;
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+
+	if (fast == NULL) // even
+		return (len - 1) * 2;
+	return  ((len - 1) * 2) + 1;
 }
 
 void ToArray(struct ListNode* list, int* arr, int* size)

@@ -2,12 +2,12 @@
 // 148. Sort List
 // 
 /*
-* 
+*
 	QuickSort
-		list to array 
+		list to array
 		merge sort
 		array to list
-	TLE error	
+	TLE error
 */
 
 #include <stdio.h> 
@@ -77,8 +77,23 @@ struct ListNode* ToList(int arr[], int size)
 
 int GetLength(struct ListNode* list)
 {
+	if (list == NULL) return 1;
 	if (list->next == NULL) return 1;
-	return 1 + GetLength(list->next);
+
+	struct ListNode* slow = list;
+	struct ListNode* fast = list;
+	int len = 1;
+
+	while (fast != NULL && fast->next != NULL)
+	{
+		len++;
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+
+	if (fast == NULL) // even
+		return (len - 1) * 2;
+	return  ((len - 1) * 2) + 1;
 }
 
 void ToArray(struct ListNode* list, int* arr, int* size)
@@ -93,13 +108,6 @@ void ToArray(struct ListNode* list, int* arr, int* size)
 	}
 }
 
-void Swap(int** arr, int x, int y)
-{
-	int tmp = (*arr)[x];
-	(*arr)[x] = (*arr)[y];
-	(*arr)[y] = tmp;
-}
-
 int Partition(int arr[], int start, int end)
 {
 	int pivot = arr[end];
@@ -109,12 +117,17 @@ int Partition(int arr[], int start, int end)
 	{
 		if (arr[i] <= pivot)
 		{
-			Swap(&arr, i, partitionIndex);
+			int temp = arr[i];
+			arr[i] = arr[partitionIndex];
+			arr[partitionIndex] = temp;
 			partitionIndex++;
 		}
 	}
 
-	Swap(&arr, partitionIndex, end);
+	int temp = arr[partitionIndex];
+	arr[partitionIndex] = arr[end];
+	arr[end] = temp;
+
 	return partitionIndex;
 }
 
@@ -141,7 +154,7 @@ struct ListNode* sortList(struct ListNode* head) {
 
 	int size;
 	int len = GetLength(head);
-	int *arr = (int*)malloc(sizeof(int) * len);
+	int* arr = (int*)malloc(sizeof(int) * len);
 
 	ToArray(dummy, arr, &size);
 	QuickSort(arr, 0, size - 1);
@@ -152,12 +165,14 @@ struct ListNode* sortList(struct ListNode* head) {
 
 int main(int argc, char* argv[])
 {
-	int size = 5;
-	int arr[] = { 2, 7, 4, 3, 5 };
-	int len = 0;
+	int size = 7;
+	int arr[] = { 1,2,3,4, 1,4,10 };
 	struct ListNode* list = ToList(arr, size);
 	PrintList(list->next, "Before");
 
+	int len = GetLength(list->next);
+	printf("len is %d\n", len);
+	return 10;
 	struct ListNode* result = sortList(list->next);
 
 	PrintList(result, "After");
