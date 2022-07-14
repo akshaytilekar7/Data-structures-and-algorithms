@@ -26,27 +26,27 @@ struct BST
 
 struct Node* GetNewNode(int data);
 
-int Insert(struct BST* head, int data);
-static int InsertHelper(struct BST* head, struct Node* root, int data);
+int Insert(struct BST* tree, int data);
+static int InsertHelper(struct BST* tree, struct Node* root, int data);
 
 static void InorderHelper(struct Node* head);
-void Inorder(struct BST* head);
+void Inorder(struct BST* tree);
 static void PreorderHelper(struct Node* head);
-void Preorder(struct BST* head);
+void Preorder(struct BST* tree);
 static void PostorderHelper(struct Node* head);
-void Postorder(struct BST* head);
+void Postorder(struct BST* tree);
 
-struct Node* GetMaxNode(struct BST* head);
+struct Node* GetMaxNode(struct BST* tree);
 static struct Node* GetMaxNodeHelper(struct Node* head);
 
-struct Node* GetMinNode(struct BST* head);
+struct Node* GetMinNode(struct BST* tree);
 static struct Node* GetMinNodeHelper(struct Node* head);
 
-struct Node* SeachNode(struct BST* head, int data);
+struct Node* SeachNode(struct BST* tree, int data);
 static struct Node* SeachNodeHelper(struct Node* node, int data);
 
-int GetMinData(struct BST* head);
-int GetMaxData(struct BST* head);
-bool IsExist(struct BST* head, int data);
+int GetMinData(struct BST* tree);
+int GetMaxData(struct BST* tree);
+bool IsExist(struct BST* tree, int data);
 
 struct BST* Create();

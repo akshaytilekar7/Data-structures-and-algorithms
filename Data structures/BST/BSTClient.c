@@ -8,36 +8,35 @@ int main()
 {
 	//int arr[] = { 30,10,20,15,25,5 };
 	int arr[] = { 10,20,30,40,50 };
-	struct BST* head = Create();
+	struct BST* tree = Create();
 
-	struct Node* min = GetMinNode(head);
-	struct Node* max = GetMaxNode(head);
+	struct Node* min = GetMinNode(tree);
+	struct Node* max = GetMaxNode(tree);
 
-	printf("Min Data is %d\n", GetMinData(head));
-	printf("Max Data is %d\n", GetMaxData(head));
+	printf("Min Data is %d\n", GetMinData(tree));
+	printf("Max Data is %d\n", GetMaxData(tree));
 
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
-		Insert(head, arr[i]);
+		Insert(tree, arr[i]);
 	
-	
-	Preorder(head);
-	Inorder(head);
-	Postorder(head);
+	Preorder(tree);
+	Inorder(tree);
+	Postorder(tree);
 
-	printf("Min is %d\n", GetMinData(head));
-	printf("Max is %d\n", GetMaxData(head));
+	printf("Min is %d\n", GetMinData(tree));
+	printf("Max is %d\n", GetMaxData(tree));
 
-	assert(SeachNode(head, 500) == NULL);
-	assert(SeachNode(head, -854) == NULL);
-	assert(!IsExist(head, 500));
-	assert(!IsExist(head, -854));
+	assert(SeachNode(tree, 500) == NULL);
+	assert(SeachNode(tree, -854) == NULL);
+	assert(!IsExist(tree, 500));
+	assert(!IsExist(tree, -854));
 
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
 	{
-		assert(SeachNode(head, arr[i]) != NULL);
-		assert(IsExist(head, arr[i]));
+		assert(SeachNode(tree, arr[i]) != NULL);
+		assert(IsExist(tree, arr[i]));
 	}
-	printf("count is %d :\n", head->count);
+	printf("count is %d :\n", tree->count);
 
 	puts("success");
 	return 1;

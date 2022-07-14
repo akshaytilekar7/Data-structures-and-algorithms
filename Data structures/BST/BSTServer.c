@@ -6,21 +6,22 @@
 
 struct Node* GetNewNode(int data)
 {
-	struct Node* node = (struct Node*)malloc(sizeof(struct Node));
-	node->Data = data;
-	node->Parent = NULL;
-	node->Left = NULL;
-	node->Right = NULL;
-	return node;
+	struct Node* root = (struct Node*)malloc(sizeof(struct Node));
+	root->Data = data;
+	root->Parent = NULL;
+	root->Left = NULL;
+	root->Right = NULL;
+	return root;
 };
 
-static int InsertHelper(struct BST* head, struct Node* root, int data)
+// Not wroking TODO
+static int InsertHelper(struct BST* tree, struct Node* root, int data)
 {
 	struct Node* newNode = GetNewNode(data);
-	if (head->root == NULL)
+	if (tree->root == NULL)
 	{
-		head->root = newNode;
-		head->count++;
+		tree->root = newNode;
+		tree->count++;
 		return (SUCCESS);
 	}
 	else
@@ -31,12 +32,12 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 			if (root->Right == NULL)
 			{
 				root->Right = newNode;
-				head->count++;
+				tree->count++;
 				return (SUCCESS);
 			}
 			else
 			{
-				InsertHelper(head, root->Right, data);
+				InsertHelper(tree, root->Right, data);
 				newNode->Parent = root->Right;
 			}
 		}
@@ -48,12 +49,12 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 				if (root->Left == NULL)
 				{
 					root->Left = newNode;
-					head->count++;
+					tree->count++;
 					return (SUCCESS);
 				}
 				else
 				{
-					InsertHelper(head, root->Left, data);
+					InsertHelper(tree, root->Left, data);
 					newNode->Parent = root->Left;
 				}
 			}
@@ -62,32 +63,32 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 	}
 }
 
-static struct Node* InsertNode(struct Node* head, int data) {
+static struct Node* InsertNode(struct Node* root, int data) {
 
-	if (head == NULL)
+	if (root == NULL)
 	{
-		head = GetNewNode(data);
-		return head;
+		root = GetNewNode(data);
+		return root;
 	}
-	if (head->Data < data)
-		head->Right = InsertNode(head->Right, data);
+	if (root->Data < data)
+		root->Right = InsertNode(root->Right, data);
 	else
-		head->Left = InsertNode(head->Left, data);
+		root->Left = InsertNode(root->Left, data);
 
-	return head;
+	return root;
 }
 
-int Insert(struct BST* head, int data)
+int Insert(struct BST* tree, int data)
 {
-	if (head->root == NULL)
+	if (tree->root == NULL)
 	{
-		head->root = GetNewNode(data);
-		head->count++;
+		tree->root = GetNewNode(data);
+		tree->count++;
 		return SUCCESS;
 	}
 
-	InsertNode(head->root, data);
-	head->count++;
+	InsertNode(tree->root, data);
+	tree->count++;
 	return SUCCESS;
 }
 
@@ -101,10 +102,10 @@ static void InorderHelper(struct Node* root)
 	}
 }
 
-void Inorder(struct BST* head)
+void Inorder(struct BST* tree)
 {
 	printf("[INORDER START]");
-	InorderHelper(head->root);
+	InorderHelper(tree->root);
 	puts("[END]\n");
 }
 
@@ -118,10 +119,10 @@ static void PreorderHelper(struct Node* root)
 	}
 }
 
-void Preorder(struct BST* head)
+void Preorder(struct BST* tree)
 {
 	printf("[PREORDER START]");
-	PreorderHelper(head->root);
+	PreorderHelper(tree->root);
 	puts("[END]\n");
 }
 
@@ -135,86 +136,85 @@ static void PostorderHelper(struct Node* root)
 	}
 }
 
-void Postorder(struct BST* head)
+void Postorder(struct BST* tree)
 {
 	printf("[POSTORDER START]");
-	PostorderHelper(head->root);
+	PostorderHelper(tree->root);
 	puts("[END]\n");
 }
 
 struct BST* Create()
 {
-	struct BST* head = (struct BST*)malloc(sizeof(struct BST));
-	head->root = NULL;
-	head->count = 0;
-	return head;
+	struct BST* tree = (struct BST*)malloc(sizeof(struct BST));
+	tree->root = NULL;
+	tree->count = 0;
+	return tree;
 }
 
-struct Node* GetMaxNode(struct BST* head)
+struct Node* GetMaxNode(struct BST* tree)
 {
-	if (head->root == NULL)
+	if (tree->root == NULL)
 		return NULL;
-	return GetMaxNodeHelper(head->root);
+	return GetMaxNodeHelper(tree->root);
 }
 
-static struct Node* GetMaxNodeHelper(struct Node* node)
+static struct Node* GetMaxNodeHelper(struct Node* root)
 {
-	if (node->Right == NULL)
-		return node;
-	return GetMaxNodeHelper(node->Right);
+	if (root->Right == NULL)
+		return root;
+	return GetMaxNodeHelper(root->Right);
 }
 
-struct Node* GetMinNode(struct BST* head)
+struct Node* GetMinNode(struct BST* tree)
 {
-	if (head->root == NULL)
+	if (tree->root == NULL)
 		return NULL;
-	return GetMinNodeHelper(head->root);
+	return GetMinNodeHelper(tree->root);
 }
 
-static struct Node* GetMinNodeHelper(struct Node* node)
+static struct Node* GetMinNodeHelper(struct Node* root)
 {
-	if (node->Left == NULL)
-		return node;
-	return GetMinNodeHelper(node->Left);
+	if (root->Left == NULL)
+		return root;
+	return GetMinNodeHelper(root->Left);
 }
 
-int GetMaxData(struct BST* head)
+int GetMaxData(struct BST* tree)
 {
-	struct Node* max = GetMaxNode(head);
+	struct Node* max = GetMaxNode(tree);
 	return max == NULL ? -100 : max->Data;
 }
 
-int GetMinData(struct BST* head)
+int GetMinData(struct BST* tree)
 {
-	struct Node* min = GetMinNode(head);
+	struct Node* min = GetMinNode(tree);
 	return min == NULL ? -100 : min->Data;
 }
 
-struct Node* SeachNode(struct BST* head, int data)
+struct Node* SeachNode(struct BST* tree, int data)
 {
-	if (head->root == NULL)
+	if (tree->root == NULL)
 		return NULL;
-
-	return SeachNodeHelper(head->root, data);
+	return SeachNodeHelper(tree->root, data);
 }
 
-static struct Node* SeachNodeHelper(struct Node* node, int data)
+static struct Node* SeachNodeHelper(struct Node* root, int data)
 {
-	if (node == NULL)
+	if (root == NULL)
 		return NULL;
 
-	if (node->Data == data)
-		return node;
+	if (root->Data == data)
+		return root;
 
-	if (data > node->Data)
-		SeachNodeHelper(node->Right, data);
+	if (data > root->Data)
+		SeachNodeHelper(root->Right, data);
 	else
-		SeachNodeHelper(node->Left, data);
+		SeachNodeHelper(root->Left, data);
 
 }
 
-bool IsExist(struct BST* head, int data)
+bool IsExist(struct BST* tree, int data)
 {
-	return (SeachNode(head, data) != NULL);
+	return (SeachNode(tree, data) != NULL);
 }
 
