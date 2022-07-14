@@ -24,7 +24,15 @@ struct BST
 };
 
 struct Node* GetNewNode(int data);
+
 int Insert(struct BST* head, int data);
-void InorderHelper(struct Node* head);
+static int InsertHelper(struct BST* head, struct Node* root, int data);
+
+static void InorderHelper(struct Node* head);
 void Inorder(struct BST* head);
+static void PreorderHelper(struct Node* head);
+void Preorder(struct BST* head);
+static void PostorderHelper(struct Node* head);
+void Postorder(struct BST* head);
+
 struct BST* Create();

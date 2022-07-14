@@ -13,7 +13,7 @@ struct Node* GetNewNode(int data)
 	return node;
 };
 
-int InsertHelper(struct BST* head, struct Node* root, int data)
+static int InsertHelper(struct BST* head, struct Node* root, int data)
 {
 	struct Node* newNode = GetNewNode(data);
 	if (head->root == NULL)
@@ -64,7 +64,7 @@ int Insert(struct BST* head, int data)
 	InsertHelper(head, head->root, data);
 }
 
-void InorderHelper(struct Node* root)
+static void InorderHelper(struct Node* root)
 {
 	if (root != NULL)
 	{
@@ -76,8 +76,42 @@ void InorderHelper(struct Node* root)
 
 void Inorder(struct BST* head)
 {
-	printf("[START]<->");
+	printf("[INORDER START]");
 	InorderHelper(head->root);
+	puts("[END]\n");
+}
+
+static void PreorderHelper(struct Node* root)
+{
+	if (root != NULL)
+	{
+		printf("<-[%d]->", root->Data);
+		PreorderHelper(root->Left);
+		PreorderHelper(root->Right);
+	}
+}
+
+void Preorder(struct BST* head)
+{
+	printf("[PREORDER START]");
+	PreorderHelper(head->root);
+	puts("[END]\n");
+}
+
+static void PostorderHelper(struct Node* root)
+{
+	if (root != NULL)
+	{
+		PostorderHelper(root->Left);
+		PostorderHelper(root->Right);
+		printf("<-[%d]->", root->Data);
+	}
+}
+
+void Postorder(struct BST* head)
+{
+	printf("[POSTORDER START]");
+	PostorderHelper(head->root);
 	puts("[END]\n");
 }
 
