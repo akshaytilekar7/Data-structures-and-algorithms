@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "BST.h"
+#include <stdbool.h>
 
 struct Node* GetNewNode(int data)
 {
@@ -62,7 +63,7 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 }
 
 static struct Node* InsertNode(struct Node* head, int data) {
-	
+
 	if (head == NULL)
 	{
 		head = GetNewNode(data);
@@ -72,7 +73,7 @@ static struct Node* InsertNode(struct Node* head, int data) {
 		head->Right = InsertNode(head->Right, data);
 	else
 		head->Left = InsertNode(head->Left, data);
-	
+
 	return head;
 }
 
@@ -189,4 +190,31 @@ int GetMinData(struct BST* head)
 	return min == NULL ? -100 : min->Data;
 }
 
+struct Node* SeachNode(struct BST* head, int data)
+{
+	if (head->root == NULL)
+		return NULL;
+
+	return SeachNodeHelper(head->root, data);
+}
+
+static struct Node* SeachNodeHelper(struct Node* node, int data)
+{
+	if (node == NULL)
+		return NULL;
+
+	if (node->Data == data)
+		return node;
+
+	if (data > node->Data)
+		SeachNodeHelper(node->Right, data);
+	else
+		SeachNodeHelper(node->Left, data);
+
+}
+
+bool IsExist(struct BST* head, int data)
+{
+	return (SeachNode(head, data) != NULL);
+}
 

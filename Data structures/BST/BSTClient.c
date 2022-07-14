@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "BST.h"
+#include <stdbool.h>
 
 int main()
 {
@@ -25,6 +26,17 @@ int main()
 
 	printf("Min is %d\n", GetMinData(head));
 	printf("Max is %d\n", GetMaxData(head));
+
+	assert(SeachNode(head, 500) == NULL);
+	assert(SeachNode(head, -854) == NULL);
+	assert(!IsExist(head, 500));
+	assert(!IsExist(head, -854));
+
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+	{
+		assert(SeachNode(head, arr[i]) != NULL);
+		assert(IsExist(head, arr[i]));
+	}
 	printf("count is %d :\n", head->count);
 
 	puts("success");

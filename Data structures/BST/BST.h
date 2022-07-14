@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include <assert.h>
+#include <stdbool.h>
 
 #define SUCCESS	1
 #define TRUE	1
@@ -41,6 +42,11 @@ static struct Node* GetMaxNodeHelper(struct Node* head);
 struct Node* GetMinNode(struct BST* head);
 static struct Node* GetMinNodeHelper(struct Node* head);
 
+struct Node* SeachNode(struct BST* head, int data);
+static struct Node* SeachNodeHelper(struct Node* node, int data);
+
 int GetMinData(struct BST* head);
 int GetMaxData(struct BST* head);
+bool IsExist(struct BST* head, int data);
+
 struct BST* Create();
