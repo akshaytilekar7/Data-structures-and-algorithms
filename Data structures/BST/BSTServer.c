@@ -177,4 +177,16 @@ static struct Node* GetMinNodeHelper(struct Node* node)
 	return GetMinNodeHelper(node->Left);
 }
 
+int GetMaxData(struct BST* head)
+{
+	struct Node* max = GetMaxNode(head);
+	return max == NULL ? -100 : max->Data;
+}
+
+int GetMinData(struct BST* head)
+{
+	struct Node* min = GetMinNode(head);
+	return min == NULL ? -100 : min->Data;
+}
+
 

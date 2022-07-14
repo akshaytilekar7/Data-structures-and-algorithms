@@ -41,4 +41,6 @@ static struct Node* GetMaxNodeHelper(struct Node* head);
 struct Node* GetMinNode(struct BST* head);
 static struct Node* GetMinNodeHelper(struct Node* head);
 
+int GetMinData(struct BST* head);
+int GetMaxData(struct BST* head);
 struct BST* Create();
