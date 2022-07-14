@@ -35,4 +35,10 @@ void Preorder(struct BST* head);
 static void PostorderHelper(struct Node* head);
 void Postorder(struct BST* head);
 
+struct Node* GetMaxNode(struct BST* head);
+static struct Node* GetMaxNodeHelper(struct Node* head);
+
+struct Node* GetMinNode(struct BST* head);
+static struct Node* GetMinNodeHelper(struct Node* head);
+
 struct BST* Create();

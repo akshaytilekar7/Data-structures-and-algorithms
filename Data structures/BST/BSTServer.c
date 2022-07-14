@@ -26,6 +26,7 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 	{
 		if (root->Data >= data)
 		{
+			printf("SMALL INPUT %d\n", data);
 			if (root->Right == NULL)
 			{
 				root->Right = newNode;
@@ -35,13 +36,14 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 			else
 			{
 				InsertHelper(head, root->Right, data);
-				newNode->Parent = head->root->Right;
+				newNode->Parent = root->Right;
 			}
 		}
 		else
 		{
-			if (root->Data <= data)
+			if (root->Data < data)
 			{
+				printf("BIGGER INPUT %d\n", data);
 				if (root->Left == NULL)
 				{
 					root->Left = newNode;
@@ -59,9 +61,33 @@ static int InsertHelper(struct BST* head, struct Node* root, int data)
 	}
 }
 
+static struct Node* InsertNode(struct Node* head, int data) {
+	
+	if (head == NULL)
+	{
+		head = GetNewNode(data);
+		return head;
+	}
+	if (head->Data < data)
+		head->Right = InsertNode(head->Right, data);
+	else
+		head->Left = InsertNode(head->Left, data);
+	
+	return head;
+}
+
 int Insert(struct BST* head, int data)
 {
-	InsertHelper(head, head->root, data);
+	if (head->root == NULL)
+	{
+		head->root = GetNewNode(data);
+		head->count++;
+		return SUCCESS;
+	}
+
+	InsertNode(head->root, data);
+	head->count++;
+	return SUCCESS;
 }
 
 static void InorderHelper(struct Node* root)
@@ -122,4 +148,33 @@ struct BST* Create()
 	head->count = 0;
 	return head;
 }
+
+struct Node* GetMaxNode(struct BST* head)
+{
+	if (head->root == NULL)
+		return NULL;
+	return GetMaxNodeHelper(head->root);
+}
+
+static struct Node* GetMaxNodeHelper(struct Node* node)
+{
+	if (node->Right == NULL)
+		return node;
+	return GetMaxNodeHelper(node->Right);
+}
+
+struct Node* GetMinNode(struct BST* head)
+{
+	if (head->root == NULL)
+		return NULL;
+	return GetMinNodeHelper(head->root);
+}
+
+static struct Node* GetMinNodeHelper(struct Node* node)
+{
+	if (node->Left == NULL)
+		return node;
+	return GetMinNodeHelper(node->Left);
+}
+
 
