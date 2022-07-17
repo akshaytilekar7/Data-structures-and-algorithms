@@ -49,4 +49,8 @@ int GetMinData(struct BST* tree);
 int GetMaxData(struct BST* tree);
 bool IsExist(struct BST* tree, int data);
 
+
+int DeleteNode(struct BST* tree, int data);
+static struct Node* GetInorderSucessor(struct Node* root);
+
 struct BST* Create();
