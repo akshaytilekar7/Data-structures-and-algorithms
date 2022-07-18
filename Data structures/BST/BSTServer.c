@@ -222,122 +222,80 @@ int DeleteNode(struct BST* tree, int data)
 {
 	struct Node* toBeDeleted = SeachNode(tree, data);
 
-	// case 1 - leaf node - no children
-	if (toBeDeleted->Left == NULL && toBeDeleted->Right == NULL)
-	{
-		// set parent null
-		if (toBeDeleted->Parent->Left == toBeDeleted)
-			toBeDeleted->Parent->Left = NULL;
-		if (toBeDeleted->Parent->Right == toBeDeleted)
-			toBeDeleted->Parent->Right = NULL;
-		free(toBeDeleted);
-		return SUCCESS;
-	}
+	if (toBeDeleted == NULL) return DataNotFound;
 
-	// case 2 - LST is NULL
-	/* conditions
-		1. if root - assign right to tree root
-		2. if not
-				assign parent child relationship
-				if rst exist set deleteNode parent
-	*/
 	if (toBeDeleted->Left == NULL)
 	{
-		// check if root
 		if (toBeDeleted->Parent == NULL)
 		{
 			tree->root = toBeDeleted->Right;
+			toBeDeleted->Parent = NULL;
+			free(toBeDeleted);
 			return SUCCESS;
 		}
 
 		if (toBeDeleted->Parent->Left == toBeDeleted)
 			toBeDeleted->Parent->Left = toBeDeleted->Right;
-
-		if (toBeDeleted->Parent->Right == toBeDeleted)
+		else if (toBeDeleted->Parent->Right == toBeDeleted)
 			toBeDeleted->Parent->Right = toBeDeleted->Right;
 
 		if (toBeDeleted->Right != NULL)
 			toBeDeleted->Right->Parent = toBeDeleted->Parent;
 
-		tree->count = tree->count - 1;
 		free(toBeDeleted);
 		return SUCCESS;
 	}
-	// case 2 - RST is NULL and LST != NULL
-	/* conditions
-		1. if root - assign Left to tree root
-		2. if not
-				set parent child relationship
-				set deleteNode parent
-	*/
-	else if (toBeDeleted->Right == NULL)
+
+	if (toBeDeleted->Right == NULL)
 	{
-		// check if root
 		if (toBeDeleted->Parent == NULL)
 		{
 			tree->root = toBeDeleted->Left;
-			tree->count = tree->count - 1;
+			toBeDeleted->Left->Parent = NULL;
+			free(toBeDeleted);
 			return SUCCESS;
 		}
+
 		if (toBeDeleted->Parent->Left == toBeDeleted)
 			toBeDeleted->Parent->Left = toBeDeleted->Left;
-
-		if (toBeDeleted->Parent->Right == toBeDeleted)
+		else if (toBeDeleted->Parent->Right == toBeDeleted)
 			toBeDeleted->Parent->Right = toBeDeleted->Left;
-
-		//if (toBeDeleted->Left != NULL)  // i dont thinks it require as 1st if is cheking the same
-		toBeDeleted->Left->Parent = toBeDeleted->Parent;
-
-		tree->count = tree->count - 1;
+		if (toBeDeleted->Left != NULL)
+			toBeDeleted->Left->Parent = toBeDeleted->Parent;
 		free(toBeDeleted);
 		return SUCCESS;
 	}
+
 	if (toBeDeleted->Left != NULL && toBeDeleted->Right != NULL)
 	{
 		struct Node* is = GetInorderSucessor(toBeDeleted->Right);
-		// toBeDeleted cha right ch inordersuccesor asel
-		if (is == toBeDeleted->Right)
-		{
-			if (toBeDeleted->Parent == NULL)
-				tree->root = is;
-			else if (toBeDeleted->Parent->Left == toBeDeleted)
-				toBeDeleted->Parent->Left = is;
-			else if (toBeDeleted->Parent->Right == toBeDeleted)
-				toBeDeleted->Parent->Right = is;
-			is->Parent = toBeDeleted->Parent;
 
-			is->Left = toBeDeleted->Left;
-			free(toBeDeleted);
-			tree->count = tree->count - 1;
-			return SUCCESS;
-		}
-		else
+		if (is->Right != toBeDeleted)
 		{
-			// set inorder sucessor  
-			is->Parent->Left = is->Right;
+			if (is->Parent->Left == is)
+				is->Parent->Left = is->Right;
+			else if (is->Parent->Right == is)
+				is->Parent->Right = is->Right;
 			if (is->Right != NULL)
 				is->Right->Parent = is->Parent;
 
-			is->Right = toBeDeleted->Right;
-			is->Right->Parent = is;
-
 			is->Left = toBeDeleted->Left;
-			is->Left->Parent = is;
+			is->Right = toBeDeleted->Right;
+			toBeDeleted->Left->Parent = is;
+			toBeDeleted->Right->Parent = is;
 
 			is->Parent = toBeDeleted->Parent;
-
-			if (toBeDeleted->Parent == NULL)
-				tree->root = is;
-			else if (toBeDeleted->Parent->Left == toBeDeleted)
+			if (toBeDeleted->Parent->Left == toBeDeleted)
 				toBeDeleted->Parent->Left = is;
 			else if (toBeDeleted->Parent->Right == toBeDeleted)
 				toBeDeleted->Parent->Right = is;
 
 			free(toBeDeleted);
-			tree->count = tree->count - 1;
 			return SUCCESS;
 		}
 	}
+
+	return SomethingWentWrong;
 }
 
 static struct Node* GetInorderSucessor(struct Node* root)

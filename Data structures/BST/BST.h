@@ -9,6 +9,7 @@
 
 #define TreeIsEmpty 2
 #define DataNotFound 2
+#define SomethingWentWrong 100
 
 struct Node
 {
