@@ -346,11 +346,56 @@ void PreorderIterative(struct BST* tree)
 	puts(" [END]\n");
 }
 
+struct Dictionary
+{
+	struct Node* node;
+	int VisitedCount;
+};
+
 void PostorderIterative(struct BST* tree)
 {
-	// TODO
-}
+	struct Dictionary** arr = (struct Dictionary**)malloc(sizeof(struct Dictionary*) * tree->count);
 
+	printf("[PO IT]");
+	struct Node* travel = tree->root;
+	int startIndex = 0;
+
+	while (TRUE)
+	{
+		struct Dictionary* dict = NULL;
+		while (travel != NULL)
+		{
+			dict = (struct Dictionary*)malloc(sizeof(struct Dictionary));
+			dict->node = travel;
+			dict->VisitedCount = 1;
+			arr[startIndex] = dict;
+
+			startIndex = startIndex + 1;
+
+			travel = travel->Left;
+		}
+
+		if (startIndex < 0) break;
+		
+		int lastIndex = startIndex - 1;
+
+		if (arr[lastIndex]->VisitedCount == 3)
+			continue;
+
+		arr[lastIndex]->VisitedCount++;
+		travel = arr[lastIndex]->node;
+
+		if (arr[lastIndex]->VisitedCount == 3)
+		{
+			printf(" [%d]", travel->Data);
+			startIndex--;
+		}
+		travel = travel->Right;
+	}
+
+	puts(" [END]\n");
+
+}
 
 /*
 Remaining TODO
@@ -363,5 +408,7 @@ Remaining TODO
 
 	Postorder Sucessor
 	Postorder Predcessor
+
+	int GetAllOccurrences(struct BST* tree, int data, struct Node*** p_to_array_of_node_ptrs)
 
 */

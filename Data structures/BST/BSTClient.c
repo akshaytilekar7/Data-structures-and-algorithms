@@ -40,7 +40,8 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 	InorderIterative(tree);
 	
 	Postorder(tree);
-	
+	PostorderIterative(tree);
+
 	//InorderParent(tree);
 
 	printf("Min is %d\n", GetMinData(tree));

@@ -76,7 +76,7 @@ namespace CSharp.Leetcode.Stack
         }
     }
 
-    public class Test
+    public class Test20
     {
         static void Main123(string[] args)
         {
