@@ -57,4 +57,11 @@ static struct Node* GetInorderSucessor(struct Node* root);
 static void InorderHelperParent(struct Node* root);
 void InorderParent(struct BST* tree);
 
+bool IsEmpty(struct BST* tree);
+
+void InorderIterative(struct BST* tree);
+void PreorderIterative(struct BST* tree);
+void PostorderIterative(struct BST* tree);
+
+
 struct BST* Create();

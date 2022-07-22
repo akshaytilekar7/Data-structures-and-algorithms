@@ -14,54 +14,6 @@ struct Node* GetNewNode(int data)
 	return root;
 };
 
-// Not Working TODO
-static int InsertHelper(struct BST* tree, struct Node* root, int data)
-{
-	struct Node* newNode = GetNewNode(data);
-	if (tree->root == NULL)
-	{
-		tree->root = newNode;
-		tree->count++;
-		return (SUCCESS);
-	}
-	else
-	{
-		if (root->Data >= data)
-		{
-			if (root->Right == NULL)
-			{
-				root->Right = newNode;
-				tree->count++;
-				return (SUCCESS);
-			}
-			else
-			{
-				InsertHelper(tree, root->Right, data);
-				newNode->Parent = root->Right;
-			}
-		}
-		else
-		{
-			if (root->Data < data)
-			{
-				printf("BIGGER INPUT %d\n", data);
-				if (root->Left == NULL)
-				{
-					root->Left = newNode;
-					tree->count++;
-					return (SUCCESS);
-				}
-				else
-				{
-					InsertHelper(tree, root->Left, data);
-					newNode->Parent = root->Left;
-				}
-			}
-		}
-		return (SUCCESS);
-	}
-}
-
 static struct Node* InsertNode(struct Node* root, int data) {
 
 	if (root == NULL)
@@ -337,4 +289,63 @@ static struct Node* GetInorderSucessor(struct Node* root)
 		root = root->Left;
 
 	return root;
+}
+
+bool IsEmpty(struct BST* tree)
+{
+	return tree->root == NULL;
+}
+
+void InorderIterative(struct BST* tree)
+{
+	struct Node** arr = (struct Node**)malloc(sizeof(struct Node*) * tree->count);
+
+	printf("[IN]");
+	struct Node* travel = tree->root;
+	int index = 0;
+	while (TRUE)
+	{
+		while (travel != NULL)
+		{
+			arr[index++] = travel;
+			travel = travel->Left;
+		}
+
+		travel = arr[--index];
+		if (index < 0) break;
+
+		printf(" [%d]", travel->Data);
+		travel = travel->Right;
+	}
+
+	puts(" [END]\n");
+}
+
+void PreorderIterative(struct BST* tree)
+{
+	struct Node** arr = (struct Node**)malloc(sizeof(struct Node*) * tree->count);
+	printf("[PRE]");
+	struct Node* travel = tree->root;
+	int index = 0;
+	while (TRUE)
+	{
+		while (travel != NULL)
+		{
+			printf(" [%d]", travel->Data);
+			arr[index++] = travel;
+			travel = travel->Left;
+		}
+
+		travel = arr[--index];
+		if (index < 0) break;
+
+		travel = travel->Right;
+	}
+
+	puts(" [END]\n");
+}
+
+void PostorderIterative(struct BST* tree)
+{
+
 }
