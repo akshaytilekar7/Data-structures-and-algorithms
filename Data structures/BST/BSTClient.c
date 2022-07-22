@@ -9,7 +9,9 @@ void execute(struct BST* tree, int* arr);
 int main()
 {
 	//int arr[] = { 30,10,20,15,25,5 };
-	int arr[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130 };
+	// int arr[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130 };
+	int arr[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130, 129, 127, 128 };
+	//int arr[] = { 100, 75, 150 };
 
 	struct BST* tree = Create();
 	struct Node* min = GetMinNode(tree);
@@ -21,9 +23,10 @@ int main()
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
 		Insert(tree, arr[i]);
 
-	Preorder(tree);
+	//Preorder(tree);
 	Inorder(tree);
-	Postorder(tree);
+	//InorderParent(tree);
+	//Postorder(tree);
 
 	printf("Min is %d\n", GetMinData(tree));
 	printf("Max is %d\n", GetMaxData(tree));
@@ -38,13 +41,15 @@ int main()
 		assert(SeachNode(tree, arr[i]) != NULL);
 		assert(IsExist(tree, arr[i]));
 	}
+
 	printf("count is %d :\n", tree->count);
 
 	puts("Deleted Started");
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
 	{
-		assert(DeleteNode(tree, arr[i]) == SUCCESS);
-		printf("count after deleteS is %d :\n", tree->count);
+		int x = DeleteNode(tree, arr[i]);
+		if (x == DataNotFound)
+			printf("no data found : %d", arr[i]);
 	}
 
 	puts("success");

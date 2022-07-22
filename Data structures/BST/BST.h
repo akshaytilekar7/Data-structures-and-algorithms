@@ -54,4 +54,7 @@ bool IsExist(struct BST* tree, int data);
 int DeleteNode(struct BST* tree, int data);
 static struct Node* GetInorderSucessor(struct Node* root);
 
+static void InorderHelperParent(struct Node* root);
+void InorderParent(struct BST* tree);
+
 struct BST* Create();

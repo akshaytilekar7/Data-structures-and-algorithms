@@ -1,10 +1,10 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include <assert.h>
-#include "BST.h"
 #include <stdbool.h>
+#include "BST.h"
 
-struct Node* GetNeisNode(int data)
+struct Node* GetNewNode(int data)
 {
 	struct Node* root = (struct Node*)malloc(sizeof(struct Node));
 	root->Data = data;
@@ -17,10 +17,10 @@ struct Node* GetNeisNode(int data)
 // Not isroking TODO
 static int InsertHelper(struct BST* tree, struct Node* root, int data)
 {
-	struct Node* neisNode = GetNeisNode(data);
+	struct Node* newNode = GetNewNode(data);
 	if (tree->root == NULL)
 	{
-		tree->root = neisNode;
+		tree->root = newNode;
 		tree->count++;
 		return (SUCCESS);
 	}
@@ -28,17 +28,16 @@ static int InsertHelper(struct BST* tree, struct Node* root, int data)
 	{
 		if (root->Data >= data)
 		{
-			printf("SMALL INPUT %d\n", data);
 			if (root->Right == NULL)
 			{
-				root->Right = neisNode;
+				root->Right = newNode;
 				tree->count++;
 				return (SUCCESS);
 			}
 			else
 			{
 				InsertHelper(tree, root->Right, data);
-				neisNode->Parent = root->Right;
+				newNode->Parent = root->Right;
 			}
 		}
 		else
@@ -48,14 +47,14 @@ static int InsertHelper(struct BST* tree, struct Node* root, int data)
 				printf("BIGGER INPUT %d\n", data);
 				if (root->Left == NULL)
 				{
-					root->Left = neisNode;
+					root->Left = newNode;
 					tree->count++;
 					return (SUCCESS);
 				}
 				else
 				{
 					InsertHelper(tree, root->Left, data);
-					neisNode->Parent = root->Left;
+					newNode->Parent = root->Left;
 				}
 			}
 		}
@@ -67,14 +66,19 @@ static struct Node* InsertNode(struct Node* root, int data) {
 
 	if (root == NULL)
 	{
-		root = GetNeisNode(data);
+		root = GetNewNode(data);
 		return root;
 	}
 	if (root->Data < data)
+	{
 		root->Right = InsertNode(root->Right, data);
+		root->Right->Parent = root;
+	}
 	else
+	{
 		root->Left = InsertNode(root->Left, data);
-
+		root->Left->Parent = root;
+	}
 	return root;
 }
 
@@ -82,7 +86,7 @@ int Insert(struct BST* tree, int data)
 {
 	if (tree->root == NULL)
 	{
-		tree->root = GetNeisNode(data);
+		tree->root = GetNewNode(data);
 		tree->count++;
 		return SUCCESS;
 	}
@@ -108,6 +112,30 @@ void Inorder(struct BST* tree)
 	InorderHelper(tree->root);
 	puts("[END]\n");
 }
+
+//
+static void InorderHelperParent(struct Node* root)
+{
+	if (root != NULL)
+	{
+		InorderHelperParent(root->Left);
+		if (root->Parent != NULL)
+			printf("data %d and parent %d\n", root->Data, root->Parent->Data);
+		else {
+			printf("for data %d parent is null\n", root->Data);
+		}
+		InorderHelperParent(root->Right);
+	}
+}
+
+void InorderParent(struct BST* tree)
+{
+	printf("[INORDER START]");
+	InorderHelperParent(tree->root);
+	puts("[END]\n");
+}
+
+//
 
 static void PreorderHelper(struct Node* root)
 {
@@ -222,15 +250,20 @@ int DeleteNode(struct BST* tree, int data)
 {
 	struct Node* toBeDeleted = SeachNode(tree, data);
 
-	if (toBeDeleted == NULL) return DataNotFound;
-
+	if (toBeDeleted == NULL)
+	{
+		Inorder(tree);
+		return DataNotFound;
+	}
 	if (toBeDeleted->Left == NULL)
 	{
 		if (toBeDeleted->Parent == NULL)
 		{
 			tree->root = toBeDeleted->Right;
-			toBeDeleted->Parent = NULL;
+			if (toBeDeleted->Right != NULL)
+				toBeDeleted->Right->Parent = toBeDeleted->Parent;
 			free(toBeDeleted);
+			tree->count--;
 			return SUCCESS;
 		}
 
@@ -243,6 +276,7 @@ int DeleteNode(struct BST* tree, int data)
 			toBeDeleted->Right->Parent = toBeDeleted->Parent;
 
 		free(toBeDeleted);
+		tree->count--;
 		return SUCCESS;
 	}
 
@@ -251,11 +285,11 @@ int DeleteNode(struct BST* tree, int data)
 		if (toBeDeleted->Parent == NULL)
 		{
 			tree->root = toBeDeleted->Left;
-			toBeDeleted->Left->Parent = NULL;
+			if (toBeDeleted->Left != NULL)
+				toBeDeleted->Left->Parent = toBeDeleted->Parent;
 			free(toBeDeleted);
 			return SUCCESS;
 		}
-
 		if (toBeDeleted->Parent->Left == toBeDeleted)
 			toBeDeleted->Parent->Left = toBeDeleted->Left;
 		else if (toBeDeleted->Parent->Right == toBeDeleted)
@@ -263,36 +297,40 @@ int DeleteNode(struct BST* tree, int data)
 		if (toBeDeleted->Left != NULL)
 			toBeDeleted->Left->Parent = toBeDeleted->Parent;
 		free(toBeDeleted);
+		tree->count--;
 		return SUCCESS;
 	}
 
 	if (toBeDeleted->Left != NULL && toBeDeleted->Right != NULL)
 	{
-		struct Node* is = GetInorderSucessor(toBeDeleted->Right);
+		struct Node* inorderSuc = GetInorderSucessor(toBeDeleted->Right);
 
-		if (is->Right != toBeDeleted)
+		if (toBeDeleted->Right != inorderSuc)
 		{
-			if (is->Parent->Left == is)
-				is->Parent->Left = is->Right;
-			else if (is->Parent->Right == is)
-				is->Parent->Right = is->Right;
-			if (is->Right != NULL)
-				is->Right->Parent = is->Parent;
+			inorderSuc->Parent->Left = inorderSuc->Right;
+			if (inorderSuc->Right != NULL)
+				inorderSuc->Right->Parent = inorderSuc->Parent;
 
-			is->Left = toBeDeleted->Left;
-			is->Right = toBeDeleted->Right;
-			toBeDeleted->Left->Parent = is;
-			toBeDeleted->Right->Parent = is;
+			inorderSuc->Right = toBeDeleted->Right;
+			toBeDeleted->Right->Parent = inorderSuc;
 
-			is->Parent = toBeDeleted->Parent;
-			if (toBeDeleted->Parent->Left == toBeDeleted)
-				toBeDeleted->Parent->Left = is;
-			else if (toBeDeleted->Parent->Right == toBeDeleted)
-				toBeDeleted->Parent->Right = is;
-
-			free(toBeDeleted);
-			return SUCCESS;
 		}
+		if (toBeDeleted->Parent == NULL)
+			tree->root = inorderSuc;
+		else if (toBeDeleted->Parent->Left == toBeDeleted)
+			toBeDeleted->Parent->Left = inorderSuc;
+		else if (toBeDeleted->Parent->Right == toBeDeleted)
+			toBeDeleted->Parent->Right = inorderSuc;
+
+		inorderSuc->Parent = toBeDeleted->Parent;
+		
+		inorderSuc->Left = toBeDeleted->Left;
+		toBeDeleted->Left->Parent = inorderSuc;
+
+		free(toBeDeleted);
+		tree->count--;
+		return SUCCESS;
+
 	}
 
 	return SomethingWentWrong;
