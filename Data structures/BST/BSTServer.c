@@ -14,7 +14,7 @@ struct Node* GetNewNode(int data)
 	return root;
 };
 
-// Not isroking TODO
+// Not Working TODO
 static int InsertHelper(struct BST* tree, struct Node* root, int data)
 {
 	struct Node* newNode = GetNewNode(data);
@@ -113,7 +113,6 @@ void Inorder(struct BST* tree)
 	puts(" [END]\n");
 }
 
-//
 static void InorderHelperParent(struct Node* root)
 {
 	if (root != NULL)
@@ -134,8 +133,6 @@ void InorderParent(struct BST* tree)
 	InorderHelperParent(tree->root);
 	puts(" [END]\n");
 }
-
-//
 
 static void PreorderHelper(struct Node* root)
 {
@@ -340,5 +337,4 @@ static struct Node* GetInorderSucessor(struct Node* root)
 		root = root->Left;
 
 	return root;
-
 }

@@ -8,9 +8,6 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize);
 
 int main()
 {
-	//int arr[] = { 30,10,20,15,25,5 };
-	// int arr[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130 };
-
 	struct BST* tree = Create();
 
 	int arr1[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130, 129, 127, 128 };
@@ -54,7 +51,6 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 		assert(SeachNode(tree, arr[i]) != NULL);
 		assert(IsExist(tree, arr[i]));
 	}
-
 
 	printf("Deleted started\n");
 
