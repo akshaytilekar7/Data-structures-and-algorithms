@@ -101,16 +101,16 @@ static void InorderHelper(struct Node* root)
 	if (root != NULL)
 	{
 		InorderHelper(root->Left);
-		printf(" [%d] ", root->Data);
+		printf(" [%d]", root->Data);
 		InorderHelper(root->Right);
 	}
 }
 
 void Inorder(struct BST* tree)
 {
-	printf("[INORDER START]");
+	printf("[IN]");
 	InorderHelper(tree->root);
-	puts("[END]\n");
+	puts(" [END]\n");
 }
 
 //
@@ -130,9 +130,9 @@ static void InorderHelperParent(struct Node* root)
 
 void InorderParent(struct BST* tree)
 {
-	printf("[INORDER START]");
+	printf("[IN PARENT");
 	InorderHelperParent(tree->root);
-	puts("[END]\n");
+	puts(" [END]\n");
 }
 
 //
@@ -141,7 +141,7 @@ static void PreorderHelper(struct Node* root)
 {
 	if (root != NULL)
 	{
-		printf("<-[%d]->", root->Data);
+		printf(" [%d]", root->Data);
 		PreorderHelper(root->Left);
 		PreorderHelper(root->Right);
 	}
@@ -149,9 +149,9 @@ static void PreorderHelper(struct Node* root)
 
 void Preorder(struct BST* tree)
 {
-	printf("[PREORDER START]");
+	printf("[PRE]");
 	PreorderHelper(tree->root);
-	puts("[END]\n");
+	puts(" [END]\n");
 }
 
 static void PostorderHelper(struct Node* root)
@@ -160,13 +160,13 @@ static void PostorderHelper(struct Node* root)
 	{
 		PostorderHelper(root->Left);
 		PostorderHelper(root->Right);
-		printf("<-[%d]->", root->Data);
+		printf(" [%d]", root->Data);
 	}
 }
 
 void Postorder(struct BST* tree)
 {
-	printf("[POSTORDER START]");
+	printf("[POST]");
 	PostorderHelper(tree->root);
 	puts("[END]\n");
 }
@@ -274,7 +274,6 @@ int DeleteNode(struct BST* tree, int data)
 
 		free(toBeDeleted);
 		tree->count--;
-		if (tree->root == NULL) puts("tree is null 1");
 		return SUCCESS;
 	}
 
@@ -286,6 +285,7 @@ int DeleteNode(struct BST* tree, int data)
 			if (toBeDeleted->Left != NULL)
 				toBeDeleted->Left->Parent = toBeDeleted->Parent;
 			free(toBeDeleted);
+			tree->count--;
 			return SUCCESS;
 		}
 		if (toBeDeleted->Parent->Left == toBeDeleted)
@@ -296,7 +296,6 @@ int DeleteNode(struct BST* tree, int data)
 			toBeDeleted->Left->Parent = toBeDeleted->Parent;
 		free(toBeDeleted);
 		tree->count--;
-		if (tree->root == NULL) puts("tree is null 2");
 		return SUCCESS;
 	}
 
@@ -326,7 +325,6 @@ int DeleteNode(struct BST* tree, int data)
 
 		free(toBeDeleted);
 		tree->count--;
-		if (tree->root == NULL) puts("tree is null 3");
 		return SUCCESS;
 	}
 
