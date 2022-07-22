@@ -10,8 +10,8 @@ int main()
 {
 	struct BST* tree = Create();
 
-	//int arr1[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130, 129, 127, 128 };
-	//execute(tree, arr1, sizeof(arr1) / sizeof(int), sizeof(arr1) / sizeof(int));
+	int arr1[] = { 100, 150, 75, 200, 125, 85, 50, 65, 130, 129, 127, 128 };
+	execute(tree, arr1, sizeof(arr1) / sizeof(int), sizeof(arr1) / sizeof(int));
 
 	int arr2[] = { 0, 50, 5, 100, 600, 1 };
 	execute(tree, arr2, sizeof(arr2) / sizeof(int), sizeof(arr2) / sizeof(int));
