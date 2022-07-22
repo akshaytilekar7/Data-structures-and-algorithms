@@ -79,6 +79,7 @@ static void InorderHelperParent(struct Node* root)
 	}
 }
 
+// JUST FOR TESTING
 void InorderParent(struct BST* tree)
 {
 	printf("[IN PARENT");
@@ -300,7 +301,7 @@ void InorderIterative(struct BST* tree)
 {
 	struct Node** arr = (struct Node**)malloc(sizeof(struct Node*) * tree->count);
 
-	printf("[IN]");
+	printf("[IN IT]");
 	struct Node* travel = tree->root;
 	int index = 0;
 	while (TRUE)
@@ -324,7 +325,7 @@ void InorderIterative(struct BST* tree)
 void PreorderIterative(struct BST* tree)
 {
 	struct Node** arr = (struct Node**)malloc(sizeof(struct Node*) * tree->count);
-	printf("[PRE]");
+	printf("[PRE IT]");
 	struct Node* travel = tree->root;
 	int index = 0;
 	while (TRUE)

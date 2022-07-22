@@ -39,10 +39,11 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 	Inorder(tree);
 	InorderIterative(tree);
 	
-	//Postorder(tree);
+	Postorder(tree);
+	
 	//InorderParent(tree);
 
-	/*printf("Min is %d\n", GetMinData(tree));
+	printf("Min is %d\n", GetMinData(tree));
 	printf("Max is %d\n", GetMaxData(tree));
 
 	assert(SeachNode(tree, 500) == NULL);
@@ -73,6 +74,7 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 	Inorder(tree);
 	Postorder(tree);
 
-	printf("count is %d\n", tree->count);*/
+	printf("count is %d\n", tree->count);
+
 	puts("execute end success");
 }
