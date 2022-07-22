@@ -23,10 +23,11 @@ int main()
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
 		Insert(tree, arr[i]);
 
-	//Preorder(tree);
+	Preorder(tree);
 	Inorder(tree);
+	Postorder(tree);
+
 	//InorderParent(tree);
-	//Postorder(tree);
 
 	printf("Min is %d\n", GetMinData(tree));
 	printf("Max is %d\n", GetMaxData(tree));
@@ -44,15 +45,22 @@ int main()
 
 	printf("count is %d :\n", tree->count);
 
-	puts("Deleted Started");
+	printf("Deleted started\n");
+
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
 	{
-		int x = DeleteNode(tree, arr[i]);
-		if (x == DataNotFound)
-			printf("no data found : %d", arr[i]);
+		if (DeleteNode(tree, arr[i]) != SUCCESS)
+			printf("something worng ma be : no data found : %d\n", arr[i]);
 	}
 
-	puts("success");
+	printf("Deleted ended\n");
+
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+		assert(DeleteNode(tree, arr[i]) == DataNotFound);
+
+	printf("count is %d :\n", tree->count);
+	puts("at the end success");
+
 	return 1;
 }
 
@@ -69,7 +77,7 @@ void execute(struct BST* tree, int* arr)
 
 	Preorder(tree);
 	Inorder(tree);
-	Postorder(tree);
+	InorderParent(tree);
 
 	printf("Min is %d\n", GetMinData(tree));
 	printf("Max is %d\n", GetMaxData(tree));
@@ -84,7 +92,22 @@ void execute(struct BST* tree, int* arr)
 		assert(SeachNode(tree, arr[i]) != NULL);
 		assert(IsExist(tree, arr[i]));
 	}
+
 	printf("count is %d :\n", tree->count);
 
-	puts("success");
+	printf("Deleted started\n");
+
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+	{
+		if (DeleteNode(tree, arr[i]) != SUCCESS)
+			printf("something worng ma be : no data found : %d\n", arr[i]);
+	}
+
+	printf("Deleted ended\n");
+
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+		assert(DeleteNode(tree, arr[i]) == DataNotFound);
+
+	printf("count is %d :\n", tree->count);
+	puts("at the end success");
 }

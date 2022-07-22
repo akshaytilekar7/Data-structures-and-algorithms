@@ -101,7 +101,7 @@ static void InorderHelper(struct Node* root)
 	if (root != NULL)
 	{
 		InorderHelper(root->Left);
-		printf("<-[%d]->", root->Data);
+		printf(" [%d] ", root->Data);
 		InorderHelper(root->Right);
 	}
 }
@@ -120,9 +120,9 @@ static void InorderHelperParent(struct Node* root)
 	{
 		InorderHelperParent(root->Left);
 		if (root->Parent != NULL)
-			printf("data %d and parent %d\n", root->Data, root->Parent->Data);
+			printf("data %d and Parent %d\n", root->Data, root->Parent->Data);
 		else {
-			printf("for data %d parent is null\n", root->Data);
+			printf("for data %d Parent is null\n", root->Data);
 		}
 		InorderHelperParent(root->Right);
 	}
@@ -250,11 +250,8 @@ int DeleteNode(struct BST* tree, int data)
 {
 	struct Node* toBeDeleted = SeachNode(tree, data);
 
-	if (toBeDeleted == NULL)
-	{
-		Inorder(tree);
-		return DataNotFound;
-	}
+	if (toBeDeleted == NULL) return DataNotFound;
+
 	if (toBeDeleted->Left == NULL)
 	{
 		if (toBeDeleted->Parent == NULL)
@@ -277,6 +274,7 @@ int DeleteNode(struct BST* tree, int data)
 
 		free(toBeDeleted);
 		tree->count--;
+		if (tree->root == NULL) puts("tree is null 1");
 		return SUCCESS;
 	}
 
@@ -298,6 +296,7 @@ int DeleteNode(struct BST* tree, int data)
 			toBeDeleted->Left->Parent = toBeDeleted->Parent;
 		free(toBeDeleted);
 		tree->count--;
+		if (tree->root == NULL) puts("tree is null 2");
 		return SUCCESS;
 	}
 
@@ -312,25 +311,23 @@ int DeleteNode(struct BST* tree, int data)
 				inorderSuc->Right->Parent = inorderSuc->Parent;
 
 			inorderSuc->Right = toBeDeleted->Right;
-			toBeDeleted->Right->Parent = inorderSuc;
-
+			inorderSuc->Right->Parent = inorderSuc;
 		}
 		if (toBeDeleted->Parent == NULL)
 			tree->root = inorderSuc;
-		else if (toBeDeleted->Parent->Left == toBeDeleted)
+		else if (toBeDeleted == toBeDeleted->Parent->Left)
 			toBeDeleted->Parent->Left = inorderSuc;
-		else if (toBeDeleted->Parent->Right == toBeDeleted)
+		else if (toBeDeleted == toBeDeleted->Parent->Right)
 			toBeDeleted->Parent->Right = inorderSuc;
 
 		inorderSuc->Parent = toBeDeleted->Parent;
-		
 		inorderSuc->Left = toBeDeleted->Left;
-		toBeDeleted->Left->Parent = inorderSuc;
+		inorderSuc->Left->Parent = inorderSuc;
 
 		free(toBeDeleted);
 		tree->count--;
+		if (tree->root == NULL) puts("tree is null 3");
 		return SUCCESS;
-
 	}
 
 	return SomethingWentWrong;
@@ -341,7 +338,7 @@ static struct Node* GetInorderSucessor(struct Node* root)
 	if (root == NULL)
 		return NULL;
 
-	if (root->Left != NULL)
+	while (root->Left != NULL)
 		root = root->Left;
 
 	return root;
