@@ -17,7 +17,7 @@
             System.Console.WriteLine("********");
             tree.PostorderIterative(BST);
             System.Console.WriteLine("********");
-            tree.PostorderIterativeNewNotWorking(BST);
+            // tree.PostorderIterativeNewNotWorking(BST);
 
             System.Console.WriteLine("DONE");
         }

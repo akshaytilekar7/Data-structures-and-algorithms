@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharp.Leetcode.Stack
 {
-    class TreeOperations
+    public class TreeOperations
     {
         public BST Create()
         {
