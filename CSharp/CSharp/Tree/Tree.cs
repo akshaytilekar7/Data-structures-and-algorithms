@@ -84,23 +84,24 @@ namespace CSharp.Leetcode.Stack
             {
                 while (root != null)
                 {
-                    dict.Add(root, 1);
+                    dict.Add(root, 1); // visit 1
                     root = root.Left;
                 }
                 if (dict.Count == 0) break;
 
                 int last = dict.Values.Last();
-                dict[dict.Keys.Last()] = last + 1;
+                dict[dict.Keys.Last()] = last + 1; // visit 2nd or 3rd
 
                 root = dict.Keys.Last();
 
                 if (dict[dict.Keys.Last()] == 3)
                 {
                     Console.Write(" " + dict.Keys.Last().Data);
-                    compltedNodes.Add(dict.Keys.Last());
-                    dict.Remove(dict.Keys.Last());
+                    compltedNodes.Add(dict.Keys.Last()); // node done, add in completed list
+                    dict.Remove(dict.Keys.Last()); // already done, remove from dict
                 }
 
+                // if root.right is complted dont consider ie, null
                 if (compltedNodes.Contains(root.Right))
                     root = null;
                 else
