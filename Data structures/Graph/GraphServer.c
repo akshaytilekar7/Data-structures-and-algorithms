@@ -74,7 +74,7 @@ int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
 	if (!IsVertexExist(graph->HeadNode, vertexStart))
 		return InvalidVertex;
-	
+
 	struct HeadNode* headNode = SearchVertex(graph->HeadNode, vertexStart);
 
 	if (!IsNodeExist(headNode->LinkList, vertexEnd))
