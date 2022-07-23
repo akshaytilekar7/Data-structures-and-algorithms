@@ -56,3 +56,6 @@ struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex);
 
 bool IsNodeExist(struct Node* node, int vertex);
 bool IsVertexExist(struct HeadNode* headNode, int vertex);
+
+void PrintHeadNode(struct HeadNode* headNode);
+void PrintNode(struct Node* node);

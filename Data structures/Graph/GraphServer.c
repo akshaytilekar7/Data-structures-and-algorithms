@@ -69,6 +69,33 @@ int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 
 void Print(struct Graph* graph, const char* msg)
 {
+	printf("%s\n", msg);
+	PrintHeadNode(graph->HeadNode);
+}
+
+void PrintHeadNode(struct HeadNode* headNode)
+{
+	printf("[START] \n");
+	struct HeadNode* travese = headNode->Next;
+	while (travese != headNode->Next)
+	{
+		printf(" [%d] \n", headNode->Vertex);
+		PrintNode(headNode->LinkList);
+		travese = travese->Next;
+	}
+	printf("\n[END] ");
+}
+
+void PrintNode(struct Node* node)
+{
+	printf(" [START] ");
+	struct Node* travese = node->Next;
+	while (travese != node->Next)
+	{
+		printf(" [%d] ", node->Vertex);
+		travese = travese->Next;
+	}
+	printf(" [END] ");
 }
 
 #pragma endregion
