@@ -120,7 +120,7 @@ void PrintHeadNode(struct HeadNode* headNode)
 		PrintNode(travese->LinkList);
 		travese = travese->Next;
 	}
-	printf("[END] ");
+	printf("[END]\n");
 }
 
 void PrintNode(struct Node* node)
