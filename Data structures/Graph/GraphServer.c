@@ -40,6 +40,7 @@ int AddVertex(struct Graph* graph, int vertex)
 		return VertexAlreadyExist;
 
 	InsertAtEndVertex(graph->HeadNode, vertex);
+	graph->TotalVertex++;
 	return SUCCESS;
 }
 
@@ -55,6 +56,8 @@ int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 
 	InsertAtEndNode(vertexHead->LinkList, vertexEnd);
 
+	graph->TotalEdges++;
+
 	return SUCCESS;
 }
 
@@ -65,9 +68,24 @@ int RemoveVertex(struct Graph* graph, int vertex)
 
 	struct HeadNode* headNode = SearchVertex(graph->HeadNode, vertex);
 
-	// TODO - good to have - delete associated link list
+	DestroyLinkList(graph, headNode->LinkList);
 	GenericDeleteVertex(headNode);
+
+	graph->TotalVertex--;
 	return SUCCESS;
+}
+
+int DestroyLinkList(struct Graph* graph, struct Node* node)
+{
+	struct Node* traverse = node->Next;
+	
+	while (traverse != node)
+	{
+		struct Node* toBeDeleted = traverse;
+		traverse = traverse->Next;
+		free(toBeDeleted);
+		graph->TotalEdges--;
+	}
 }
 
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
@@ -82,6 +100,7 @@ int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 
 	struct Node* node = SearchNode(headNode->LinkList, vertexEnd);
 	GenericDeleteNode(node);
+	graph->TotalEdges--;
 	return SUCCESS;
 }
 
