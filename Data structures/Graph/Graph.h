@@ -49,7 +49,7 @@ void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct
 void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* next);
 
 void InsertAtEndVertex(struct HeadNode* headNode, int vertex);
-void InsertAtEnd(struct Node* node, int vertex);
+void InsertAtEndNode(struct Node* node, int vertex);
 
 struct Node* SearchNode(struct Node* node, int vertex);
 struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex);

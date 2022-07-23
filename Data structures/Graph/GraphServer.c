@@ -7,7 +7,7 @@
 struct Graph* CreateGraph()
 {
 	struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
-	graph->HeadNode = (struct HeadNode*)malloc(sizeof(struct HeadNode));
+	graph->HeadNode = CreateHeadNode();
 	graph->TotalEdges = 0;
 	graph->TotalVertex = 0;
 	return graph;
@@ -16,7 +16,7 @@ struct Graph* CreateGraph()
 struct HeadNode* CreateHeadNode()
 {
 	struct HeadNode* headNode = (struct HeadNode*)malloc(sizeof(struct HeadNode));
-	headNode->LinkList = (struct Node*)malloc(sizeof(struct Node));
+	headNode->LinkList = CreateNode();
 	headNode->Next = headNode;
 	headNode->Prev = headNode;
 	headNode->Vertex = 0;
@@ -32,19 +32,35 @@ struct Node* CreateNode()
 	return node;
 }
 
+#pragma region GraphMethods
+
 int AddVertex(struct Graph* graph, int vertex)
 {
 	if (IsVertexExist(graph->HeadNode, vertex))
 		return VertexAlreadyExist;
-	return 0;
+
+	InsertAtEndVertex(graph->HeadNode, vertex);
+	return SUCCESS;
 }
 
 int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
+	if (!IsVertexExist(graph->HeadNode, vertexEnd))
+		AddVertex(graph, vertexEnd);
+
+	struct HeadNode* vertexHead = SearchVertex(graph->HeadNode, vertexEnd);
+
+	if (IsNodeExist(vertexHead->LinkList, vertexEnd))
+		return EdgeAlreadyExists;
+
+	InsertAtEndNode(vertexHead->LinkList, vertexEnd);
+	
+	return SUCCESS;
 }
 
 int RemoveVertex(struct Graph* graph, int vertex)
 {
+
 }
 
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
@@ -54,6 +70,10 @@ int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 void Print(struct Graph* graph, const char* msg)
 {
 }
+
+#pragma endregion
+
+#pragma region VertexMethods
 
 bool IsVertexExist(struct HeadNode* headNode, int vertex)
 {
@@ -76,11 +96,20 @@ struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex)
 
 void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct HeadNode* next)
 {
-	newNode->Next= next;
+	newNode->Next = next;
 	newNode->Prev = prev;
 	prev->Next = newNode;
-	next->Prev= newNode;
+	next->Prev = newNode;
 }
+
+void GenericDeleteVertex(struct HeadNode* prev)
+{
+	struct HeadNode* toBeDeleted = prev->Next;
+	prev->Next = toBeDeleted->Next;
+	toBeDeleted->Next->Prev = prev;
+	free(toBeDeleted);
+}
+
 
 void InsertAtEndVertex(struct HeadNode* headNode, int vertex)
 {
@@ -88,6 +117,10 @@ void InsertAtEndVertex(struct HeadNode* headNode, int vertex)
 	newNode->Vertex = vertex;
 	GenericInsertVertex(headNode->Prev, newNode, headNode);
 }
+
+#pragma endregion 
+
+#pragma region NodeMethods
 
 bool IsNodeExist(struct Node* node, int vertex)
 {
@@ -116,9 +149,19 @@ void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* nex
 	next->Prev = newNode;
 }
 
-void InsertAtEnd(struct Node* node, int vertex)
+void GenericDeleteNode(struct Node* prev)
+{
+	struct Node* toBeDeleted = prev->Next;
+	prev->Next = toBeDeleted->Next;
+	toBeDeleted->Next->Prev = prev;
+	free(toBeDeleted);
+}
+
+void InsertAtEndNode(struct Node* node, int vertex)
 {
 	struct Node* newNode = CreateNode();
 	newNode->Vertex = vertex;
 	GenericInsertNode(node->Prev, newNode, node);
 }
+
+#pragma endregion
