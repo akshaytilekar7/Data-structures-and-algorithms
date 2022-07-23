@@ -38,20 +38,18 @@ int main()
 	assert(RemoveEdge(graph, 2, 100) == InvalidEdge);
 	assert(RemoveEdge(graph, 100, 100) == InvalidVertex);
 	assert(RemoveVertex(graph, 5) == SUCCESS);
-
 	Print(graph, "after removal of some vertex and edge:");
 	printf("Total Vertex : %d\n", graph->TotalVertex);
 	printf("Total Edges : %d\n", graph->TotalEdges);
+	
 	for (i = 0; i < sizeof(E) / sizeof(E[0]); ++i)
 		RemoveEdge(graph, E[i].VertexStart, E[i].VertexEnd);
-
 	Print(graph, "after removal of all edges:");
 	printf("Total Vertex : %d\n", graph->TotalVertex);
 	printf("Total Edges : %d\n", graph->TotalEdges);
 
 	for (i = 0; i < sizeof(V) / sizeof(V[0]); ++i)
 		RemoveVertex(graph, V[i]);
-
 	Print(graph, "after removal of all vertex:");
 	printf("Total Vertex : %d\n", graph->TotalVertex);
 	printf("Total Edges : %d\n", graph->TotalEdges);
