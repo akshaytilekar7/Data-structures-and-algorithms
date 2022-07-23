@@ -35,6 +35,12 @@ struct HeadNode
 	struct Node* LinkList;
 };
 
+struct Edge
+{
+	int VertexStart;
+	int VertexEnd;
+};
+
 struct Graph* CreateGraph();
 struct HeadNode* CreateHeadNode();
 struct Node* CreateNode();

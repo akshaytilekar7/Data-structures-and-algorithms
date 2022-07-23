@@ -45,10 +45,10 @@ int AddVertex(struct Graph* graph, int vertex)
 
 int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
-	if (!IsVertexExist(graph->HeadNode, vertexEnd))
-		AddVertex(graph, vertexEnd);
+	if (!IsVertexExist(graph->HeadNode, vertexStart))
+		AddVertex(graph, vertexStart);
 
-	struct HeadNode* vertexHead = SearchVertex(graph->HeadNode, vertexEnd);
+	struct HeadNode* vertexHead = SearchVertex(graph->HeadNode, vertexStart);
 
 	if (IsNodeExist(vertexHead->LinkList, vertexEnd))
 		return EdgeAlreadyExists;
@@ -77,25 +77,24 @@ void PrintHeadNode(struct HeadNode* headNode)
 {
 	printf("[START] \n");
 	struct HeadNode* travese = headNode->Next;
-	while (travese != headNode->Next)
+	while (travese != headNode)
 	{
-		printf(" [%d] \n", headNode->Vertex);
-		PrintNode(headNode->LinkList);
+		printf(" [%d] -> ", travese->Vertex);
+		PrintNode(travese->LinkList);
 		travese = travese->Next;
 	}
-	printf("\n[END] ");
+	printf("[END] ");
 }
 
 void PrintNode(struct Node* node)
 {
-	printf(" [START] ");
 	struct Node* travese = node->Next;
-	while (travese != node->Next)
+	while (travese != node)
 	{
-		printf(" [%d] ", node->Vertex);
+		printf(" [%d] ", travese->Vertex);
 		travese = travese->Next;
 	}
-	printf(" [END] ");
+	printf("\n");
 }
 
 #pragma endregion
@@ -104,12 +103,12 @@ void PrintNode(struct Node* node)
 
 bool IsVertexExist(struct HeadNode* headNode, int vertex)
 {
-	return SearchVertex(headNode, vertex);
+	return SearchVertex(headNode, vertex) != NULL;
 }
 
 struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex)
 {
-	struct HeadNode* traverse = headNode;
+	struct HeadNode* traverse = headNode->Next;
 
 	while (traverse != headNode)
 	{
@@ -151,12 +150,12 @@ void InsertAtEndVertex(struct HeadNode* headNode, int vertex)
 
 bool IsNodeExist(struct Node* node, int vertex)
 {
-	return SearchNode(node, vertex) == NULL;
+	return SearchNode(node, vertex) != NULL;
 }
 
 struct Node* SearchNode(struct Node* node, int vertex)
 {
-	struct Node* traverse = node;
+	struct Node* traverse = node->Next;
 
 	while (traverse != node)
 	{
