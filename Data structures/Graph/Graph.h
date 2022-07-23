@@ -54,6 +54,9 @@ void Print(struct Graph* graph, const char* msg);
 void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct HeadNode* next);
 void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* next);
 
+void GenericDeleteVertex(struct HeadNode* deletedNode);
+void GenericDeleteNode(struct Node* deletedNode);
+
 void InsertAtEndVertex(struct HeadNode* headNode, int vertex);
 void InsertAtEndNode(struct Node* node, int vertex);
 
@@ -65,3 +68,4 @@ bool IsVertexExist(struct HeadNode* headNode, int vertex);
 
 void PrintHeadNode(struct HeadNode* headNode);
 void PrintNode(struct Node* node);
+

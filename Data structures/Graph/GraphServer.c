@@ -54,17 +54,35 @@ int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 		return EdgeAlreadyExists;
 
 	InsertAtEndNode(vertexHead->LinkList, vertexEnd);
-	
+
 	return SUCCESS;
 }
 
 int RemoveVertex(struct Graph* graph, int vertex)
 {
+	if (!IsVertexExist(graph->HeadNode, vertex))
+		return InvalidVertex;
 
+	struct HeadNode* headNode = SearchVertex(graph->HeadNode, vertex);
+
+	// TODO - good to have - delete associated link list
+	GenericDeleteVertex(headNode);
+	return SUCCESS;
 }
 
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
+	if (!IsVertexExist(graph->HeadNode, vertexStart))
+		return InvalidVertex;
+	
+	struct HeadNode* headNode = SearchVertex(graph->HeadNode, vertexStart);
+
+	if (!IsNodeExist(headNode->LinkList, vertexEnd))
+		return InvalidEdge;
+
+	struct Node* node = SearchNode(headNode->LinkList, vertexEnd);
+	GenericDeleteNode(node);
+	return SUCCESS;
 }
 
 void Print(struct Graph* graph, const char* msg)
@@ -128,14 +146,12 @@ void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct
 	next->Prev = newNode;
 }
 
-void GenericDeleteVertex(struct HeadNode* prev)
+void GenericDeleteVertex(struct HeadNode* deletedNode)
 {
-	struct HeadNode* toBeDeleted = prev->Next;
-	prev->Next = toBeDeleted->Next;
-	toBeDeleted->Next->Prev = prev;
-	free(toBeDeleted);
+	deletedNode->Prev->Next = deletedNode->Next;
+	deletedNode->Next->Prev = deletedNode->Prev;
+	free(deletedNode);
 }
-
 
 void InsertAtEndVertex(struct HeadNode* headNode, int vertex)
 {
@@ -175,12 +191,11 @@ void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* nex
 	next->Prev = newNode;
 }
 
-void GenericDeleteNode(struct Node* prev)
+void GenericDeleteNode(struct Node* deletedNode)
 {
-	struct Node* toBeDeleted = prev->Next;
-	prev->Next = toBeDeleted->Next;
-	toBeDeleted->Next->Prev = prev;
-	free(toBeDeleted);
+	deletedNode->Prev->Next = deletedNode->Next;
+	deletedNode->Next->Prev = deletedNode->Prev;
+	free(deletedNode);
 }
 
 void InsertAtEndNode(struct Node* node, int vertex)
