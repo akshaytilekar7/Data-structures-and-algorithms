@@ -27,33 +27,35 @@ int main()
 
 	Print(graph, "Initial State:");
 
-	status = RemoveEdge(graph, 1, 6);
-	assert(status == SUCCESS);
-	status = RemoveEdge(graph, 5, 3);
-	assert(status == SUCCESS);
+	//status = RemoveEdge(graph, 1, 6);
+	//assert(status == SUCCESS);
+	//status = RemoveEdge(graph, 5, 3);
+	//assert(status == SUCCESS);
 
-	Print(graph, "graph after removing edges, (1, 6), (5, 3)");
+	//Print(graph, "graph after removing edges, (1, 6), (5, 3)");
 
-	status = RemoveVertex(graph, 2);
-	assert(status == SUCCESS);
-	Print(graph, "graph after removing vertex 2");
+	//status = RemoveVertex(graph, 2);
+	//assert(status == SUCCESS);
+	//Print(graph, "graph after removing vertex 2");
 
-	status = AddVertex(graph, 7);
-	assert(status == SUCCESS);
+	//status = AddVertex(graph, 7);
+	//assert(status == SUCCESS);
 
-	status = AddEdge(graph, 1, 7);
-	assert(status == SUCCESS);
+	//status = AddEdge(graph, 1, 7);
+	//assert(status == SUCCESS);
 
-	status = AddEdge(graph, 1, 4);
-	assert(status == SUCCESS);
+	//status = AddEdge(graph, 1, 4);
+	//assert(status == SUCCESS);
 
-	status = AddEdge(graph, 3, 7);
-	assert(status == SUCCESS);
+	//status = AddEdge(graph, 3, 7);
+	//assert(status == SUCCESS);
 
-	status = AddEdge(graph, 5, 7);
-	assert(status == SUCCESS);
+	//status = AddEdge(graph, 5, 7);
+	//assert(status == SUCCESS);
 
-	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");
+	//Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");
+
+	PrintDFS(graph);
 
 	puts("\nEND SUCCESS ************");
 

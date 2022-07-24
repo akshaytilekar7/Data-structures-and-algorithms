@@ -20,6 +20,7 @@ struct HeadNode* CreateHeadNode()
 	headNode->Next = headNode;
 	headNode->Prev = headNode;
 	headNode->Vertex = 0;
+	headNode->Color = WHITE;
 	return headNode;
 }
 

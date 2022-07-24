@@ -33,12 +33,20 @@ struct HeadNode
 	struct HeadNode* Prev;
 	struct HeadNode* Next;
 	struct Node* LinkList;
+	enum  Color Color;
 };
 
 struct Edge
 {
 	int VertexStart;
 	int VertexEnd;
+};
+
+enum Color
+{
+	WHITE = 0,
+	GRAY,
+	BLACK
 };
 
 struct Graph* CreateGraph();
@@ -70,4 +78,9 @@ bool IsVertexExist(struct HeadNode* headNode, int vertex);
 void Print(struct Graph* graph, const char* msg);
 void PrintHeadNode(struct HeadNode* headNode);
 void PrintNode(struct Node* node);
+
+void ResetColor(struct Graph* graph);
+void DFS(struct Graph* graph, struct HeadNode* headNode);
+void PrintDFS(struct Graph* graph);
+
 
