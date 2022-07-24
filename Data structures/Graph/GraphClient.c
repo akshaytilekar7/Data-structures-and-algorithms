@@ -20,12 +20,17 @@ int main()
 
 
 	graph = CreateGraph();
+	printf("TotalVertex: %d\n", graph->TotalVertex);
+	printf("TotalEdges: %d\n", graph->TotalEdges);
+
 	for (i = 0; i < sizeof(V) / sizeof(V[0]); ++i)
 		assert(AddVertex(graph, V[i]) == SUCCESS);
 	for (i = 0; i < sizeof(E) / sizeof(E[0]); ++i)
 		assert(AddEdge(graph, E[i].VertexStart, E[i].VertexEnd) == SUCCESS);
 
 	Print(graph, "Initial State:");
+	printf("TotalVertex: %d\n", graph->TotalVertex);
+	printf("TotalEdges: %d\n", graph->TotalEdges);
 
 	status = RemoveEdge(graph, 1, 6);
 	assert(status == SUCCESS);
@@ -52,6 +57,9 @@ int main()
 
 	status = AddEdge(graph, 5, 7);
 	assert(status == SUCCESS);
+
+	printf("TotalVertex: %d\n", graph->TotalVertex);
+	printf("TotalEdges: %d\n", graph->TotalEdges);
 
 	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");
 
