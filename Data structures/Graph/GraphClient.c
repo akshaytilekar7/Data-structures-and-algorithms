@@ -11,10 +11,9 @@ int main()
 	struct Graph* graph = NULL;
 
 	int V[] = { 1, 2, 3, 4, 5, 6 };
-	struct Edge E[] = { {1, 2}, {1, 6},
-						{2, 6}, {2, 5}, {2, 3},
-						{3, 5}, {3, 4},
-						{4, 5},
+	struct Edge E[] = { {1, 2},
+						{2, 6}, {2, 5},
+						{3, 4},
 						{5, 6}
 	};
 
@@ -32,7 +31,7 @@ int main()
 	printf("TotalVertex: %d\n", graph->TotalVertex);
 	printf("TotalEdges: %d\n", graph->TotalEdges);
 
-	status = RemoveEdge(graph, 1, 6);
+	/*status = RemoveEdge(graph, 1, 6);
 	assert(status == SUCCESS);
 	status = RemoveEdge(graph, 5, 3);
 	assert(status == SUCCESS);
@@ -61,9 +60,9 @@ int main()
 	printf("TotalVertex: %d\n", graph->TotalVertex);
 	printf("TotalEdges: %d\n", graph->TotalEdges);
 
-	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");
+	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");*/
 
-	//PrintDFS(graph);
+	PrintDFS(graph);
 
 	puts("\n************ END SUCCESS ************");
 
