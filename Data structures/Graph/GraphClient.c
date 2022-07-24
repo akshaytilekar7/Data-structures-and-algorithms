@@ -20,42 +20,42 @@ int main()
 
 
 	graph = CreateGraph();
-
 	for (i = 0; i < sizeof(V) / sizeof(V[0]); ++i)
 		assert(AddVertex(graph, V[i]) == SUCCESS);
-
 	for (i = 0; i < sizeof(E) / sizeof(E[0]); ++i)
 		assert(AddEdge(graph, E[i].VertexStart, E[i].VertexEnd) == SUCCESS);
 
-	printf("Total Vertex : %d\n", graph->TotalVertex);
-	printf("Total Edges : %d\n", graph->TotalEdges);
+	Print(graph, "Initial State:");
 
-	Print(graph, "New Initial State:");
+	status = RemoveEdge(graph, 1, 6);
+	assert(status == SUCCESS);
+	status = RemoveEdge(graph, 5, 3);
+	assert(status == SUCCESS);
 
-	assert(RemoveEdge(graph, 3, 5) == SUCCESS); // start
-	assert(RemoveEdge(graph, 2, 5) == SUCCESS); // middle
-	assert(RemoveEdge(graph, 100, 5) == InvalidVertex);
-	assert(RemoveEdge(graph, 2, 100) == InvalidVertex);
-	assert(RemoveEdge(graph, 100, 100) == InvalidVertex);
-	assert(RemoveVertex(graph, 5) == SUCCESS);
-	
-	Print(graph, "after removal of some vertex and edge:");
-	printf("Total Vertex : %d\n", graph->TotalVertex);
-	printf("Total Edges : %d\n", graph->TotalEdges);
-	
-	for (i = 0; i < sizeof(E) / sizeof(E[0]); ++i)
-		RemoveEdge(graph, E[i].VertexStart, E[i].VertexEnd);
-	Print(graph, "after removal of all edges:");
-	printf("Total Vertex : %d\n", graph->TotalVertex);
-	printf("Total Edges : %d\n", graph->TotalEdges);
+	Print(graph, "graph after removing edges, (1, 6), (5, 3)");
 
-	for (i = 0; i < sizeof(V) / sizeof(V[0]); ++i)
-		RemoveVertex(graph, V[i]);
-	Print(graph, "after removal of all vertex:");
-	printf("Total Vertex : %d\n", graph->TotalVertex);
-	printf("Total Edges : %d\n", graph->TotalEdges);
+	status = RemoveVertex(graph, 2);
+	assert(status == SUCCESS);
+	Print(graph, "graph after removing vertex 2");
 
-	puts("\nEND SUCCESS");
+	status = AddVertex(graph, 7);
+	assert(status == SUCCESS);
+
+	status = AddEdge(graph, 1, 7);
+	assert(status == SUCCESS);
+
+	status = AddEdge(graph, 1, 4);
+	assert(status == SUCCESS);
+
+	status = AddEdge(graph, 3, 7);
+	assert(status == SUCCESS);
+
+	status = AddEdge(graph, 5, 7);
+	assert(status == SUCCESS);
+
+	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");
+
+	puts("\nEND SUCCESS ************");
 
 	return (EXIT_SUCCESS);
 }

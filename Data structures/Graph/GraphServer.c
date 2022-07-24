@@ -118,6 +118,7 @@ int RemoveVertex(struct Graph* graph, int vertex)
 	return SUCCESS;
 
 }
+
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
 	struct HeadNode* vertexStartHead = SearchVertex(graph->HeadNode, vertexStart);
