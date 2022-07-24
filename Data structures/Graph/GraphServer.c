@@ -80,14 +80,14 @@ int RemoveVertex(struct Graph* graph, int vertex)
 	struct Node* traverse = deletedHeadNode->LinkList->Next;
 	while (traverse != deletedHeadNode->LinkList)
 	{
+		struct Node* traverseNext = traverse->Next;
 		RemoveEdge(graph, traverse->Vertex, vertex);
-		traverse = traverse->Next;
+		traverse = traverseNext;
 	}
-
+	
 	GenericDeleteVertex(deletedHeadNode);
 	graph->TotalVertex--;
 	return SUCCESS;
-
 }
 
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
