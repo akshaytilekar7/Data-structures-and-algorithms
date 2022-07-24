@@ -30,14 +30,15 @@ int main()
 	printf("Total Vertex : %d\n", graph->TotalVertex);
 	printf("Total Edges : %d\n", graph->TotalEdges);
 
-	Print(graph, "Initial State:");
+	Print(graph, "New Initial State:");
 
 	assert(RemoveEdge(graph, 3, 5) == SUCCESS); // start
 	assert(RemoveEdge(graph, 2, 5) == SUCCESS); // middle
 	assert(RemoveEdge(graph, 100, 5) == InvalidVertex);
-	assert(RemoveEdge(graph, 2, 100) == InvalidEdge);
+	assert(RemoveEdge(graph, 2, 100) == InvalidVertex);
 	assert(RemoveEdge(graph, 100, 100) == InvalidVertex);
-	assert(RemoveVertex(graph, 5) == SUCCESS);
+	//assert(RemoveVertex(graph, 5) == SUCCESS);
+	
 	Print(graph, "after removal of some vertex and edge:");
 	printf("Total Vertex : %d\n", graph->TotalVertex);
 	printf("Total Edges : %d\n", graph->TotalEdges);

@@ -11,7 +11,7 @@
 #define EdgeAlreadyExists   3 
 #define InvalidVertex  4 
 #define InvalidEdge  5
-#define Corrupted 6 
+#define GraphIsCorrupted 6 
 
 struct Graph
 {

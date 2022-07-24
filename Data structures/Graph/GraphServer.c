@@ -39,16 +39,13 @@ int AddVertex(struct Graph* graph, int vertex)
 	if (IsVertexExist(graph->HeadNode, vertex))
 		return VertexAlreadyExist;
 
-	int status = InsertAtEndVertex(graph->HeadNode, vertex);
-	assert(status == SUCCESS);
+	InsertAtEndVertex(graph->HeadNode, vertex);
 	graph->TotalVertex++;
 	return SUCCESS;
 }
 
 int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
-	int status;
-
 	struct HeadNode* vertexStartHead = SearchVertex(graph->HeadNode, vertexStart);
 	if (vertexStartHead == NULL)
 		return (InvalidVertex);
@@ -64,69 +61,56 @@ int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 		return (EdgeAlreadyExists);
 
 	if ((edgeInStart != NULL) ^ (edgeInEnd != NULL))
-		return (G_CORRUPTED);
+		return (GraphIsCorrupted);
 
-	status = InsertAtEndNode(vertexStartHead->LinkList, vertexEnd);
-	assert(status == SUCCESS);
-	
-	status = InsertAtEndNode(vertexEndHead->LinkList, vertexStart);
-	assert(status == SUCCESS);
+	InsertAtEndNode(vertexStartHead->LinkList, vertexEnd);
+	InsertAtEndNode(vertexEndHead->LinkList, vertexStart);
 
 	graph->TotalEdges++;
 
 	return SUCCESS;
 }
 
-// TODO
 int RemoveVertex(struct Graph* graph, int vertex)
 {
-	struct HeadNode* deleteheadNode = SearchVertex(graph->HeadNode, vertex);
-	if (deleteheadNode == NULL)
+	struct HeadNode* deletedHeadNode = SearchVertex(graph->HeadNode, vertex);
+	if (deletedHeadNode == NULL)
 		return (InvalidVertex);
 
-	DestroyLinkList(graph, deleteheadNode->LinkList);
-	GenericDeleteVertex(deleteheadNode);
+	struct Node* traverse = deletedHeadNode->LinkList->Next;
+	while (traverse != deletedHeadNode->LinkList)
+	{
+		RemoveEdge(graph, traverse->Vertex, vertex);
+		traverse = traverse->Next;
+	}
 
+	GenericDeleteVertex(deletedHeadNode);
 	graph->TotalVertex--;
 	return SUCCESS;
-}
 
-int DestroyLinkList(struct Graph* graph, struct Node* node)
-{
-	struct Node* traverse = node->Next;
-
-	while (traverse != node)
-	{
-		struct Node* toBeDeleted = traverse;
-		traverse = traverse->Next;
-		free(toBeDeleted);
-		graph->TotalEdges--;
-	}
 }
 
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
-	if (!IsVertexExist(graph->HeadNode, vertexStart))
-		return InvalidVertex;
+	struct HeadNode* vertexStartHead = SearchVertex(graph->HeadNode, vertexStart);
+	if (vertexStartHead == NULL)
+		return (InvalidVertex);
 
-	if (!IsVertexExist(graph->HeadNode, vertexEnd))
-		return InvalidVertex;
+	struct HeadNode* vertexEndHead = SearchVertex(graph->HeadNode, vertexEnd);
+	if (vertexEndHead == NULL)
+		return (InvalidVertex);
 
-	struct HeadNode* headStartNode = SearchVertex(graph->HeadNode, vertexStart);
-	struct HeadNode* headEndNode = SearchVertex(graph->HeadNode, vertexEnd);
+	struct Node* edgeInStart = SearchNode(vertexStartHead->LinkList, vertexEnd);
+	struct Node* edgeInEnd = SearchNode(vertexEndHead->LinkList, vertexStart);
 
-	if (!IsNodeExist(headStartNode->LinkList, vertexEnd))
-		return InvalidEdge;
+	if (edgeInStart == NULL && edgeInEnd == NULL)
+		return (InvalidEdge);
 
-	if (!IsNodeExist(headEndNode->LinkList, vertexStart))
-		return InvalidEdge;
+	if ((edgeInStart != NULL) ^ (edgeInEnd != NULL))
+		return (GraphIsCorrupted);
 
-	struct Node* nodeStart = SearchNode(headStartNode->LinkList, vertexEnd);
-	GenericDeleteNode(nodeStart);
-	graph->TotalEdges--;
-
-	struct Node* nodeEnd = SearchNode(headEndNode->LinkList, vertexStart);
-	GenericDeleteNode(nodeEnd);
+	GenericDeleteNode(edgeInStart);
+	GenericDeleteNode(edgeInEnd);
 	graph->TotalEdges--;
 
 	return SUCCESS;
