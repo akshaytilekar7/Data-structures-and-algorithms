@@ -17,29 +17,14 @@ struct Graph
 {
 	int TotalVertex;
 	int TotalEdges;
-	struct HeadNode* HeadNode;
+	struct VertexNode* VertexNode;
 };
 
-struct Node
+struct LinkListNode
 {
 	int Vertex;
-	struct Node* Prev;
-	struct Node* Next;
-};
-
-struct HeadNode
-{
-	int Vertex;
-	struct HeadNode* Prev;
-	struct HeadNode* Next;
-	struct Node* LinkList;
-	enum  Color Color;
-};
-
-struct Edge
-{
-	int VertexStart;
-	int VertexEnd;
+	struct LinkListNode* Prev;
+	struct LinkListNode* Next;
 };
 
 enum Color
@@ -49,9 +34,26 @@ enum Color
 	BLACK
 };
 
+struct VertexNode
+{
+	int Vertex;
+	struct VertexNode* Prev;
+	struct VertexNode* Next;
+	struct LinkListNode* LinkList;
+	enum Color Color;
+};
+
+struct Edge
+{
+	int VertexStart;
+	int VertexEnd;
+};
+
+
+
 struct Graph* CreateGraph();
-struct HeadNode* CreateHeadNode();
-struct Node* CreateNode();
+struct VertexNode* CreateHeadNode();
+struct LinkListNode* CreateNode();
 
 int AddVertex(struct Graph* graph, int vertex);
 int RemoveVertex(struct Graph* graph, int vertex);
@@ -60,27 +62,27 @@ int RemoveVertexOtherWay(struct Graph* graph, int vertex);
 int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd);
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd);
 
-void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct HeadNode* next);
-void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* next);
+void GenericInsertVertex(struct VertexNode* prev, struct VertexNode* newNode, struct VertexNode* next);
+void GenericInsertNode(struct LinkListNode* prev, struct LinkListNode* newNode, struct LinkListNode* next);
 
-void GenericDeleteVertex(struct HeadNode* deletedNode);
-void GenericDeleteNode(struct Node* deletedNode);
+void GenericDeleteVertex(struct VertexNode* deletedNode);
+void GenericDeleteNode(struct LinkListNode* deletedNode);
 
-void InsertAtEndVertex(struct HeadNode* headNode, int vertex);
-void InsertAtEndNode(struct Node* node, int vertex);
+void InsertAtEndVertex(struct VertexNode* vertexNode, int vertex);
+void InsertAtEndNode(struct LinkListNode* linkListNode, int vertex);
 
-struct Node* SearchNode(struct Node* node, int vertex);
-struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex);
+struct LinkListNode* SearchNode(struct LinkListNode* linkListNode, int vertex);
+struct VertexNode* SearchVertex(struct VertexNode* vertexNode, int vertex);
 
-bool IsNodeExist(struct Node* node, int vertex);
-bool IsVertexExist(struct HeadNode* headNode, int vertex);
+bool IsNodeExist(struct LinkListNode* linkListNode, int vertex);
+bool IsVertexExist(struct VertexNode* vertexNode, int vertex);
 
 void Print(struct Graph* graph, const char* msg);
-void PrintHeadNode(struct HeadNode* headNode);
-void PrintNode(struct Node* node);
+void PrintHeadNode(struct VertexNode* vertexNode);
+void PrintNode(struct LinkListNode* linkListNode);
 
 void ResetColor(struct Graph* graph);
-void DFS(struct Graph* graph, struct HeadNode* headNode);
+void DFS(struct Graph* graph, struct VertexNode* vertexNode);
 void PrintDFS(struct Graph* graph);
 
 

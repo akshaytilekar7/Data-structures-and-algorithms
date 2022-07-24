@@ -7,56 +7,56 @@
 struct Graph* CreateGraph()
 {
 	struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
-	graph->HeadNode = CreateHeadNode();
+	graph->VertexNode = CreateHeadNode();
 	graph->TotalEdges = 0;
 	graph->TotalVertex = 0;
 	return graph;
 }
 
-struct HeadNode* CreateHeadNode()
+struct VertexNode* CreateHeadNode()
 {
-	struct HeadNode* headNode = (struct HeadNode*)malloc(sizeof(struct HeadNode));
-	headNode->LinkList = CreateNode();
-	headNode->Next = headNode;
-	headNode->Prev = headNode;
-	headNode->Vertex = 0;
-	headNode->Color = WHITE;
-	return headNode;
+	struct VertexNode* vertexNode = (struct VertexNode*)malloc(sizeof(struct VertexNode));
+	vertexNode->LinkList = CreateNode();
+	vertexNode->Next = vertexNode;
+	vertexNode->Prev = vertexNode;
+	vertexNode->Vertex = 0;
+	vertexNode->Color = WHITE;
+	return vertexNode;
 }
 
-struct Node* CreateNode()
+struct LinkListNode* CreateNode()
 {
-	struct Node* node = (struct Node*)malloc(sizeof(struct Node));
-	node->Next = node;
-	node->Prev = node;
-	node->Vertex = 0;
-	return node;
+	struct LinkListNode* linkListNode = (struct LinkListNode*)malloc(sizeof(struct LinkListNode));
+	linkListNode->Next = linkListNode;
+	linkListNode->Prev = linkListNode;
+	linkListNode->Vertex = 0;
+	return linkListNode;
 }
 
 #pragma region GraphMethods
 
 int AddVertex(struct Graph* graph, int vertex)
 {
-	if (IsVertexExist(graph->HeadNode, vertex))
+	if (IsVertexExist(graph->VertexNode, vertex))
 		return VertexAlreadyExist;
 
-	InsertAtEndVertex(graph->HeadNode, vertex);
+	InsertAtEndVertex(graph->VertexNode, vertex);
 	graph->TotalVertex++;
 	return SUCCESS;
 }
 
 int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
-	struct HeadNode* vertexStartHead = SearchVertex(graph->HeadNode, vertexStart);
+	struct VertexNode* vertexStartHead = SearchVertex(graph->VertexNode, vertexStart);
 	if (vertexStartHead == NULL)
 		return (InvalidVertex);
 
-	struct HeadNode* vertexEndHead = SearchVertex(graph->HeadNode, vertexEnd);
+	struct VertexNode* vertexEndHead = SearchVertex(graph->VertexNode, vertexEnd);
 	if (vertexEndHead == NULL)
 		return (InvalidVertex);
 
-	struct Node* edgeInStart = SearchNode(vertexStartHead->LinkList, vertexEnd);
-	struct Node* edgeInEnd = SearchNode(vertexEndHead->LinkList, vertexStart);
+	struct LinkListNode* edgeInStart = SearchNode(vertexStartHead->LinkList, vertexEnd);
+	struct LinkListNode* edgeInEnd = SearchNode(vertexEndHead->LinkList, vertexStart);
 
 	if (edgeInStart && edgeInEnd)
 		return (EdgeAlreadyExists);
@@ -74,14 +74,14 @@ int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 
 int RemoveVertexOtherWay(struct Graph* graph, int vertex)
 {
-	struct HeadNode* deletedHeadNode = SearchVertex(graph->HeadNode, vertex);
+	struct VertexNode* deletedHeadNode = SearchVertex(graph->VertexNode, vertex);
 	if (deletedHeadNode == NULL)
 		return (InvalidVertex);
 
-	struct Node* traverse = deletedHeadNode->LinkList->Next;
+	struct LinkListNode* traverse = deletedHeadNode->LinkList->Next;
 	while (traverse != deletedHeadNode->LinkList)
 	{
-		struct Node* traverseNext = traverse->Next;
+		struct LinkListNode* traverseNext = traverse->Next;
 		RemoveEdge(graph, traverse->Vertex, vertex);
 		traverse = traverseNext;
 	}
@@ -93,10 +93,10 @@ int RemoveVertexOtherWay(struct Graph* graph, int vertex)
 
 int RemoveVertex(struct Graph* graph, int vertex)
 {
-	struct Node* traverseNext = NULL, * edge = NULL, * traverse = NULL;
-	struct HeadNode* adjecencyVertex = NULL, * deletedHeadNode = NULL;
+	struct LinkListNode* traverseNext = NULL, * edge = NULL, * traverse = NULL;
+	struct VertexNode* adjecencyVertex = NULL, * deletedHeadNode = NULL;
 
-	deletedHeadNode = SearchVertex(graph->HeadNode, vertex);
+	deletedHeadNode = SearchVertex(graph->VertexNode, vertex);
 	if (deletedHeadNode == NULL)
 		return (InvalidVertex);
 
@@ -104,7 +104,7 @@ int RemoveVertex(struct Graph* graph, int vertex)
 	while (traverse != deletedHeadNode->LinkList)
 	{
 		traverseNext = traverse->Next;
-		adjecencyVertex = SearchVertex(graph->HeadNode, traverse->Vertex);
+		adjecencyVertex = SearchVertex(graph->VertexNode, traverse->Vertex);
 		edge = SearchNode(adjecencyVertex->LinkList, vertex);
 		if (edge == NULL)
 			return (GraphIsCorrupted);
@@ -122,16 +122,16 @@ int RemoveVertex(struct Graph* graph, int vertex)
 
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 {
-	struct HeadNode* vertexStartHead = SearchVertex(graph->HeadNode, vertexStart);
+	struct VertexNode* vertexStartHead = SearchVertex(graph->VertexNode, vertexStart);
 	if (vertexStartHead == NULL)
 		return (InvalidVertex);
 
-	struct HeadNode* vertexEndHead = SearchVertex(graph->HeadNode, vertexEnd);
+	struct VertexNode* vertexEndHead = SearchVertex(graph->VertexNode, vertexEnd);
 	if (vertexEndHead == NULL)
 		return (InvalidVertex);
 
-	struct Node* edgeInStart = SearchNode(vertexStartHead->LinkList, vertexEnd);
-	struct Node* edgeInEnd = SearchNode(vertexEndHead->LinkList, vertexStart);
+	struct LinkListNode* edgeInStart = SearchNode(vertexStartHead->LinkList, vertexEnd);
+	struct LinkListNode* edgeInEnd = SearchNode(vertexEndHead->LinkList, vertexStart);
 
 	if (edgeInStart == NULL && edgeInEnd == NULL)
 		return (InvalidEdge);
@@ -149,14 +149,14 @@ int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 void Print(struct Graph* graph, const char* msg)
 {
 	printf("%s\n", msg);
-	PrintHeadNode(graph->HeadNode);
+	PrintHeadNode(graph->VertexNode);
 }
 
-void PrintHeadNode(struct HeadNode* headNode)
+void PrintHeadNode(struct VertexNode* vertexNode)
 {
 	printf("[START] \n");
-	struct HeadNode* travese = headNode->Next;
-	while (travese != headNode)
+	struct VertexNode* travese = vertexNode->Next;
+	while (travese != vertexNode)
 	{
 		printf(" [%d] -> ", travese->Vertex);
 		PrintNode(travese->LinkList);
@@ -165,10 +165,10 @@ void PrintHeadNode(struct HeadNode* headNode)
 	printf("[END]\n");
 }
 
-void PrintNode(struct Node* node)
+void PrintNode(struct LinkListNode* linkListNode)
 {
-	struct Node* travese = node->Next;
-	while (travese != node)
+	struct LinkListNode* travese = linkListNode->Next;
+	while (travese != linkListNode)
 	{
 		printf(" [%d] ", travese->Vertex);
 		travese = travese->Next;
@@ -180,16 +180,16 @@ void PrintNode(struct Node* node)
 
 #pragma region VertexMethods
 
-bool IsVertexExist(struct HeadNode* headNode, int vertex)
+bool IsVertexExist(struct VertexNode* vertexNode, int vertex)
 {
-	return SearchVertex(headNode, vertex) != NULL;
+	return SearchVertex(vertexNode, vertex) != NULL;
 }
 
-struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex)
+struct VertexNode* SearchVertex(struct VertexNode* vertexNode, int vertex)
 {
-	struct HeadNode* traverse = headNode->Next;
+	struct VertexNode* traverse = vertexNode->Next;
 
-	while (traverse != headNode)
+	while (traverse != vertexNode)
 	{
 		if (traverse->Vertex == vertex)
 			return traverse;
@@ -199,7 +199,7 @@ struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex)
 	return NULL;
 }
 
-void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct HeadNode* next)
+void GenericInsertVertex(struct VertexNode* prev, struct VertexNode* newNode, struct VertexNode* next)
 {
 	newNode->Next = next;
 	newNode->Prev = prev;
@@ -207,34 +207,34 @@ void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct
 	next->Prev = newNode;
 }
 
-void GenericDeleteVertex(struct HeadNode* deletedNode)
+void GenericDeleteVertex(struct VertexNode* deletedNode)
 {
 	deletedNode->Prev->Next = deletedNode->Next;
 	deletedNode->Next->Prev = deletedNode->Prev;
 	free(deletedNode);
 }
 
-void InsertAtEndVertex(struct HeadNode* headNode, int vertex)
+void InsertAtEndVertex(struct VertexNode* vertexNode, int vertex)
 {
-	struct HeadNode* newNode = CreateHeadNode();
+	struct VertexNode* newNode = CreateHeadNode();
 	newNode->Vertex = vertex;
-	GenericInsertVertex(headNode->Prev, newNode, headNode);
+	GenericInsertVertex(vertexNode->Prev, newNode, vertexNode);
 }
 
 #pragma endregion 
 
 #pragma region NodeMethods
 
-bool IsNodeExist(struct Node* node, int vertex)
+bool IsNodeExist(struct LinkListNode* linkListNode, int vertex)
 {
-	return SearchNode(node, vertex) != NULL;
+	return SearchNode(linkListNode, vertex) != NULL;
 }
 
-struct Node* SearchNode(struct Node* node, int vertex)
+struct LinkListNode* SearchNode(struct LinkListNode* linkListNode, int vertex)
 {
-	struct Node* traverse = node->Next;
+	struct LinkListNode* traverse = linkListNode->Next;
 
-	while (traverse != node)
+	while (traverse != linkListNode)
 	{
 		if (traverse->Vertex == vertex)
 			return traverse;
@@ -244,7 +244,7 @@ struct Node* SearchNode(struct Node* node, int vertex)
 	return NULL;
 }
 
-void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* next)
+void GenericInsertNode(struct LinkListNode* prev, struct LinkListNode* newNode, struct LinkListNode* next)
 {
 	newNode->Next = next;
 	newNode->Prev = prev;
@@ -252,18 +252,18 @@ void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* nex
 	next->Prev = newNode;
 }
 
-void GenericDeleteNode(struct Node* deletedNode)
+void GenericDeleteNode(struct LinkListNode* deletedNode)
 {
 	deletedNode->Prev->Next = deletedNode->Next;
 	deletedNode->Next->Prev = deletedNode->Prev;
 	free(deletedNode);
 }
 
-void InsertAtEndNode(struct Node* node, int vertex)
+void InsertAtEndNode(struct LinkListNode* linkListNode, int vertex)
 {
-	struct Node* newNode = CreateNode();
+	struct LinkListNode* newNode = CreateNode();
 	newNode->Vertex = vertex;
-	GenericInsertNode(node->Prev, newNode, node);
+	GenericInsertNode(linkListNode->Prev, newNode, linkListNode);
 }
 
 #pragma endregion
