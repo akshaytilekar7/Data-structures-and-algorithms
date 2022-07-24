@@ -46,10 +46,11 @@ struct HeadNode* CreateHeadNode();
 struct Node* CreateNode();
 
 int AddVertex(struct Graph* graph, int vertex);
-int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd);
 int RemoveVertex(struct Graph* graph, int vertex);
+int RemoveVertexOtherWay(struct Graph* graph, int vertex);
+
+int AddEdge(struct Graph* graph, int vertexStart, int vertexEnd);
 int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd);
-void Print(struct Graph* graph, const char* msg);
 
 void GenericInsertVertex(struct HeadNode* prev, struct HeadNode* newNode, struct HeadNode* next);
 void GenericInsertNode(struct Node* prev, struct Node* newNode, struct Node* next);
@@ -66,6 +67,7 @@ struct HeadNode* SearchVertex(struct HeadNode* headNode, int vertex);
 bool IsNodeExist(struct Node* node, int vertex);
 bool IsVertexExist(struct HeadNode* headNode, int vertex);
 
+void Print(struct Graph* graph, const char* msg);
 void PrintHeadNode(struct HeadNode* headNode);
 void PrintNode(struct Node* node);
 
