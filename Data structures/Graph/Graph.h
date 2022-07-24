@@ -78,8 +78,8 @@ bool IsNodeExist(struct LinkListNode* linkListNode, int vertex);
 bool IsVertexExist(struct VertexNode* vertexNode, int vertex);
 
 void Print(struct Graph* graph, const char* msg);
-void PrintHeadNode(struct VertexNode* vertexNode);
-void PrintNode(struct LinkListNode* linkListNode);
+void PrintVertexNode(struct VertexNode* vertexNode);
+void PrintLinkListNode(struct LinkListNode* linkListNode);
 
 void ResetColor(struct Graph* graph);
 void DFS(struct Graph* graph, struct VertexNode* vertexNode);

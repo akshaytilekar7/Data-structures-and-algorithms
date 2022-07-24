@@ -149,23 +149,23 @@ int RemoveEdge(struct Graph* graph, int vertexStart, int vertexEnd)
 void Print(struct Graph* graph, const char* msg)
 {
 	printf("%s\n", msg);
-	PrintHeadNode(graph->VertexNode);
+	PrintVertexNode(graph->VertexNode);
 }
 
-void PrintHeadNode(struct VertexNode* vertexNode)
+void PrintVertexNode(struct VertexNode* vertexNode)
 {
 	printf("[START] \n");
 	struct VertexNode* travese = vertexNode->Next;
 	while (travese != vertexNode)
 	{
 		printf(" [%d] -> ", travese->Vertex);
-		PrintNode(travese->LinkList);
+		PrintLinkListNode(travese->LinkList);
 		travese = travese->Next;
 	}
 	printf("[END]\n");
 }
 
-void PrintNode(struct LinkListNode* linkListNode)
+void PrintLinkListNode(struct LinkListNode* linkListNode)
 {
 	struct LinkListNode* travese = linkListNode->Next;
 	while (travese != linkListNode)
