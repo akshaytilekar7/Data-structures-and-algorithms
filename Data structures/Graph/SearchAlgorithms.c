@@ -16,17 +16,18 @@ void ResetColor(struct Graph* graph)
 
 void PrintDFS(struct Graph* graph)
 {
-	struct VertexNode* traverse = graph->VertexNode->Next;
 	ResetColor(graph);
-	int index = 0;
+
+	struct VertexNode* traverse = graph->VertexNode->Next;
 	while (traverse != graph->VertexNode)
 	{
+		int connectedComponentCount = 0;
 		if (traverse->Color == WHITE)
 		{
-			printf("\n\nconnected graph: %d\n", ++index);
-			printf("[START]<->");
+			printf("connected component: %d\n", ++connectedComponentCount);
+			printf("[START]-> ");
 			DFS(graph, traverse);
-			puts("[END]");
+			printf(" <-[END]\n");
 		}
 		traverse = traverse->Next;
 	}
@@ -34,17 +35,33 @@ void PrintDFS(struct Graph* graph)
 
 void DFS(struct Graph* graph, struct VertexNode* vertexNode)
 {
-	printf("[%d]<->", vertexNode->Vertex);
 	vertexNode->Color = GRAY;
+	printf("%d ", vertexNode->Vertex);
 
-	struct VertexNode* traverse = vertexNode->LinkList->Next;
-	while (traverse != vertexNode->LinkList)
+	struct LinkListNode* linkListNode = vertexNode->LinkList->Next;
+	while (linkListNode != vertexNode->LinkList)
 	{
-		struct VertexNode* vetexNode = SearchVertex(graph->VertexNode, traverse->Vertex);
-		if (vetexNode->Color == WHITE)
-			DFS(graph, vetexNode);
-		traverse = traverse->Next;
+		struct VertexNode* node = SearchVertex(graph->VertexNode, linkListNode->Vertex);
+		if (node->Color == WHITE)
+			DFS(graph, node);
+		linkListNode = linkListNode->Next;
 	}
 	vertexNode->Color = BLACK;
 }
 
+void PrintBFS(struct Graph* graph)
+{
+	/*struct VertexNode** arr = (struct VertexNode**)calloc(graph->TotalVertex, sizeof(struct VertexNode*));
+
+
+	printf("%d ", graph->VertexNode->Vertex);
+	int i, j = 0;
+
+	struct LinkListNode* traverse = graph->VertexNode->LinkList->Next;
+	while (traverse != graph->VertexNode->LinkList)
+	{
+		arr[i++] = traverse;
+		traverse = traverse->Next;
+	}*/
+
+}
