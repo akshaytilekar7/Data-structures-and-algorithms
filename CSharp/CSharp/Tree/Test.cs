@@ -2,7 +2,7 @@
 {
     public class Test
     {
-        static void Main(string[] args)
+        static void Main1123(string[] args)
         {
             TreeOperations tree = new TreeOperations();
             BST BST = tree.Create();
