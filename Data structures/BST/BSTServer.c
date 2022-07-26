@@ -406,8 +406,8 @@ static void ResetColor(struct Node* root)
 	if (root != NULL)
 	{
 		root->Color = WHITE;
-		InorderHelper(root->Left);
-		InorderHelper(root->Right);
+		ResetColor(root->Left);
+		ResetColor(root->Right);
 	}
 }
 
@@ -418,31 +418,28 @@ void BFS(struct BST* tree)
 	BFSHelper(tree, tree->root);
 }
 
-// NOT WORKING
 void BFSHelper(struct BST* tree, struct Node* root)
 {
-	/*puts("\n\n [BFS BFS BFS START ]");
+	puts("\n\n [BFS BFS BFS START ]");
 	int index = 0, startQueueIndex = 0;
 
-	struct Node** arr = (struct Node**)calloc(tree->count, sizeof(struct Node*));
+	struct Node** arr = (struct Node**)calloc(tree->count + 1, sizeof(struct Node*));
 	arr[index++] = root;
-	
+
 	while (index >= 0 && arr[startQueueIndex] != NULL)
 	{
-		arr[startQueueIndex]->Color = GREY;
-		printf(" %d ", arr[startQueueIndex]->Data);
-
+		struct Node* node = arr[startQueueIndex];
+		node->Color = GREY;
+		printf(" %d ", node->Data);
 		arr[startQueueIndex] = NULL;
 		startQueueIndex++;
-		if (root->Left != NULL && root->Left->Color == WHITE)
-			arr[index++] = root->Left;
-		if (root->Right != NULL && root->Right->Color == WHITE)
-			arr[index++] = root->Right;
 		
-		root->Right;
-
+		if (node->Left != NULL && node->Left->Color == WHITE)
+			arr[index++] = node->Left;
+		if (node->Right != NULL && node->Right->Color == WHITE)
+			arr[index++] = node->Right;
 	}
-	puts("[ BFS END]");*/
+	puts("[ BFS BFS BFS END]\n");
 }
 
 /*
