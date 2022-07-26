@@ -11,12 +11,20 @@
 #define DataNotFound 2
 #define SomethingWentWrong 100
 
+enum Color
+{
+	WHITE = 1,
+	GREY,
+	BLACK
+};
+
 struct Node
 {
 	int Data;
 	struct Node* Parent;
 	struct Node* Left;
 	struct Node* Right;
+	enum Color Color;
 };
 
 struct BST
@@ -62,5 +70,9 @@ bool IsEmpty(struct BST* tree);
 void InorderIterative(struct BST* tree);
 void PreorderIterative(struct BST* tree);
 void PostorderIterative(struct BST* tree);
+
+static void ResetColor(struct Node* root);
+void BFS(struct BST* tree);
+void BFSHelper(struct BST* tree, struct Node* root);
 
 struct BST* Create();
