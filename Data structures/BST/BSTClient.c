@@ -10,11 +10,11 @@ int main()
 {
 	struct BST* tree = Create();
 
-	int arr1[] = { 100, 50,150,40,60,30,45,55,65,20,46,150,140,145 };
+	int arr1[] = { 100, 50,150,40,60,30,45,55,65,20,46,140,145 };
 	execute(tree, arr1, sizeof(arr1) / sizeof(int), sizeof(arr1) / sizeof(int));
 
-	int arr2[] = { 0, 50, 5, 100, 600, 1 };
-	execute(tree, arr2, sizeof(arr2) / sizeof(int), sizeof(arr2) / sizeof(int));
+	/*int arr2[] = { 0, 50, 5, 100, 600, 1 };
+	execute(tree, arr2, sizeof(arr2) / sizeof(int), sizeof(arr2) / sizeof(int));*/
 
 	return 1;
 }
@@ -42,7 +42,10 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 	Postorder(tree);
 	//PostorderIterative(tree);
 
-	InorderParent(tree);
+	//InorderParent(tree);
+
+	BFS(tree);
+	DFS(tree);
 
 	printf("Min is %d\n", GetMinData(tree));
 	printf("Max is %d\n", GetMaxData(tree));
@@ -75,8 +78,9 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 	Inorder(tree);
 	Postorder(tree);
 
-	BFS(tree);
-	printf("count is %d\n", tree->count);
+
+
+	// printf("count is %d\n", tree->count);
 
 	puts("execute end success");
 }
