@@ -423,14 +423,14 @@ void BFSHelper(struct BST* tree, struct Node* root)
 		if (node->Right != NULL)
 			arr[index++] = node->Right;
 	}
-	puts("\n[ BFS BFS BFS END]\n");
+	puts("\n[BFS BFS BFS END]\n");
 }
 
 void DFS(struct BST* tree)
 {
-	puts("\n[ COLOR DFS DFS DFS START ]");
+	puts("\n[DFS DFS DFS START ]");
 	DFSHelper(tree, tree->root);
-	puts("\n[ DFS DFS DFS END ]\n");
+	puts("\n[DFS DFS DFS END ]\n");
 }
 
 void DFSHelper(struct BST* tree, struct Node* root)
