@@ -11,7 +11,6 @@ struct Node* GetNewNode(int data)
 	root->Parent = NULL;
 	root->Left = NULL;
 	root->Right = NULL;
-	root->Color = WHITE;
 	return root;
 };
 
@@ -347,13 +346,11 @@ void PreorderIterative(struct BST* tree)
 	puts(" [END]\n");
 }
 
-
 struct Dictionary
 {
 	struct Node* node;
 	int VisitedCount;
 };
-
 
 // NOT WORKING
 void PostorderIterative(struct BST* tree)
@@ -401,26 +398,14 @@ void PostorderIterative(struct BST* tree)
 
 }
 
-static void ResetColor(struct Node* root)
-{
-	if (root != NULL)
-	{
-		root->Color = WHITE;
-		ResetColor(root->Left);
-		ResetColor(root->Right);
-	}
-}
-
-
 void BFS(struct BST* tree)
 {
-	ResetColor(tree->root);
 	BFSHelper(tree, tree->root);
 }
 
 void BFSHelper(struct BST* tree, struct Node* root)
 {
-	puts("\n\n [BFS BFS BFS START ]");
+	puts("\n[BFS BFS BFS START ]");
 	int index = 0, startQueueIndex = 0;
 
 	struct Node** arr = (struct Node**)calloc(tree->count + 1, sizeof(struct Node*));
@@ -429,17 +414,33 @@ void BFSHelper(struct BST* tree, struct Node* root)
 	while (index >= 0 && arr[startQueueIndex] != NULL)
 	{
 		struct Node* node = arr[startQueueIndex];
-		node->Color = GREY;
-		printf(" %d ", node->Data);
+		printf(" [%d] ", node->Data);
 		arr[startQueueIndex] = NULL;
 		startQueueIndex++;
-		
-		if (node->Left != NULL && node->Left->Color == WHITE)
+
+		if (node->Left != NULL)
 			arr[index++] = node->Left;
-		if (node->Right != NULL && node->Right->Color == WHITE)
+		if (node->Right != NULL)
 			arr[index++] = node->Right;
 	}
-	puts("[ BFS BFS BFS END]\n");
+	puts("\n[ BFS BFS BFS END]\n");
+}
+
+void DFS(struct BST* tree)
+{
+	puts("\n[ COLOR DFS DFS DFS START ]");
+	DFSHelper(tree, tree->root);
+	puts("\n[ DFS DFS DFS END ]\n");
+}
+
+void DFSHelper(struct BST* tree, struct Node* root)
+{
+	if (root == NULL)
+		return;
+
+	printf(" [%d] ", root->Data);
+	DFSHelper(tree, root->Left);
+	DFSHelper(tree, root->Right);
 }
 
 /*

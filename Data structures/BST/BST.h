@@ -11,20 +11,12 @@
 #define DataNotFound 2
 #define SomethingWentWrong 100
 
-enum Color
-{
-	WHITE = 1,
-	GREY,
-	BLACK
-};
-
 struct Node
 {
 	int Data;
 	struct Node* Parent;
 	struct Node* Left;
 	struct Node* Right;
-	enum Color Color;
 };
 
 struct BST
@@ -37,11 +29,14 @@ struct Node* GetNewNode(int data);
 
 int Insert(struct BST* tree, int data);
 static int InsertHelper(struct BST* tree, struct Node* root, int data);
+struct BST* Create();
 
 static void InorderHelper(struct Node* head);
 void Inorder(struct BST* tree);
+
 static void PreorderHelper(struct Node* head);
 void Preorder(struct BST* tree);
+
 static void PostorderHelper(struct Node* head);
 void Postorder(struct BST* tree);
 
@@ -58,7 +53,6 @@ int GetMinData(struct BST* tree);
 int GetMaxData(struct BST* tree);
 bool IsExist(struct BST* tree, int data);
 
-
 int DeleteNode(struct BST* tree, int data);
 static struct Node* GetInorderSucessor(struct Node* root);
 
@@ -71,8 +65,8 @@ void InorderIterative(struct BST* tree);
 void PreorderIterative(struct BST* tree);
 void PostorderIterative(struct BST* tree);
 
-static void ResetColor(struct Node* root);
 void BFS(struct BST* tree);
 void BFSHelper(struct BST* tree, struct Node* root);
 
-struct BST* Create();
+void DFS(struct BST* tree);
+void DFSHelper(struct BST* tree, struct Node* root);
