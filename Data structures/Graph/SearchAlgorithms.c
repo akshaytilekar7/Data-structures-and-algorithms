@@ -35,7 +35,6 @@ void PrintDFS(struct Graph* graph)
 	puts("DFS END");
 }
 
-
 void DFS(struct Graph* graph, struct VertexNode* vertexNode)
 {
 	vertexNode->Color = GRAY;
@@ -72,7 +71,6 @@ void PrintBFS(struct Graph* graph)
 	}
 	puts("BFS END");
 }
-
 
 void BFSArray(struct Graph* graph, struct VertexNode* vertexNode)
 {
