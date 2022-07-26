@@ -85,4 +85,7 @@ void ResetColor(struct Graph* graph);
 void DFS(struct Graph* graph, struct VertexNode* vertexNode);
 void PrintDFS(struct Graph* graph);
 
+void PrintBFS(struct Graph* graph);
+void BFSArray(struct Graph* graph, struct VertexNode* vertexNode);
 
+bool IsExist(struct VertexNode** arr, int size, struct VertexNode* element);

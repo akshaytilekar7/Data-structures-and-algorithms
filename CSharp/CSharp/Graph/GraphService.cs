@@ -276,7 +276,6 @@
             LinkListNode linkListNode = vertexNode.LinkList.Next;
             while (linkListNode != vertexNode.LinkList)
             {
-
                 VertexNode node = SearchVertex(graph.VertexNode, linkListNode.Vertex);
                 if (node.Color == Color.WHITE)
                     DFS(graph, node);
@@ -284,7 +283,6 @@
             }
             vertexNode.Color = Color.BLACK;
         }
-
         public void PrintBFS(Graph graph)
         {
             Console.Write("\n[BFS START] \n");
@@ -304,7 +302,6 @@
             }
             Console.Write("\n[BFS BFS BFS END] \n");
         }
-
         public void BFS(Graph graph, VertexNode vertexNode)
         {
             int newLine = 0;
@@ -331,5 +328,51 @@
                 node.Color = Color.BLACK;
             }
         }
+
+        public void PrintBFSArray(Graph graph)
+        {
+            Console.Write("\n[BFS ARRAY START] \n");
+            ResetColor(graph);
+            VertexNode traverse = graph.VertexNode.Next;
+            int connectedComponentCount = 0;
+            while (traverse != graph.VertexNode)
+            {
+                if (traverse.Color == Color.WHITE)
+                {
+                    Console.Write("connected component: " + (++connectedComponentCount) + "\n");
+                    Console.Write("[START] ->\n");
+                    BFSArray(graph, traverse);
+                    Console.Write("\n<-[END]\n");
+                }
+                traverse = traverse.Next;
+            }
+            Console.Write("\n[BFS ARRAY END] \n");
+        }
+        public void BFSArray(Graph graph, VertexNode vertexNode)
+        {
+            int index = 0;
+            VertexNode[] arr = new VertexNode[graph.TotalVertex];
+            vertexNode.Color = Color.GRAY;
+            int startIndex = 0;
+            arr[index++] = vertexNode;
+            while (index > 0 && arr[startIndex] != null)
+            {
+                VertexNode node = arr[startIndex];
+                arr[startIndex] = null;
+                startIndex++;
+                node.Color = Color.GRAY;
+                Console.Write(node.Vertex + " ");
+                LinkListNode traverse = node.LinkList.Next;
+                while (traverse != node.LinkList)
+                {
+                    VertexNode vNode = SearchVertex(graph.VertexNode, traverse.Vertex);
+                    if (vNode.Color == Color.WHITE && !arr.Contains(vNode))
+                        arr[index++] = (vNode);
+                    traverse = traverse.Next;
+                }
+                node.Color = Color.BLACK;
+            }
+        }
+
     }
 }

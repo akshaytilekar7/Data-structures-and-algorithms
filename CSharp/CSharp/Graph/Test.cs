@@ -66,9 +66,10 @@ namespace CSharp.Graph
             for (i = 0; i < E.Length; ++i)
                 graphService.AddEdge(graph, E[i].VertexStart, E[i].VertexEnd);
 
-            graphService.Print(graph, "Initial State:");
-            graphService.PrintDFS(graph);
+            // graphService.Print(graph, "Initial State:");
+            // graphService.PrintDFS(graph);
             graphService.PrintBFS(graph);
+            graphService.PrintBFSArray(graph);
 
             Console.Write("\n************ C# END SUCCESS ************");
             Console.ReadLine();

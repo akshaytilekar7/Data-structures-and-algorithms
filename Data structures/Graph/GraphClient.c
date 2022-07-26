@@ -10,11 +10,25 @@ int main()
 	int status;
 	struct Graph* graph = NULL;
 
-	int V[] = { 1, 2, 3, 4, 5, 6 };
-	struct Edge E[] = { {1, 2},
-						{2, 6}, {2, 5},
-						{3, 4},
-						{5, 6}
+	int V[] = { 5, 1, 3, 2, 6, 7, 8, 4, 9, 10, 11, 12, 13, 14 };
+	struct Edge E[] = { { 5, 1},
+						 { 5, 3},
+						 { 5, 2},
+
+						 { 3, 6},
+
+						{ 6, 7},
+
+						{ 7, 8},
+						{ 7, 4},
+						{ 7, 9},
+
+						{ 10, 11},
+						{ 10, 12},
+
+						{ 11, 13},
+						{ 12, 14},
+
 	};
 
 
@@ -62,7 +76,8 @@ int main()
 
 	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");*/
 
-	PrintDFS(graph);
+	//PrintDFS(graph);
+	PrintBFS(graph);
 
 	puts("\n************ END SUCCESS ************");
 
