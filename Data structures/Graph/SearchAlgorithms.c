@@ -14,9 +14,9 @@ void ResetColor(struct Graph* graph)
 	}
 }
 
-void PrintDFS(struct Graph* graph)
+void DFSRecursive(struct Graph* graph)
 {
-	puts("DFS START");
+	puts("\nDFS START");
 	ResetColor(graph);
 
 	struct VertexNode* traverse = graph->VertexNode->Next;
@@ -27,7 +27,7 @@ void PrintDFS(struct Graph* graph)
 		{
 			printf("connected component: %d\n", ++connectedComponentCount);
 			printf("[START]-> ");
-			DFS(graph, traverse);
+			DFSRecursiveHelper(graph, traverse);
 			printf(" <-[END]\n");
 		}
 		traverse = traverse->Next;
@@ -35,7 +35,7 @@ void PrintDFS(struct Graph* graph)
 	puts("DFS END");
 }
 
-void DFS(struct Graph* graph, struct VertexNode* vertexNode)
+static void DFSRecursiveHelper(struct Graph* graph, struct VertexNode* vertexNode)
 {
 	vertexNode->Color = GRAY;
 	printf("%d ", vertexNode->Vertex);
@@ -45,15 +45,15 @@ void DFS(struct Graph* graph, struct VertexNode* vertexNode)
 	{
 		struct VertexNode* node = SearchVertex(graph->VertexNode, linkListNode->Vertex);
 		if (node->Color == WHITE)
-			DFS(graph, node);
+			DFSRecursiveHelper(graph, node);
 		linkListNode = linkListNode->Next;
 	}
 	vertexNode->Color = BLACK;
 }
 
-void PrintBFS(struct Graph* graph)
+void BFSUsingArray(struct Graph* graph)
 {
-	puts("BFS START");
+	puts("\nBFS START");
 	ResetColor(graph);
 
 	struct VertexNode* traverse = graph->VertexNode->Next;
@@ -64,7 +64,7 @@ void PrintBFS(struct Graph* graph)
 		{
 			printf("connected component: %d\n", ++connectedComponentCount);
 			printf("[START]-> ");
-			BFSArray(graph, traverse);
+			BFSUsingArrayHelper(graph, traverse);
 			printf(" <-[END]\n");
 		}
 		traverse = traverse->Next;
@@ -72,7 +72,7 @@ void PrintBFS(struct Graph* graph)
 	puts("BFS END");
 }
 
-void BFSArray(struct Graph* graph, struct VertexNode* vertexNode)
+static void BFSUsingArrayHelper(struct Graph* graph, struct VertexNode* vertexNode)
 {
 	int index = 0, queueStartIndex = 0;
 	struct VertexNode** arr = (struct VertexNode**)calloc(graph->TotalVertex, sizeof(struct VertexNode*));
@@ -97,7 +97,7 @@ void BFSArray(struct Graph* graph, struct VertexNode* vertexNode)
 	}
 }
 
-bool IsExist(struct VertexNode** arr, int size, struct VertexNode* element)
+static bool IsExist(struct VertexNode** arr, int size, struct VertexNode* element)
 {
 	for (int i = 0; i < size; i++)
 	{

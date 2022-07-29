@@ -19,7 +19,6 @@
             graph.TotalVertex = 0;
             return graph;
         }
-
         public VertexNode CreateHeadNode()
         {
             VertexNode vertexNode = new VertexNode();
@@ -30,7 +29,6 @@
             vertexNode.Color = Color.WHITE;
             return vertexNode;
         }
-
         public LinkListNode CreateNode()
         {
             LinkListNode linkListNode = new LinkListNode();
@@ -39,7 +37,6 @@
             linkListNode.Vertex = 0;
             return linkListNode;
         }
-
         public int AddVertex(Graph graph, int vertex)
         {
             if (IsVertexExist(graph.VertexNode, vertex))
@@ -49,7 +46,6 @@
             graph.TotalVertex++;
             return SUCCESS;
         }
-
         public int AddEdge(Graph graph, int vertexStart, int vertexEnd)
         {
             VertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
@@ -76,7 +72,6 @@
 
             return SUCCESS;
         }
-
         public int RemoveVertexOtherWay(Graph graph, int vertex)
         {
             VertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
@@ -95,7 +90,6 @@
             graph.TotalVertex--;
             return SUCCESS;
         }
-
         public int RemoveVertex(Graph graph, int vertex)
         {
             LinkListNode traverseNext = null, edge = null, traverse = null;
@@ -123,7 +117,6 @@
             return SUCCESS;
 
         }
-
         public int RemoveEdge(Graph graph, int vertexStart, int vertexEnd)
         {
             VertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
@@ -149,13 +142,11 @@
 
             return SUCCESS;
         }
-
         public void Print(Graph graph, string msg)
         {
             Console.Write(msg);
             PrintVertexNode(graph.VertexNode);
         }
-
         public void PrintVertexNode(VertexNode vertexNode)
         {
             Console.Write("[START] \n");
@@ -168,7 +159,6 @@
             }
             Console.Write("[END]\n");
         }
-
         public void PrintLinkListNode(LinkListNode linkListNode)
         {
             LinkListNode travese = linkListNode.Next;
@@ -179,12 +169,10 @@
             }
             Console.Write("\n");
         }
-
         public bool IsVertexExist(VertexNode vertexNode, int vertex)
         {
             return SearchVertex(vertexNode, vertex) != null;
         }
-
         public VertexNode SearchVertex(VertexNode vertexNode, int vertex)
         {
             VertexNode traverse = vertexNode.Next;
@@ -198,7 +186,6 @@
             }
             return null;
         }
-
         public void GenericInsertVertex(VertexNode prev, VertexNode newNode, VertexNode next)
         {
             newNode.Next = next;
@@ -206,25 +193,21 @@
             prev.Next = newNode;
             next.Prev = newNode;
         }
-
         public void GenericDeleteVertex(VertexNode deletedNode)
         {
             deletedNode.Prev.Next = deletedNode.Next;
             deletedNode.Next.Prev = deletedNode.Prev;
         }
-
         public void InsertAtEndVertex(VertexNode vertexNode, int vertex)
         {
             VertexNode newNode = CreateHeadNode();
             newNode.Vertex = vertex;
             GenericInsertVertex(vertexNode.Prev, newNode, vertexNode);
         }
-
         public bool IsNodeExist(LinkListNode linkListNode, int vertex)
         {
             return SearchNode(linkListNode, vertex) != null;
         }
-
         public LinkListNode SearchNode(LinkListNode linkListNode, int vertex)
         {
             LinkListNode traverse = linkListNode.Next;
@@ -238,7 +221,6 @@
             }
             return null;
         }
-
         public void GenericInsertNode(LinkListNode prev, LinkListNode newNode, LinkListNode next)
         {
             newNode.Next = next;
@@ -246,20 +228,17 @@
             prev.Next = newNode;
             next.Prev = newNode;
         }
-
         public void GenericDeleteNode(LinkListNode deletedNode)
         {
             deletedNode.Prev.Next = deletedNode.Next;
             deletedNode.Next.Prev = deletedNode.Prev;
         }
-
         public void InsertAtEndNode(LinkListNode linkListNode, int vertex)
         {
             LinkListNode newNode = CreateNode();
             newNode.Vertex = vertex;
             GenericInsertNode(linkListNode.Prev, newNode, linkListNode);
         }
-
         public void ResetColor(Graph graph)
         {
             VertexNode traverse = graph.VertexNode.Next;
@@ -269,10 +248,9 @@
                 traverse = traverse.Next;
             }
         }
-
-        public void PrintDFS(Graph graph)
+        public void DFSRecursive(Graph graph)
         {
-            Console.Write("\nDFS STARTED: \n");
+            Console.Write("\nDFS RECURSIVE STARTED: \n");
 
             ResetColor(graph);
             VertexNode traverse = graph.VertexNode.Next;
@@ -283,7 +261,7 @@
                 {
                     Console.Write("connected component: " + (++connectedComponentCount) + "\n");
                     Console.Write("[START]. ");
-                    DFS(graph, traverse);
+                    DFSRecursiveHelper(graph, traverse);
                     Console.Write(" <-[END]\n");
                 }
                 traverse = traverse.Next;
@@ -291,8 +269,7 @@
 
             Console.Write("DFS END: \n");
         }
-
-        public void DFS(Graph graph, VertexNode vertexNode)
+        private void DFSRecursiveHelper(Graph graph, VertexNode vertexNode)
         {
             vertexNode.Color = Color.GRAY;
             Console.Write(vertexNode.Vertex + " ");
@@ -302,13 +279,12 @@
             {
                 VertexNode node = SearchVertex(graph.VertexNode, linkListNode.Vertex);
                 if (node.Color == Color.WHITE)
-                    DFS(graph, node);
+                    DFSRecursiveHelper(graph, node);
                 linkListNode = linkListNode.Next;
             }
             vertexNode.Color = Color.BLACK;
         }
-
-        public void PrintBFS(Graph graph)
+        public void BFSUsingQueue(Graph graph)
         {
             Console.Write("\n[BFS START] \n");
             ResetColor(graph);
@@ -320,17 +296,15 @@
                 {
                     Console.Write("connected component: " + (++connectedComponentCount) + "\n");
                     Console.Write("[START] ->\n");
-                    BFS(graph, traverse);
+                    BFSUsingQueueHelper(graph, traverse);
                     Console.Write("\n<-[END]\n");
                 }
                 traverse = traverse.Next;
             }
             Console.Write("\n[BFS BFS BFS END] \n");
         }
-
-        public void BFS(Graph graph, VertexNode vertexNode)
+        private void BFSUsingQueueHelper(Graph graph, VertexNode vertexNode)
         {
-            int newLine = 0;
             Queue<VertexNode> queue = new Queue<VertexNode>();
             vertexNode.Color = Color.GRAY;
             queue.Enqueue(vertexNode);
@@ -350,8 +324,7 @@
                 node.Color = Color.BLACK;
             }
         }
-
-        public void PrintBFSArray(Graph graph)
+        public void BFSUsingArray(Graph graph)
         {
             Console.Write("\n[BFS ARRAY START] \n");
             ResetColor(graph);
@@ -363,15 +336,14 @@
                 {
                     Console.Write("connected component: " + (++connectedComponentCount) + "\n");
                     Console.Write("[START] ->\n");
-                    BFSArray(graph, traverse);
+                    BFSUsingArrayHelper(graph, traverse);
                     Console.Write("\n<-[END]\n");
                 }
                 traverse = traverse.Next;
             }
             Console.Write("\n[BFS ARRAY END] \n");
         }
-
-        public void BFSArray(Graph graph, VertexNode vertexNode)
+        private void BFSUsingArrayHelper(Graph graph, VertexNode vertexNode)
         {
             int index = 0;
             VertexNode[] arr = new VertexNode[graph.TotalVertex];

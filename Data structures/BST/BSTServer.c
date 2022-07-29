@@ -395,15 +395,14 @@ void PostorderIterative(struct BST* tree)
 	}
 
 	puts(" [END]\n");*/
-
 }
 
-void BFS(struct BST* tree)
+void BFSUsingArray(struct BST* tree)
 {
-	BFSHelper(tree, tree->root);
+	BFSUsingArrayHelper(tree, tree->root);
 }
 
-void BFSHelper(struct BST* tree, struct Node* root)
+static void BFSUsingArrayHelper(struct BST* tree, struct Node* root)
 {
 	puts("\n[BFS BFS BFS START ]");
 	int index = 0, startQueueIndex = 0;
@@ -429,18 +428,8 @@ void BFSHelper(struct BST* tree, struct Node* root)
 void DFS(struct BST* tree)
 {
 	puts("\n[DFS DFS DFS START ]");
-	DFSHelper(tree, tree->root);
+	PreorderHelper(tree->root);
 	puts("\n[DFS DFS DFS END ]\n");
-}
-
-void DFSHelper(struct BST* tree, struct Node* root)
-{
-	if (root == NULL)
-		return;
-
-	printf(" [%d] ", root->Data);
-	DFSHelper(tree, root->Left);
-	DFSHelper(tree, root->Right);
 }
 
 /*
@@ -454,6 +443,8 @@ Remaining TODO
 
 	Postorder Sucessor
 	Postorder Predcessor
+
+	PostorderIterative
 
 	int GetAllOccurrences(struct BST* tree, int data, struct Node*** p_to_array_of_node_ptrs)
 

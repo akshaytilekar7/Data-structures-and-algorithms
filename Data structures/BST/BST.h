@@ -65,8 +65,7 @@ void InorderIterative(struct BST* tree);
 void PreorderIterative(struct BST* tree);
 void PostorderIterative(struct BST* tree);
 
-void BFS(struct BST* tree);
-void BFSHelper(struct BST* tree, struct Node* root);
+void BFSUsingArray(struct BST* tree); 
+static void BFSUsingArrayHelper(struct BST* tree, struct Node* root);
 
 void DFS(struct BST* tree);
-void DFSHelper(struct BST* tree, struct Node* root);

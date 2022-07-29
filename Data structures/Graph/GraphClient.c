@@ -33,8 +33,6 @@ int main()
 
 
 	graph = CreateGraph();
-	printf("TotalVertex: %d\n", graph->TotalVertex);
-	printf("TotalEdges: %d\n", graph->TotalEdges);
 
 	for (i = 0; i < sizeof(V) / sizeof(V[0]); ++i)
 		assert(AddVertex(graph, V[i]) == SUCCESS);
@@ -76,8 +74,9 @@ int main()
 
 	Print(graph, "graph after adding vertex 7 and adding edges (1, 7), (1, 4), (3, 7), (5, 7):");*/
 
-	//PrintDFS(graph);
-	PrintBFS(graph);
+	DFSRecursive(graph);
+
+	BFSUsingArray(graph);
 
 	puts("\n************ END SUCCESS ************");
 

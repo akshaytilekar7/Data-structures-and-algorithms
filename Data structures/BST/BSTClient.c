@@ -44,7 +44,7 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 
 	//InorderParent(tree);
 
-	BFS(tree);
+	BFSUsingArray(tree);
 	DFS(tree);
 
 	printf("Min is %d\n", GetMinData(tree));
@@ -61,7 +61,7 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 		assert(IsExist(tree, arr[i]));
 	}
 
-	printf("Deleted started\n");
+	printf("Deleted all one by one started\n");
 
 	for (int i = 0; i < deletedSize; i++)
 	{
@@ -69,7 +69,7 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 			printf("something worng may be : no data found : %d\n", arr[i]);
 	}
 
-	printf("Deleted ended\n");
+	printf("Deleted all one by one ended\n");
 
 	for (int i = 0; i < deletedSize; i++)
 		assert(DeleteNode(tree, arr[i]) == DataNotFound);
@@ -77,10 +77,10 @@ void execute(struct BST* tree, int* arr, int size, int deletedSize)
 	Preorder(tree);
 	Inorder(tree);
 	Postorder(tree);
+	BFSUsingArray(tree);
+	DFS(tree);
 
-
-
-	// printf("count is %d\n", tree->count);
+	printf("count is %d\n", tree->count);
 
 	puts("execute end success");
 }

@@ -82,10 +82,12 @@ void PrintVertexNode(struct VertexNode* vertexNode);
 void PrintLinkListNode(struct LinkListNode* linkListNode);
 
 void ResetColor(struct Graph* graph);
-void DFS(struct Graph* graph, struct VertexNode* vertexNode);
-void PrintDFS(struct Graph* graph);
 
-void PrintBFS(struct Graph* graph);
-void BFSArray(struct Graph* graph, struct VertexNode* vertexNode);
+void DFSRecursive(struct Graph* graph);
+static void DFSRecursiveHelper(struct Graph* graph, struct VertexNode* vertexNode);
 
-bool IsExist(struct VertexNode** arr, int size, struct VertexNode* element);
+void BFSUsingArray(struct Graph* graph);
+static void BFSUsingArrayHelper(struct Graph* graph, struct VertexNode* vertexNode);
+
+static bool IsExist(struct VertexNode** arr, int size, struct VertexNode* element);
+
