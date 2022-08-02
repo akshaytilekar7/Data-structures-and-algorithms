@@ -81,7 +81,7 @@ static void BFSUsingArrayHelper(struct Graph* graph, struct VertexNode* vertexNo
 	vertexNode->Color = GRAY;
 	arr[index++] = vertexNode;
 
-	while (index > 0 && arr[queueStartIndex] != NULL)
+	while (index > 0 && queueStartIndex < graph->TotalVertex && arr[queueStartIndex] != NULL)
 	{
 		struct VertexNode* node = arr[queueStartIndex];
 		arr[queueStartIndex] = NULL;
