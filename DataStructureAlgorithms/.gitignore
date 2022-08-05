@@ -33,9 +33,11 @@
 
 
 /.vs
-/ClassPractice/
-/**/Notes.c
-/**/Practice.c
-/CExercise/*.*
-
-
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+/**/bin
+/**/obj
+packages
