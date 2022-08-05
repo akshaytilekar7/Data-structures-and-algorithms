@@ -1,0 +1,3 @@
+D:\Akshay\Data-structures-and-algorithms\DataStructureAlgorithms\DataStructureAlgorithms\obj\Debug\DataStructureAlgorithms.csproj.AssemblyReference.cache
+D:\Akshay\Data-structures-and-algorithms\DataStructureAlgorithms\DataStructureAlgorithms\obj\Debug\DataStructureAlgorithms.csproj.SuggestedBindingRedirects.cache
+D:\Akshay\Data-structures-and-algorithms\DataStructureAlgorithms\DataStructureAlgorithms\obj\Debug\DataStructureAlgorithms.csproj.CoreCompileInputs.cache
