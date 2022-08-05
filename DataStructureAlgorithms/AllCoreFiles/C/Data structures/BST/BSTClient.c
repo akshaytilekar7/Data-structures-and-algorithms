@@ -1,0 +1,86 @@
+#include <stdio.h> 
+#include <stdlib.h>
+#include <assert.h>
+#include "BST.h"
+#include <stdbool.h>
+
+void execute(struct BST* tree, int* arr, int size, int deletedSize);
+
+int main()
+{
+	struct BST* tree = Create();
+
+	int arr1[] = { 100, 50,150,40,60,30,45,55,65,20,46,140,145 };
+	execute(tree, arr1, sizeof(arr1) / sizeof(int), sizeof(arr1) / sizeof(int));
+
+	/*int arr2[] = { 0, 50, 5, 100, 600, 1 };
+	execute(tree, arr2, sizeof(arr2) / sizeof(int), sizeof(arr2) / sizeof(int));*/
+
+	return 1;
+}
+
+void execute(struct BST* tree, int* arr, int size, int deletedSize)
+{
+	printf("\n\nexecute start array size: %d and deleted size: %d\n", size, deletedSize);
+	struct Node* min = GetMinNode(tree);
+	struct Node* max = GetMaxNode(tree);
+
+	printf("Min Data is %d\n", GetMinData(tree));
+	printf("Max Data is %d\n", GetMaxData(tree));
+
+	for (int i = 0; i < size; i++)
+		Insert(tree, arr[i]);
+
+	printf("count is %d :\n", tree->count);
+
+	Preorder(tree);
+	PreorderIterative(tree);
+
+	Inorder(tree);
+	InorderIterative(tree);
+
+	Postorder(tree);
+	//PostorderIterative(tree);
+
+	//InorderParent(tree);
+
+	BFSUsingArray(tree);
+	DFS(tree);
+
+	printf("Min is %d\n", GetMinData(tree));
+	printf("Max is %d\n", GetMaxData(tree));
+
+	assert(SeachNode(tree, 500) == NULL);
+	assert(SeachNode(tree, -854) == NULL);
+	assert(!IsExist(tree, 500));
+	assert(!IsExist(tree, -854));
+
+	for (int i = 0; i < size; i++)
+	{
+		assert(SeachNode(tree, arr[i]) != NULL);
+		assert(IsExist(tree, arr[i]));
+	}
+
+	printf("Deleted all one by one started\n");
+
+	for (int i = 0; i < deletedSize; i++)
+	{
+		if (DeleteNode(tree, arr[i]) != SUCCESS)
+			printf("something worng may be : no data found : %d\n", arr[i]);
+	}
+
+	printf("Deleted all one by one ended\n");
+
+	for (int i = 0; i < deletedSize; i++)
+		assert(DeleteNode(tree, arr[i]) == DataNotFound);
+
+	Preorder(tree);
+	Inorder(tree);
+	Postorder(tree);
+	BFSUsingArray(tree);
+	DFS(tree);
+
+	printf("count is %d\n", tree->count);
+
+	puts("execute end success");
+}

@@ -1,0 +1,14 @@
+1.	swapPairs
+	https://leetcode.com/problems/swap-nodes-in-pairs/
+	see recusrsive approach
+
+2.	Merge LL Recursive
+	https://leetcode.com/problems/merge-k-sorted-lists/discuss/267843/C-20ms-Solution
+
+3.  Stable sort
+	https://leetcode.com/problems/partition-array-according-to-given-pivot/discuss/1747359/Easiest-C%2B%2B-Solution-oror-O(N)-Time-Complexity-oror-O(1)-Space-oror-Simple-to-understand-oror-100-faster
+
+
+
+	
+
