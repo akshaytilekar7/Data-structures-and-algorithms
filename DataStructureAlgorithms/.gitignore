@@ -39,15 +39,3 @@
 /CExercise/*.*
 
 
-*.suo
-*.user
-_ReSharper.*
-bin
-debug
-obj
-packages
-
-/**/bin
-/**/obj
-obj
-packages
