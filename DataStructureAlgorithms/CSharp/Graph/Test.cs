@@ -8,7 +8,7 @@ namespace CSharp.Graph
 {
     public class Test
     {
-        public static void Main(string[] args)
+        public static void Main123(string[] args)
         {
             int i;
 
