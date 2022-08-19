@@ -1,4 +1,4 @@
-namespace GraphAlgo
+namespace GraphAlgoWeightedGraph
 {
     public class Graph
     {

@@ -1,4 +1,4 @@
-namespace GraphAlgo
+namespace GraphAlgoWeightedGraph
 {
     using System.Linq;
     public class GraphServer
