@@ -1,3 +1,15 @@
+/*
+
+    Dijkstras algorithm 
+        is used only to find shortest path.
+
+    Minimum Spanning tree (Prim's or Kruskal's algorithm) 
+        get minimum egdes with minimum edge value.
+
+    Prim [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
+        algorithms are almost the same, except for the "relax function".
+ 
+*/
 namespace GraphAlgo
 {
     public class GraphServer
@@ -295,16 +307,13 @@ namespace GraphAlgo
         }
         public void PrintAllShortestPaths(Graph g)
         {
-            VertexNode pv_node = null;
-            for (pv_node = g.VertexNode.Next; pv_node != g.VertexNode; pv_node = pv_node.Next)
-            {
+            for (VertexNode pv_node = g.VertexNode.Next; pv_node != g.VertexNode; pv_node = pv_node.Next)
                 PrintShortestPath(g, pv_node);
-            }
         }
-        void InitializeSingleSource(Graph g, VertexNode src)
+        void InitializeSingleSource(Graph graph, VertexNode src)
         {
-            VertexNode pv_run = g.VertexNode.Next;
-            while (pv_run != g.VertexNode)
+            VertexNode pv_run = graph.VertexNode.Next;
+            while (pv_run != graph.VertexNode)
             {
                 pv_run.Distance = INFINITY;
                 pv_run.UPrev = null;
@@ -325,44 +334,38 @@ namespace GraphAlgo
         }
         public void Prims(Graph graph, int src)
         {
-            VertexNode traverse = null;
-
             VertexNode srcVertex = SearchVertex(graph.VertexNode, src);
 
-            List<VertexNode> priorotyQueue = new List<VertexNode>();
+            List<VertexNode> priorityQueue = new List<VertexNode>();
 
-            for (traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+            InitializeSingleSource(graph, srcVertex);
+
+            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+                priorityQueue.Add(traverse);
+
+            while (priorityQueue.Count != 0)
             {
-                traverse.Distance = INFINITY;
-                traverse.UPrev = null;
-                priorotyQueue.Add(traverse);
-            }
+                VertexNode vertexNode = priorityQueue.PopMin();
 
-            traverse.Distance = 0;
-
-            while (priorotyQueue.Count != 0)
-            {
-                VertexNode pv_u = priorotyQueue.PopMin();
-
-                for (LinkListNode ph_run = pv_u.LinkList.Next; ph_run != pv_u.LinkList; ph_run = ph_run.Next)
+                for (LinkListNode traverse = vertexNode.LinkList.Next; traverse != vertexNode.LinkList; traverse = traverse.Next)
                 {
-                    if (priorotyQueue.Any(x => x.Vertex == ph_run.Vertex))
+                    if (priorityQueue.Any(x => x.Vertex == traverse.Vertex)) // NEW
                     {
-                        var node = SearchVertex(graph.VertexNode, ph_run.Vertex);
-                        if (node.Distance > ph_run.Weight)
+                        var adjecencyListVertex = SearchVertex(graph.VertexNode, traverse.Vertex);
+                        if (adjecencyListVertex.Distance > traverse.Weight) // NEW 
                         {
-                            node.UPrev = pv_u;
-                            node.Distance = ph_run.Weight;
+                            adjecencyListVertex.UPrev = vertexNode;
+                            adjecencyListVertex.Distance = traverse.Weight;
                         }
                     }
                 }
             }
-            priorotyQueue.Clear();
+            priorityQueue.Clear();
         }
         public void PrintMST(Graph graph, int src)
         {
             VertexNode pv_r = SearchVertex(graph.VertexNode, src);
-            
+
             Console.WriteLine("Vertices in spanning tree");
             Console.Write("[START]<.");
             for (VertexNode pv_run = graph.VertexNode.Next; pv_run != graph.VertexNode; pv_run = pv_run.Next)
