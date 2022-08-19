@@ -27,9 +27,9 @@ namespace GraphAlgo
             Console.WriteLine("TotalVertex " + graph.TotalVertex);
             Console.WriteLine("TotalEdges " + graph.TotalEdges);
 
-            graphServer.dijkstra(graph, 1);
-            graphServer.print_all_shortest_paths(graph);
-            Console.Write("\n########### END SUCCESS #########");
+            graphServer.Dijkstra(graph, 1);
+            graphServer.PrintAllShortestPaths(graph);
+            Console.Write("\n########### END SUCCESS #");
 
         }
     }

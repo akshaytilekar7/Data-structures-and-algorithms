@@ -91,19 +91,16 @@ namespace GraphAlgo
         }
         public int RemoveVertex(Graph graph, int vertex)
         {
-            LinkListNode traverseNext = null, edge = null, traverse = null;
-            VertexNode adjecencyVertex = null, deletedHeadNode = null;
-
-            deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
+            VertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
             if (deletedHeadNode == null)
                 return (InvalidVertex);
 
-            traverse = deletedHeadNode.LinkList.Next;
+            LinkListNode traverse = deletedHeadNode.LinkList.Next;
             while (traverse != deletedHeadNode.LinkList)
             {
-                traverseNext = traverse.Next;
-                adjecencyVertex = SearchVertex(graph.VertexNode, traverse.Vertex);
-                edge = SearchNode(adjecencyVertex.LinkList, vertex);
+                LinkListNode traverseNext = traverse.Next;
+                VertexNode adjecencyVertex = SearchVertex(graph.VertexNode, traverse.Vertex);
+                LinkListNode edge = SearchNode(adjecencyVertex.LinkList, vertex);
                 if (edge == null)
                     return (GraphIsCorrupted);
                 GenericDeleteNode(edge);
@@ -248,35 +245,31 @@ namespace GraphAlgo
                 traverse = traverse.Next;
             }
         }
-        public int dijkstra(Graph g, int s)
+        public int Dijkstra(Graph graph, int src)
         {
-            VertexNode pv_s = SearchVertex(g.VertexNode, s);
-            if (pv_s == null)
-                return (InvalidVertex);
+            VertexNode srcVertex = SearchVertex(graph.VertexNode, src);
+            if (srcVertex == null)
+                return InvalidVertex;
 
-            initialize_single_source(g, pv_s);
+            InitializeSingleSource(graph, srcVertex);
 
             List<VertexNode> priorityQueue = new List<VertexNode>();
-
-            VertexNode pv_run;
-            for (pv_run = g.VertexNode.Next; pv_run != g.VertexNode; pv_run = pv_run.Next)
-                priorityQueue.Add(pv_run);
+            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+                priorityQueue.Add(traverse);
 
             while (priorityQueue.Count != 0)
             {
-                var min = priorityQueue.OrderBy(p => p.Distance).First();
-                priorityQueue.Remove(min);
-                VertexNode pv_u = min;
-                for (LinkListNode ph_run = pv_u.LinkList.Next; ph_run != pv_u.LinkList; ph_run = ph_run.Next)
+                VertexNode vertexNode = priorityQueue.PopMin();
+                for (LinkListNode traverse = vertexNode.LinkList.Next; traverse != vertexNode.LinkList; traverse = traverse.Next)
                 {
-                    VertexNode pv_of_ph = SearchVertex(g.VertexNode, ph_run.Vertex);
-                    relax(g, pv_u, pv_of_ph);
+                    VertexNode adjecencyListVertex = SearchVertex(graph.VertexNode, traverse.Vertex);
+                    Relax(vertexNode, adjecencyListVertex);
                 }
             }
             priorityQueue.Clear();
             return (SUCCESS);
         }
-        public void print_shortest_path(Graph g, VertexNode pv_node)
+        public void PrintShortestPath(Graph g, VertexNode pv_node)
         {
             Stack<VertexNode> pvq_stack = new Stack<VertexNode>();
             int curr_vertex_number = pv_node.Vertex;
@@ -300,15 +293,15 @@ namespace GraphAlgo
 
             pvq_stack.Clear();
         }
-        public void print_all_shortest_paths(Graph g)
+        public void PrintAllShortestPaths(Graph g)
         {
             VertexNode pv_node = null;
             for (pv_node = g.VertexNode.Next; pv_node != g.VertexNode; pv_node = pv_node.Next)
             {
-                print_shortest_path(g, pv_node);
+                PrintShortestPath(g, pv_node);
             }
         }
-        void initialize_single_source(Graph g, VertexNode pv_s)
+        void InitializeSingleSource(Graph g, VertexNode pv_s)
         {
             VertexNode pv_run = g.VertexNode.Next;
             while (pv_run != g.VertexNode)
@@ -319,18 +312,27 @@ namespace GraphAlgo
             }
             pv_s.Distance = 0;
         }
-        void relax(Graph g, VertexNode pv_u, VertexNode pv_v)
+        void Relax(VertexNode src, VertexNode dest)
         {
-            Console.WriteLine("C# Relax");
-            LinkListNode ph_node = SearchNode(pv_u.LinkList, pv_v.Vertex);
-            int w = ph_node.Weight;
+            LinkListNode node = SearchNode(src.LinkList, dest.Vertex);
+            int weight = node.Weight;
 
-            if (pv_v.Distance > pv_u.Distance + w)
+            if (dest.Distance > src.Distance + weight)
             {
-                pv_v.Distance = pv_u.Distance + w;
-                pv_v.UPrev = pv_u;
+                dest.Distance = src.Distance + weight;
+                dest.UPrev = src;
             }
         }
 
+    }
+
+    public static class Extenstion
+    {
+        public static VertexNode PopMin(this List<VertexNode> priorityQueue)
+        {
+            var min = priorityQueue.OrderBy(p => p.Distance).First();
+            priorityQueue.Remove(min);
+            return min;
+        }
     }
 }
