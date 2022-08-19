@@ -301,7 +301,7 @@ namespace GraphAlgo
                 PrintShortestPath(g, pv_node);
             }
         }
-        void InitializeSingleSource(Graph g, VertexNode pv_s)
+        void InitializeSingleSource(Graph g, VertexNode src)
         {
             VertexNode pv_run = g.VertexNode.Next;
             while (pv_run != g.VertexNode)
@@ -310,7 +310,7 @@ namespace GraphAlgo
                 pv_run.UPrev = null;
                 pv_run = pv_run.Next;
             }
-            pv_s.Distance = 0;
+            src.Distance = 0;
         }
         void Relax(VertexNode src, VertexNode dest)
         {
@@ -323,10 +323,62 @@ namespace GraphAlgo
                 dest.UPrev = src;
             }
         }
+        public void Prims(Graph graph, int src)
+        {
+            VertexNode traverse = null;
 
+            VertexNode srcVertex = SearchVertex(graph.VertexNode, src);
+
+            List<VertexNode> priorotyQueue = new List<VertexNode>();
+
+            for (traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+            {
+                traverse.Distance = INFINITY;
+                traverse.UPrev = null;
+                priorotyQueue.Add(traverse);
+            }
+
+            traverse.Distance = 0;
+
+            while (priorotyQueue.Count != 0)
+            {
+                VertexNode pv_u = priorotyQueue.PopMin();
+
+                for (LinkListNode ph_run = pv_u.LinkList.Next; ph_run != pv_u.LinkList; ph_run = ph_run.Next)
+                {
+                    if (priorotyQueue.Any(x => x.Vertex == ph_run.Vertex))
+                    {
+                        var node = SearchVertex(graph.VertexNode, ph_run.Vertex);
+                        if (node.Distance > ph_run.Weight)
+                        {
+                            node.UPrev = pv_u;
+                            node.Distance = ph_run.Weight;
+                        }
+                    }
+                }
+            }
+            priorotyQueue.Clear();
+        }
+        public void PrintMST(Graph graph, int src)
+        {
+            VertexNode pv_r = SearchVertex(graph.VertexNode, src);
+            
+            Console.WriteLine("Vertices in spanning tree");
+            Console.Write("[START]<.");
+            for (VertexNode pv_run = graph.VertexNode.Next; pv_run != graph.VertexNode; pv_run = pv_run.Next)
+                Console.Write("[" + pv_run.Vertex + "]<.");
+            Console.WriteLine("[END]");
+
+            Console.Write("Edges in spanning tree");
+            Console.Write("[START]<.");
+            for (VertexNode pv_run = graph.VertexNode.Next; pv_run != graph.VertexNode; pv_run = pv_run.Next)
+                if (pv_run != pv_r)
+                    Console.Write("[" + pv_run.Vertex + "-" + pv_run.UPrev.Vertex + "]<.");
+            Console.WriteLine("[END]");
+        }
     }
 
-    public static class Extenstion
+    public static class Extention
     {
         public static VertexNode PopMin(this List<VertexNode> priorityQueue)
         {

@@ -28,7 +28,11 @@ namespace GraphAlgo
             Console.WriteLine("TotalEdges " + graph.TotalEdges);
 
             graphServer.Dijkstra(graph, 1);
-            graphServer.PrintAllShortestPaths(graph);
+            //graphServer.PrintAllShortestPaths(graph);
+
+            //graphServer.Prims(graph, 1);
+            graphServer.PrintMST(graph, 1);
+
             Console.Write("\n########### END SUCCESS #");
 
         }
