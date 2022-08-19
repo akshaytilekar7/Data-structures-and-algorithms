@@ -8,6 +8,9 @@
 
     Prim [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
         algorithms are almost the same, except for the "relax function".
+
+    GMST and MSTPrim
+        MSTPrim ha GMST ahe
  
 */
 namespace GraphAlgo
@@ -347,6 +350,8 @@ namespace GraphAlgo
             {
                 VertexNode vertexNode = priorityQueue.PopMin();
 
+                // vertexNode sagle neghbours / adj list in PQ madhe ahe - te CROSSING EDGES thartat
+                // and we select least weight edge - which is safe edge - GMST
                 for (LinkListNode traverse = vertexNode.LinkList.Next; traverse != vertexNode.LinkList; traverse = traverse.Next)
                 {
                     if (priorityQueue.Any(x => x.Vertex == traverse.Vertex)) // NEW
@@ -364,19 +369,19 @@ namespace GraphAlgo
         }
         public void PrintMST(Graph graph, int src)
         {
-            VertexNode pv_r = SearchVertex(graph.VertexNode, src);
+            VertexNode srcVertex = SearchVertex(graph.VertexNode, src);
 
             Console.WriteLine("Vertices in spanning tree");
             Console.Write("[START]<.");
-            for (VertexNode pv_run = graph.VertexNode.Next; pv_run != graph.VertexNode; pv_run = pv_run.Next)
-                Console.Write("[" + pv_run.Vertex + "]<.");
+            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+                Console.Write("[" + traverse.Vertex + "]<.");
             Console.WriteLine("[END]");
 
             Console.Write("Edges in spanning tree");
             Console.Write("[START]<.");
-            for (VertexNode pv_run = graph.VertexNode.Next; pv_run != graph.VertexNode; pv_run = pv_run.Next)
-                if (pv_run != pv_r)
-                    Console.Write("[" + pv_run.Vertex + "-" + pv_run.UPrev.Vertex + "]<.");
+            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+                if (traverse != srcVertex)
+                    Console.Write("[" + traverse.Vertex + "-" + traverse.UPrev.Vertex + "]<.");
             Console.WriteLine("[END]");
         }
     }
