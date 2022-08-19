@@ -28,6 +28,7 @@ namespace GraphAlgo
         public LinkListNode LinkList;
 
         public Color Color;
+
         public VertexNode UPrev;
         public int Distance;
 
@@ -47,12 +48,5 @@ namespace GraphAlgo
         public VertexNode Vertex;
         public Dijkstra UPrev;
         public int Distance;
-    };
-
-    public class vnodeptr_node
-    {
-        VertexNode pv_node;
-        vnodeptr_node Prev;
-        vnodeptr_node Next;
     };
 }

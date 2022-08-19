@@ -267,8 +267,6 @@ namespace GraphAlgo
                 var min = priorityQueue.OrderBy(p => p.Distance).First();
                 priorityQueue.Remove(min);
                 VertexNode pv_u = min;
-                Console.WriteLine("DDDD : [" + pv_u.Vertex + "]");
-
                 for (LinkListNode ph_run = pv_u.LinkList.Next; ph_run != pv_u.LinkList; ph_run = ph_run.Next)
                 {
                     VertexNode pv_of_ph = SearchVertex(g.VertexNode, ph_run.Vertex);
