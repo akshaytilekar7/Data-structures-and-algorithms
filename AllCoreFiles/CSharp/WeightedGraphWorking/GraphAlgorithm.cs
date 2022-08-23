@@ -73,8 +73,10 @@ namespace GraphAlgo
             Console.Write("Shortest path to [" + srcVertexNumber + "]\n");
             Console.Write("[BEGINNING]<.");
             while (stack.Count != 0)
-                Console.Write("[" + stack.Pop().Vertex + "]<.");
-
+            {
+                int x = stack.Pop().Vertex;
+                Console.Write("[" + x + "]<.");
+            }
             Console.Write("[COST:" + srcVertexDistance + "]\n");
             Console.WriteLine("[END]");
 

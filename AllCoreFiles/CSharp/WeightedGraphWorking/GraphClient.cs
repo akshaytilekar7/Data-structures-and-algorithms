@@ -28,8 +28,12 @@ namespace GraphAlgo
             Console.WriteLine("TotalEdges " + graph.TotalEdges);
 
             GraphAlgorithm graphAlgorithm = new GraphAlgorithm();
-            graphAlgorithm.Dijkstra(graph, 1);
-            graphAlgorithm.PrintAllShortestPaths(graph);
+            
+            var destVer = graphManagement.SearchVertex(graph.VertexNode, 3);
+            graphAlgorithm.Dijkstra(graph, destVer.Vertex);
+            var srcVer = graphManagement.SearchVertex(graph.VertexNode, 1);
+            graphAlgorithm.PrintShortestPath(srcVer);
+            //graphAlgorithm.PrintAllShortestPaths(graph);
 
             //graphAlgorithm.Prims(graph, 1);
             //graphAlgorithm.PrintMST(graph, 1);

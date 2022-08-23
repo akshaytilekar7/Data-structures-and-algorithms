@@ -33,8 +33,13 @@ namespace GraphAlgo
         public Color Color;
         public VerticleVertexNode PrevShortest;
         public int Distance;
-    };
 
+        public override string ToString()
+        {
+            var s = PrevShortest == null ? -1 : PrevShortest.Vertex;
+            return "vertex " + Vertex + " distance: " + Distance + " Prev:" + s;
+        }
+    }
     public class Edge
     {
         public int VertexStart;
