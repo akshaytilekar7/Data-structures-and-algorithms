@@ -5,7 +5,6 @@ namespace GraphAlgo
         static void Main(string[] args)
         {
             int i;
-            GraphServer graphServer = new GraphServer();
 
             int[] V = { 1, 2, 3, 4 };
             Edge[] E = {
@@ -15,23 +14,25 @@ namespace GraphAlgo
                 new Edge() { VertexStart = 4, VertexEnd = 3, Weight = 1 }
             };
 
-            Graph graph = graphServer.CreateGraph();
+            GraphManagement graphManagement = new GraphManagement();
+            Graph graph = graphManagement.CreateGraph();
 
             for (i = 0; i < 4; ++i)
-                graphServer.AddVertex(graph, V[i]);
+                graphManagement.AddVertex(graph, V[i]);
 
             for (i = 0; i < 4; ++i)
-                graphServer.AddEdge(graph, E[i].VertexStart, E[i].VertexEnd, E[i].Weight);
+                graphManagement.AddEdge(graph, E[i].VertexStart, E[i].VertexEnd, E[i].Weight);
 
-            graphServer.Print(graph, "Initial State:");
+            graphManagement.Print(graph, "Initial State:");
             Console.WriteLine("TotalVertex " + graph.TotalVertex);
             Console.WriteLine("TotalEdges " + graph.TotalEdges);
 
-            //graphServer.Dijkstra(graph, 1);
-            //graphServer.PrintAllShortestPaths(graph);
+            GraphAlgorithm graphAlgorithm = new GraphAlgorithm();
+            graphAlgorithm.Dijkstra(graph, 1);
+            graphAlgorithm.PrintAllShortestPaths(graph);
 
-            graphServer.Prims(graph, 1);
-            graphServer.PrintMST(graph, 1);
+            graphAlgorithm.Prims(graph, 1);
+            graphAlgorithm.PrintMST(graph, 1);
 
             Console.Write("\n########### END SUCCESS #");
 
