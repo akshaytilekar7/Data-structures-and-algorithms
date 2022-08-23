@@ -4,15 +4,15 @@ namespace GraphAlgo
     {
         public int TotalVertex;
         public int TotalEdges;
-        public VertexNode VertexNode;
+        public VerticleVertexNode VertexNode;
     };
 
-    public class LinkListNode
+    public class HorizontalLinkListNode
     {
         public int Vertex;
         public int Weight;
-        public LinkListNode Prev;
-        public LinkListNode Next;
+        public HorizontalLinkListNode Prev;
+        public HorizontalLinkListNode Next;
     };
 
     public enum Color
@@ -22,18 +22,17 @@ namespace GraphAlgo
         BLACK
     };
 
-    public class VertexNode
+    public class VerticleVertexNode
     {
         public int Vertex;
-        public LinkListNode LinkList;
+        public HorizontalLinkListNode LinkList;
+
+        public VerticleVertexNode Prev;
+        public VerticleVertexNode Next;
 
         public Color Color;
-
-        public VertexNode UPrev;
+        public VerticleVertexNode PrevShortest;
         public int Distance;
-
-        public VertexNode Prev;
-        public VertexNode Next;
     };
 
     public class Edge
@@ -41,12 +40,5 @@ namespace GraphAlgo
         public int VertexStart;
         public int VertexEnd;
         public int Weight;
-    };
-
-    public class Dijkstra
-    {
-        public VertexNode Vertex;
-        public Dijkstra UPrev;
-        public int Distance;
     };
 }

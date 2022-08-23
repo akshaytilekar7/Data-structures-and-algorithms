@@ -24,7 +24,7 @@ namespace GraphAlgo
 
         public void ResetColor(Graph graph)
         {
-            VertexNode traverse = graph.VertexNode.Next;
+            VerticleVertexNode traverse = graph.VertexNode.Next;
             while (traverse != graph.VertexNode)
             {
                 traverse.Color = Color.WHITE;
@@ -33,104 +33,104 @@ namespace GraphAlgo
         }
         public int Dijkstra(Graph graph, int src)
         {
-            VertexNode srcVertex = graphManagement.SearchVertex(graph.VertexNode, src);
+            VerticleVertexNode srcVertex = graphManagement.SearchVertex(graph.VertexNode, src);
             if (srcVertex == null)
                 return InvalidVertex;
 
+            // src to 0 and all other to infinity
             InitializeSingleSource(graph, srcVertex);
 
-            List<VertexNode> priorityQueue = new List<VertexNode>();
-            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+            // add all vertixes in prioroty queue
+            List<VerticleVertexNode> priorityQueue = new List<VerticleVertexNode>();
+            for (VerticleVertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
                 priorityQueue.Add(traverse);
 
             while (priorityQueue.Count != 0)
             {
-                VertexNode vertexNode = priorityQueue.PopMin();
-                for (LinkListNode traverse = vertexNode.LinkList.Next; traverse != vertexNode.LinkList; traverse = traverse.Next)
+                // Pop min
+                VerticleVertexNode min = priorityQueue.PopMin();
+                for (HorizontalLinkListNode traverse = min.LinkList.Next; traverse != min.LinkList; traverse = traverse.Next)
                 {
-                    VertexNode adjecencyListVertex = graphManagement.SearchVertex(graph.VertexNode, traverse.Vertex);
-                    Relax(vertexNode, adjecencyListVertex);
+                    VerticleVertexNode dest = graphManagement.SearchVertex(graph.VertexNode, traverse.Vertex);
+                    Relax(min, dest);
                 }
             }
             priorityQueue.Clear();
-            return (SUCCESS);
+            return SUCCESS;
         }
-        public void PrintShortestPath(Graph g, VertexNode pv_node)
+        public void PrintShortestPath(VerticleVertexNode vertexNode)
         {
-            Stack<VertexNode> pvq_stack = new Stack<VertexNode>();
-            int curr_vertex_number = pv_node.Vertex;
-            double d = pv_node.Distance;
+            Stack<VerticleVertexNode> stack = new Stack<VerticleVertexNode>();
+            int srcVertexNumber = vertexNode.Vertex;
+            int srcVertexDistance = vertexNode.Distance;
 
-            while (pv_node != null)
+            while (vertexNode != null)
             {
-                pvq_stack.Push(pv_node);
-                pv_node = pv_node.UPrev;
+                stack.Push(vertexNode);
+                vertexNode = vertexNode.PrevShortest;
             }
 
-            Console.Write("Shortest path to [" + curr_vertex_number + "]\n");
+            Console.Write("Shortest path to [" + srcVertexNumber + "]\n");
             Console.Write("[BEGINNING]<.");
-            while (pvq_stack.Count != 0)
-            {
-                VertexNode pv_poped_node = pvq_stack.Pop();
-                Console.Write("[" + pv_poped_node.Vertex + "]<.");
-            }
-            Console.Write("[COST:" + d + "]\n");
+            while (stack.Count != 0)
+                Console.Write("[" + stack.Pop().Vertex + "]<.");
+
+            Console.Write("[COST:" + srcVertexDistance + "]\n");
             Console.WriteLine("[END]");
 
-            pvq_stack.Clear();
+            stack.Clear();
         }
         public void PrintAllShortestPaths(Graph g)
         {
-            for (VertexNode pv_node = g.VertexNode.Next; pv_node != g.VertexNode; pv_node = pv_node.Next)
-                PrintShortestPath(g, pv_node);
+            for (VerticleVertexNode pv_node = g.VertexNode.Next; pv_node != g.VertexNode; pv_node = pv_node.Next)
+                PrintShortestPath(pv_node);
         }
-        void InitializeSingleSource(Graph graph, VertexNode src)
+        void InitializeSingleSource(Graph graph, VerticleVertexNode src)
         {
-            VertexNode pv_run = graph.VertexNode.Next;
-            while (pv_run != graph.VertexNode)
+            VerticleVertexNode traverse = graph.VertexNode.Next;
+            while (traverse != graph.VertexNode)
             {
-                pv_run.Distance = INFINITY;
-                pv_run.UPrev = null;
-                pv_run = pv_run.Next;
+                traverse.Distance = INFINITY;
+                traverse.PrevShortest = null;
+                traverse = traverse.Next;
             }
             src.Distance = 0;
         }
-        void Relax(VertexNode src, VertexNode dest)
+        void Relax(VerticleVertexNode srcVertex, VerticleVertexNode destVetex)
         {
-            LinkListNode node = graphManagement.SearchNode(src.LinkList, dest.Vertex);
-            int weight = node.Weight;
+            HorizontalLinkListNode destNode = graphManagement.SearchNode(srcVertex.LinkList, destVetex.Vertex);
 
-            if (dest.Distance > src.Distance + weight)
+            if (destVetex.Distance > srcVertex.Distance + destNode.Weight)
             {
-                dest.Distance = src.Distance + weight;
-                dest.UPrev = src;
+                destVetex.Distance = srcVertex.Distance + destNode.Weight;
+                destVetex.PrevShortest = srcVertex;
             }
         }
         public void Prims(Graph graph, int src)
         {
-            VertexNode srcVertex = graphManagement.SearchVertex(graph.VertexNode, src);
+            VerticleVertexNode srcVertex = graphManagement.SearchVertex(graph.VertexNode, src);
 
-            List<VertexNode> priorityQueue = new List<VertexNode>();
+            List<VerticleVertexNode> priorityQueue = new List<VerticleVertexNode>();
 
             InitializeSingleSource(graph, srcVertex);
 
-            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+            for (VerticleVertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
                 priorityQueue.Add(traverse);
 
             while (priorityQueue.Count != 0)
             {
-                VertexNode vertexNode = priorityQueue.PopMin();
+                VerticleVertexNode vertexNode = priorityQueue.PopMin();
 
                 // vertexNode sagle neghbours / adj list in PQ madhe ahe - te CROSSING EDGES thartat
                 // and we select least weight edge - which is safe edge - GMST
-                for (LinkListNode traverse = vertexNode.LinkList.Next; traverse != vertexNode.LinkList; traverse = traverse.Next)
+                for (HorizontalLinkListNode traverse = vertexNode.LinkList.Next; traverse != vertexNode.LinkList; traverse = traverse.Next)
                 {
                     if (priorityQueue.Any(x => x.Vertex == traverse.Vertex)) // NEW
                     {
                         var adjecencyListVertex = graphManagement.SearchVertex(graph.VertexNode, traverse.Vertex);
                         if (adjecencyListVertex.Distance > traverse.Weight) // NEW 
                         {
-                            adjecencyListVertex.UPrev = vertexNode;
+                            adjecencyListVertex.PrevShortest = vertexNode;
                             adjecencyListVertex.Distance = traverse.Weight;
                         }
                     }
@@ -140,26 +140,26 @@ namespace GraphAlgo
         }
         public void PrintMST(Graph graph, int src)
         {
-            VertexNode srcVertex = graphManagement.SearchVertex(graph.VertexNode, src);
+            VerticleVertexNode srcVertex = graphManagement.SearchVertex(graph.VertexNode, src);
 
             Console.WriteLine("Vertices in spanning tree");
             Console.Write("[START]<.");
-            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+            for (VerticleVertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
                 Console.Write("[" + traverse.Vertex + "]<.");
             Console.WriteLine("[END]");
 
             Console.Write("Edges in spanning tree");
             Console.Write("[START]<.");
-            for (VertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
+            for (VerticleVertexNode traverse = graph.VertexNode.Next; traverse != graph.VertexNode; traverse = traverse.Next)
                 if (traverse != srcVertex)
-                    Console.Write("[" + traverse.Vertex + "-" + traverse.UPrev.Vertex + "]<.");
+                    Console.Write("[" + traverse.Vertex + "-" + traverse.PrevShortest.Vertex + "]<.");
             Console.WriteLine("[END]");
         }
     }
 
     public static class Extention
     {
-        public static VertexNode PopMin(this List<VertexNode> priorityQueue)
+        public static VerticleVertexNode PopMin(this List<VerticleVertexNode> priorityQueue)
         {
             var min = priorityQueue.OrderBy(p => p.Distance).First();
             priorityQueue.Remove(min);

@@ -31,10 +31,10 @@ namespace GraphAlgo
             graphAlgorithm.Dijkstra(graph, 1);
             graphAlgorithm.PrintAllShortestPaths(graph);
 
-            graphAlgorithm.Prims(graph, 1);
-            graphAlgorithm.PrintMST(graph, 1);
+            //graphAlgorithm.Prims(graph, 1);
+            //graphAlgorithm.PrintMST(graph, 1);
 
-            Console.Write("\n########### END SUCCESS #");
+            Console.Write("\n########### END SUCCESS #$$$$$$$$$$$");
 
         }
     }

@@ -17,9 +17,9 @@
             graph.TotalVertex = 0;
             return graph;
         }
-        public VertexNode CreateHeadNode()
+        public VerticleVertexNode CreateHeadNode()
         {
-            VertexNode vertexNode = new VertexNode();
+            VerticleVertexNode vertexNode = new VerticleVertexNode();
             vertexNode.LinkList = CreateNode();
             vertexNode.Next = vertexNode;
             vertexNode.Prev = vertexNode;
@@ -27,9 +27,9 @@
             vertexNode.Color = Color.WHITE;
             return vertexNode;
         }
-        public LinkListNode CreateNode()
+        public HorizontalLinkListNode CreateNode()
         {
-            LinkListNode linkListNode = new LinkListNode();
+            HorizontalLinkListNode linkListNode = new HorizontalLinkListNode();
             linkListNode.Next = linkListNode;
             linkListNode.Prev = linkListNode;
             linkListNode.Vertex = 0;
@@ -47,16 +47,16 @@
         }
         public int AddEdge(Graph graph, int vertexStart, int vertexEnd, int weight)
         {
-            VertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
+            VerticleVertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
             if (vertexStartHead == null)
                 return (InvalidVertex);
 
-            VertexNode vertexEndHead = SearchVertex(graph.VertexNode, vertexEnd);
+            VerticleVertexNode vertexEndHead = SearchVertex(graph.VertexNode, vertexEnd);
             if (vertexEndHead == null)
                 return (InvalidVertex);
 
-            LinkListNode edgeInStart = SearchNode(vertexStartHead.LinkList, vertexEnd);
-            LinkListNode edgeInEnd = SearchNode(vertexEndHead.LinkList, vertexStart);
+            HorizontalLinkListNode edgeInStart = SearchNode(vertexStartHead.LinkList, vertexEnd);
+            HorizontalLinkListNode edgeInEnd = SearchNode(vertexEndHead.LinkList, vertexStart);
 
             if (edgeInStart != null && edgeInEnd != null)
                 return (EdgeAlreadyExists);
@@ -73,14 +73,14 @@
         }
         public int RemoveVertexOtherWay(Graph graph, int vertex)
         {
-            VertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
+            VerticleVertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
             if (deletedHeadNode == null)
                 return (InvalidVertex);
 
-            LinkListNode traverse = deletedHeadNode.LinkList.Next;
+            HorizontalLinkListNode traverse = deletedHeadNode.LinkList.Next;
             while (traverse != deletedHeadNode.LinkList)
             {
-                LinkListNode traverseNext = traverse.Next;
+                HorizontalLinkListNode traverseNext = traverse.Next;
                 RemoveEdge(graph, traverse.Vertex, vertex);
                 traverse = traverseNext;
             }
@@ -91,16 +91,16 @@
         }
         public int RemoveVertex(Graph graph, int vertex)
         {
-            VertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
+            VerticleVertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
             if (deletedHeadNode == null)
                 return (InvalidVertex);
 
-            LinkListNode traverse = deletedHeadNode.LinkList.Next;
+            HorizontalLinkListNode traverse = deletedHeadNode.LinkList.Next;
             while (traverse != deletedHeadNode.LinkList)
             {
-                LinkListNode traverseNext = traverse.Next;
-                VertexNode adjecencyVertex = SearchVertex(graph.VertexNode, traverse.Vertex);
-                LinkListNode edge = SearchNode(adjecencyVertex.LinkList, vertex);
+                HorizontalLinkListNode traverseNext = traverse.Next;
+                VerticleVertexNode adjecencyVertex = SearchVertex(graph.VertexNode, traverse.Vertex);
+                HorizontalLinkListNode edge = SearchNode(adjecencyVertex.LinkList, vertex);
                 if (edge == null)
                     return (GraphIsCorrupted);
                 GenericDeleteNode(edge);
@@ -115,16 +115,16 @@
         }
         public int RemoveEdge(Graph graph, int vertexStart, int vertexEnd)
         {
-            VertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
+            VerticleVertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
             if (vertexStartHead == null)
                 return (InvalidVertex);
 
-            VertexNode vertexEndHead = SearchVertex(graph.VertexNode, vertexEnd);
+            VerticleVertexNode vertexEndHead = SearchVertex(graph.VertexNode, vertexEnd);
             if (vertexEndHead == null)
                 return (InvalidVertex);
 
-            LinkListNode edgeInStart = SearchNode(vertexStartHead.LinkList, vertexEnd);
-            LinkListNode edgeInEnd = SearchNode(vertexEndHead.LinkList, vertexStart);
+            HorizontalLinkListNode edgeInStart = SearchNode(vertexStartHead.LinkList, vertexEnd);
+            HorizontalLinkListNode edgeInEnd = SearchNode(vertexEndHead.LinkList, vertexStart);
 
             if (edgeInStart == null && edgeInEnd == null)
                 return (InvalidEdge);
@@ -143,10 +143,10 @@
             Console.WriteLine(msg);
             PrintVertexNode(graph.VertexNode);
         }
-        public void PrintVertexNode(VertexNode vertexNode)
+        public void PrintVertexNode(VerticleVertexNode vertexNode)
         {
             Console.Write("[START] \n");
-            VertexNode travese = vertexNode.Next;
+            VerticleVertexNode travese = vertexNode.Next;
             while (travese != vertexNode)
             {
                 Console.Write(" [" + travese.Vertex + "] . ");
@@ -155,9 +155,9 @@
             }
             Console.Write("[END]\n");
         }
-        public void PrintLinkListNode(LinkListNode linkListNode)
+        public void PrintLinkListNode(HorizontalLinkListNode linkListNode)
         {
-            LinkListNode travese = linkListNode.Next;
+            HorizontalLinkListNode travese = linkListNode.Next;
             while (travese != linkListNode)
             {
                 Console.Write(" [" + travese.Vertex + "] ");
@@ -165,13 +165,13 @@
             }
             Console.Write("\n");
         }
-        public bool IsVertexExist(VertexNode vertexNode, int vertex)
+        public bool IsVertexExist(VerticleVertexNode vertexNode, int vertex)
         {
             return SearchVertex(vertexNode, vertex) != null;
         }
-        public VertexNode SearchVertex(VertexNode vertexNode, int vertex)
+        public VerticleVertexNode SearchVertex(VerticleVertexNode vertexNode, int vertex)
         {
-            VertexNode traverse = vertexNode.Next;
+            VerticleVertexNode traverse = vertexNode.Next;
 
             while (traverse != vertexNode)
             {
@@ -182,31 +182,31 @@
             }
             return null;
         }
-        public void GenericInsertVertex(VertexNode prev, VertexNode newNode, VertexNode Next)
+        public void GenericInsertVertex(VerticleVertexNode prev, VerticleVertexNode newNode, VerticleVertexNode Next)
         {
             newNode.Next = Next;
             newNode.Prev = prev;
             prev.Next = newNode;
             Next.Prev = newNode;
         }
-        public void GenericDeleteVertex(VertexNode deletedNode)
+        public void GenericDeleteVertex(VerticleVertexNode deletedNode)
         {
             deletedNode.Prev.Next = deletedNode.Next;
             deletedNode.Next.Prev = deletedNode.Prev;
         }
-        public void InsertAtEndVertex(VertexNode vertexNode, int vertex)
+        public void InsertAtEndVertex(VerticleVertexNode vertexNode, int vertex)
         {
-            VertexNode newNode = CreateHeadNode();
+            VerticleVertexNode newNode = CreateHeadNode();
             newNode.Vertex = vertex;
             GenericInsertVertex(vertexNode.Prev, newNode, vertexNode);
         }
-        public bool IsNodeExist(LinkListNode linkListNode, int vertex)
+        public bool IsNodeExist(HorizontalLinkListNode linkListNode, int vertex)
         {
             return SearchNode(linkListNode, vertex) != null;
         }
-        public LinkListNode SearchNode(LinkListNode linkListNode, int vertex)
+        public HorizontalLinkListNode SearchNode(HorizontalLinkListNode linkListNode, int vertex)
         {
-            LinkListNode traverse = linkListNode.Next;
+            HorizontalLinkListNode traverse = linkListNode.Next;
 
             while (traverse != linkListNode)
             {
@@ -217,21 +217,21 @@
             }
             return null;
         }
-        public void GenericInsertNode(LinkListNode prev, LinkListNode newNode, LinkListNode Next)
+        public void GenericInsertNode(HorizontalLinkListNode prev, HorizontalLinkListNode newNode, HorizontalLinkListNode Next)
         {
             newNode.Next = Next;
             newNode.Prev = prev;
             prev.Next = newNode;
             Next.Prev = newNode;
         }
-        public void GenericDeleteNode(LinkListNode deletedNode)
+        public void GenericDeleteNode(HorizontalLinkListNode deletedNode)
         {
             deletedNode.Prev.Next = deletedNode.Next;
             deletedNode.Next.Prev = deletedNode.Prev;
         }
-        public void InsertAtEndNode(LinkListNode linkListNode, int vertex, int weight)
+        public void InsertAtEndNode(HorizontalLinkListNode linkListNode, int vertex, int weight)
         {
-            LinkListNode newNode = CreateNode();
+            HorizontalLinkListNode newNode = CreateNode();
             newNode.Vertex = vertex;
             newNode.Weight = weight;
             GenericInsertNode(linkListNode.Prev, newNode, linkListNode);
