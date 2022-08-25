@@ -46,4 +46,14 @@ namespace GraphAlgo
         public int VertexEnd;
         public int Weight;
     };
+
+    public static class Extention
+    {
+        public static VerticleVertexNode PopMin(this List<VerticleVertexNode> priorityQueue)
+        {
+            var min = priorityQueue.OrderBy(p => p.Distance).First();
+            priorityQueue.Remove(min);
+            return min;
+        }
+    }
 }

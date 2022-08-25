@@ -1,4 +1,19 @@
-﻿namespace GraphAlgo
+﻿/*
+
+    Dijkstras algorithm 
+        is used only to find shortest path.
+
+    Minimum Spanning tree (Prim's or Kruskal's algorithm) 
+        get minimum egdes with minimum edge value.
+
+    Prim [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
+        algorithms are almost the same, except for the "relax function".
+
+    GMST and MSTPrim
+        MSTPrim ha GMST ahe
+ 
+*/
+namespace GraphAlgo
 {
     public class GraphManagement
     {
@@ -9,13 +24,13 @@
         int InvalidEdge = 5;
         int GraphIsCorrupted = 6;
 
-        public Graph CreateGraph()
+        public readonly Graph graph;
+        public GraphManagement()
         {
-            Graph graph = new Graph();
+            graph = new Graph();
             graph.VertexNode = CreateHeadNode();
             graph.TotalEdges = 0;
             graph.TotalVertex = 0;
-            return graph;
         }
         public VerticleVertexNode CreateHeadNode()
         {
@@ -36,7 +51,7 @@
             linkListNode.Weight = 0;
             return linkListNode;
         }
-        public int AddVertex(Graph graph, int vertex)
+        public int AddVertex(int vertex)
         {
             if (IsVertexExist(graph.VertexNode, vertex))
                 return VertexAlreadyExist;
@@ -45,7 +60,7 @@
             graph.TotalVertex++;
             return SUCCESS;
         }
-        public int AddEdge(Graph graph, int vertexStart, int vertexEnd, int weight)
+        public int AddEdge(int vertexStart, int vertexEnd, int weight)
         {
             VerticleVertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
             if (vertexStartHead == null)
@@ -71,7 +86,7 @@
 
             return SUCCESS;
         }
-        public int RemoveVertexOtherWay(Graph graph, int vertex)
+        public int RemoveVertexOtherWay(int vertex)
         {
             VerticleVertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
             if (deletedHeadNode == null)
@@ -81,7 +96,7 @@
             while (traverse != deletedHeadNode.LinkList)
             {
                 HorizontalLinkListNode traverseNext = traverse.Next;
-                RemoveEdge(graph, traverse.Vertex, vertex);
+                RemoveEdge(traverse.Vertex, vertex);
                 traverse = traverseNext;
             }
 
@@ -89,7 +104,7 @@
             graph.TotalVertex--;
             return SUCCESS;
         }
-        public int RemoveVertex(Graph graph, int vertex)
+        public int RemoveVertex(int vertex)
         {
             VerticleVertexNode deletedHeadNode = SearchVertex(graph.VertexNode, vertex);
             if (deletedHeadNode == null)
@@ -113,7 +128,7 @@
             return SUCCESS;
 
         }
-        public int RemoveEdge(Graph graph, int vertexStart, int vertexEnd)
+        public int RemoveEdge(int vertexStart, int vertexEnd)
         {
             VerticleVertexNode vertexStartHead = SearchVertex(graph.VertexNode, vertexStart);
             if (vertexStartHead == null)
@@ -138,7 +153,7 @@
 
             return SUCCESS;
         }
-        public void Print(Graph graph, string msg)
+        public void Print(string msg)
         {
             Console.WriteLine(msg);
             PrintVertexNode(graph.VertexNode);

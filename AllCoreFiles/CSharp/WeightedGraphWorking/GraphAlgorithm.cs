@@ -15,6 +15,7 @@
 */
 namespace GraphAlgo
 {
+    [Obsolete]
     public class GraphAlgorithm
     {
         GraphManagement graphManagement = new GraphManagement();
@@ -156,16 +157,6 @@ namespace GraphAlgo
                 if (traverse != srcVertex)
                     Console.Write("[" + traverse.Vertex + "-" + traverse.PrevShortest.Vertex + "]<.");
             Console.WriteLine("[END]");
-        }
-    }
-
-    public static class Extention
-    {
-        public static VerticleVertexNode PopMin(this List<VerticleVertexNode> priorityQueue)
-        {
-            var min = priorityQueue.OrderBy(p => p.Distance).First();
-            priorityQueue.Remove(min);
-            return min;
         }
     }
 }

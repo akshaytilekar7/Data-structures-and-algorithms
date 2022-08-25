@@ -8,9 +8,9 @@ namespace GraphAlgo
 
         int infinity = 100;
         int singleSource = 0;
-        public DijkistraAlgo(Graph graph, GraphManagement graphManagement)
+        public DijkistraAlgo(GraphManagement graphManagement)
         {
-            this.graph = graph;
+            graph = graphManagement.graph;
             this.graphManagement = graphManagement;
         }
         public void PrintShortestPath(int dest)

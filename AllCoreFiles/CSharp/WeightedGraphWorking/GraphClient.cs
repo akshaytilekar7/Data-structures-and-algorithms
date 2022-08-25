@@ -15,28 +15,19 @@ namespace GraphAlgo
             };
 
             GraphManagement graphManagement = new GraphManagement();
-            Graph graph = graphManagement.CreateGraph();
 
             for (i = 0; i < 4; ++i)
-                graphManagement.AddVertex(graph, V[i]);
+                graphManagement.AddVertex(V[i]);
 
             for (i = 0; i < 4; ++i)
-                graphManagement.AddEdge(graph, E[i].VertexStart, E[i].VertexEnd, E[i].Weight);
+                graphManagement.AddEdge(E[i].VertexStart, E[i].VertexEnd, E[i].Weight);
 
-            graphManagement.Print(graph, "Initial State:");
-            Console.WriteLine("TotalVertex " + graph.TotalVertex);
-            Console.WriteLine("TotalEdges " + graph.TotalEdges);
+            graphManagement.Print("Initial State:");
 
-            GraphAlgorithm graphAlgorithm = new GraphAlgorithm();
-            
-            var destVer = graphManagement.SearchVertex(graph.VertexNode, 3);
-            graphAlgorithm.Dijkstra(graph, destVer.Vertex);
-            var srcVer = graphManagement.SearchVertex(graph.VertexNode, 1);
-            graphAlgorithm.PrintShortestPath(srcVer);
-            //graphAlgorithm.PrintAllShortestPaths(graph);
+            DijkistraAlgo dijkistraAlgo = new DijkistraAlgo(graphManagement);
 
-            //graphAlgorithm.Prims(graph, 1);
-            //graphAlgorithm.PrintMST(graph, 1);
+            dijkistraAlgo.Dijkistra(3);
+            dijkistraAlgo.PrintAllShortestPaths();
 
             Console.Write("\n########### END SUCCESS #$$$$$$$$$$$");
 
