@@ -6,19 +6,19 @@
         BLACK
     };
 
-    public class RbNode
+    public class Node
     {
         public int Data;
         public Color Color; // Added extra 
-        public RbNode Left;
-        public RbNode Right;
-        public RbNode Parent;
+        public Node Left;
+        public Node Right;
+        public Node Parent;
     };
 
     public class RbTree
     {
-        public RbNode Root;
-        public RbNode Nil; // Added extra for Sentinal node
+        public Node Root;
+        public Node Nil; // Added extra for Sentinal node
         public int Count;
     };
 }
