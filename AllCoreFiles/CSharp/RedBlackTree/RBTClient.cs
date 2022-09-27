@@ -18,7 +18,7 @@ namespace AllCoreFiles.CSharp.RedBlackTree
             RBTServices rbtServices = new RBTServices();
 
             for (int i = 0; i < 5; ++i)
-                rbtServices.InsertMineWorking(arr[i]);
+                rbtServices.Insert(arr[i]);
 
             //printf("H = %d\n", rbtServices.He(p_rb));
 

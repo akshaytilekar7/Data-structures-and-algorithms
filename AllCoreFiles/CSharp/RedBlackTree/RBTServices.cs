@@ -33,7 +33,7 @@ namespace AllCoreFiles.CSharp.RedBlackTree
             //node.Data = data;
             //return node;
         }
-        public void InsertMineWorking(int data)
+        public void Insert(int data)
         {
             if (RbTree.Root == RbTree.Nil)
             {
@@ -42,136 +42,25 @@ namespace AllCoreFiles.CSharp.RedBlackTree
                 return;
             }
 
-            InsertHelperMineWorking(RbTree.Root, data);
+            InsertHelper(RbTree.Root, data);
             RbTree.Count++;
             return;
         }
-        private Node InsertHelperMineWorking(Node currnetNode, int newData)
-        {
-            if (currnetNode == RbTree.Nil)
-            {
-                currnetNode = GetNode(newData, RbTree.Nil);
-                return currnetNode;
-            }
-            else
-            {
-                if (currnetNode.Data < newData)
-                {
-                    currnetNode.Right = InsertHelperMineWorking(currnetNode.Right, newData);
-                    currnetNode.Right.Parent = currnetNode;
-                    //InsertFixupOld(currnetNode.Right);
-                }
-                else
-                {
-                    currnetNode.Left = InsertHelperMineWorking(currnetNode.Left, newData);
-                    currnetNode.Left.Parent = currnetNode;
-                }
-            }
-            rb_insert_fixup(currnetNode);
-            return currnetNode;///////////
-        }
-        private void InsertFixupOldNotWorking(Node z)
-        {
-            Node y = null;
-            while (z.Parent.Color == Color.RED)
-            {
-                if (z.Parent == z.Parent.Parent.Left)
-                {
-                    y = z.Parent.Parent.Right;
-                    if (y.Color == Color.RED)
-                    {
-                        z.Parent.Color = Color.BLACK;
-                        y.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        z = z.Parent.Parent;
-                    }
-                    else
-                    {
-                        if (z == z.Parent.Right)
-                        {
-                            z = z.Parent;
-                            LeftRotate(z);
-                        }
-                        z.Parent.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        RightRotate(z.Parent.Parent);
-                    }
-                }
-                else
-                {
-                    y = z.Parent.Parent.Left; //
-                    if (y.Color == Color.RED)
-                    {
-                        z.Parent.Color = Color.BLACK;
-                        y.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        z = z.Parent.Parent;
-                    }
-                    else
-                    {
-                        if (z == z.Parent.Left) //
-                        {
-                            z = z.Parent;
-                            RightRotate(z);
-                        }
-                        z.Parent.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        LeftRotate(z.Parent.Parent);
-                    }
-                }
-            }
-        }
-        private void LeftRotate(Node x)
-        {
-            Node y = x.Right;
-            x.Right = y.Left;
-            if (y.Left != RbTree.Nil)
-                y.Left.Parent = x;
-
-            y.Parent = x.Parent;
-            if (x.Parent == RbTree.Nil)
-                RbTree.Root = y;
-            else if (x.Parent.Left == x)
-                x.Parent.Left = y;
-            else if (x.Parent.Right == x)
-                x.Parent.Right = y;
-
-            y.Left = x;
-            x.Parent = y;
-        }
-        private void RightRotate(Node x)
-        {
-            Node y = x.Left;
-            x.Left = y.Right;
-            if (y.Right != RbTree.Nil) //
-                y.Right.Parent = x;
-
-            y.Parent = x.Parent;
-            if (x.Parent == RbTree.Nil)
-                RbTree.Root = y;
-            else if (x.Parent.Right == x)
-                x.Parent.Right = y;
-            else if (x.Parent.Left == x)
-                x.Parent.Left = y;
-
-            y.Right = x;
-            x.Parent = y;
-        }
-        Node GetMaxNode(Node node)
+        public Node GetMaxNode(Node node)
         {
             Node travel = node;
             while (travel.Right != RbTree.Nil) //
                 travel = travel.Right;
             return travel;
         }
-        Node GetMinNode(Node node)
+        public Node GetMinNode(Node node)
         {
             Node travel = node;
             while (travel.Left != RbTree.Nil)
                 travel = travel.Left;
             return travel;
         }
-        int GetHeight(Node node)
+        public int GetHeight(Node node)
         {
             if (node == RbTree.Nil)
                 return 0;
@@ -195,103 +84,115 @@ namespace AllCoreFiles.CSharp.RedBlackTree
             Console.Write(" [END]\n");
         }
 
-        #endregion #region traversal
+        #endregion #region
 
-        #region SIR
-
-        void rb_insert_fixupSIRworking(Node z)
+        private void InsertFixup(Node newNode)
         {
-            Node y = null;
-
-            while (z.Parent.Color == Color.RED)
+            while (newNode.Parent.Color == Color.RED)
             {
-                if (z.Parent == z.Parent.Parent.Left)
+                if (newNode.Parent == newNode.Parent.Parent.Left)
                 {
-                    y = z.Parent.Parent.Right;
-                    if (y.Color == Color.RED)
+                    var uncle = newNode.Parent.Parent.Right;
+                    if (uncle.Color == Color.RED)
                     {
-                        z.Parent.Color = Color.BLACK;
-                        y.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        z = z.Parent.Parent;
+                        newNode.Parent.Color = uncle.Color = Color.BLACK;
+                        newNode.Parent.Parent.Color = Color.RED;
+                        newNode = newNode.Parent.Parent;
                     }
                     else
                     {
-                        if (z == z.Parent.Right)
+                        if (newNode == newNode.Parent.Right)
                         {
-                            z = z.Parent;
-                            LeftRotate(z);
+                            newNode = newNode.Parent;
+                            LeftRotate(newNode);
                         }
-
-                        z.Parent.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        RightRotate(z.Parent.Parent);
+                        newNode.Parent.Color = Color.BLACK;
+                        newNode.Parent.Parent.Color = Color.RED;
+                        RightRotate(newNode.Parent.Parent);
                     }
                 }
                 else
                 {
-                    y = z.Parent.Parent.Left;
-                    if (y.Color == Color.RED)
+                    var uncle = newNode.Parent.Parent.Left;
+                    if (uncle.Color == Color.RED)
                     {
-                        z.Parent.Color = Color.BLACK;
-                        y.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        z = z.Parent.Parent;
+                        newNode.Parent.Color = uncle.Color = Color.BLACK;
+                        newNode.Parent.Parent.Color = Color.RED;
+                        newNode = newNode.Parent.Parent;
                     }
                     else
                     {
-                        if (z == z.Parent.Left)
+                        if (newNode == newNode.Parent.Left)
                         {
-                            z = z.Parent;
-                            RightRotate(z);
+                            newNode = newNode.Parent;
+                            RightRotate(newNode);
                         }
-
-                        z.Parent.Color = Color.BLACK;
-                        z.Parent.Parent.Color = Color.RED;
-                        LeftRotate(z.Parent.Parent);
+                        newNode.Parent.Color = Color.BLACK;
+                        newNode.Parent.Parent.Color = Color.RED;
+                        LeftRotate(newNode.Parent.Parent);
                     }
                 }
             }
-
             RbTree.Root.Color = Color.BLACK;
         }
-
-
-        public int InsertSirWorking(int data)
-        {
-            if (RbTree.Root == RbTree.Nil)
-            {
-                RbTree.Root = GetNode(data, RbTree.Nil);
-                RbTree.Count++;
-                return 1;
-            }
-
-            InsertNodeSirWorking(RbTree.Root, data);
-            RbTree.Count++;
-            return 1;
-        }
-        public Node InsertNodeSirWorking(Node currnetNode, int newData)
+        private Node InsertHelper(Node currnetNode, int newData)
         {
             if (currnetNode == RbTree.Nil)
             {
                 currnetNode = GetNode(newData, RbTree.Nil);
                 return currnetNode;
             }
-            if (currnetNode.Data < newData)
-            {
-                currnetNode.Right = InsertNodeSirWorking(currnetNode.Right, newData);
-                currnetNode.Right.Parent = currnetNode;
-                //rb_insert_fixup(root.Right);
-            }
             else
             {
-                currnetNode.Left = InsertNodeSirWorking(currnetNode.Left, newData);
-                currnetNode.Left.Parent = currnetNode;
-                //rb_insert_fixup(root.Left);
+                if (currnetNode.Data < newData)
+                {
+                    currnetNode.Right = InsertHelper(currnetNode.Right, newData);
+                    currnetNode.Right.Parent = currnetNode;
+                }
+                else
+                {
+                    currnetNode.Left = InsertHelper(currnetNode.Left, newData);
+                    currnetNode.Left.Parent = currnetNode;
+                }
             }
-            rb_insert_fixup(currnetNode);
+            InsertFixup(currnetNode);
             return currnetNode;
         }
-        #endregion
+        private void LeftRotate(Node x)
+        {
+            Node y = x.Right;
+            x.Right = y.Left;
+            if (y.Left != RbTree.Nil)
+                y.Left.Parent = x;
+
+            y.Parent = x.Parent;
+            if (x.Parent == RbTree.Nil)
+                RbTree.Root = y;
+            else if (x.Parent.Left == x)
+                x.Parent.Left = y;
+            else if (x.Parent.Right == x)
+                x.Parent.Right = y;
+
+            y.Left = x;
+            x.Parent = y;
+        }
+        private void RightRotate(Node x)
+        {
+            Node y = x.Left;
+            x.Left = y.Right;
+            if (y.Right != RbTree.Nil)
+                y.Right.Parent = x;
+
+            y.Parent = x.Parent;
+            if (x.Parent == RbTree.Nil)
+                RbTree.Root = y;
+            else if (x.Parent.Right == x)
+                x.Parent.Right = y;
+            else if (x.Parent.Left == x)
+                x.Parent.Left = y;
+
+            y.Right = x;
+            x.Parent = y;
+        }
     }
 }
