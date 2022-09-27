@@ -9,7 +9,7 @@
     public class Node
     {
         public int Data;
-        public Color Color; // Added extra 
+        public Color Color; 
         public Node Left;
         public Node Right;
         public Node Parent;
@@ -18,7 +18,7 @@
     public class RbTree
     {
         public Node Root;
-        public Node Nil; // Added extra for Sentinal node
+        public Node Nil; 
         public int Count;
     };
 }

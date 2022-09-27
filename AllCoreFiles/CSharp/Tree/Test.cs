@@ -13,9 +13,9 @@
                 tree.Insert(BST, arr1[i]);
 
 
-            tree.Postorder(BST);
+            tree.Inorder(BST);
             System.Console.WriteLine("********");
-            tree.PostorderIterative(BST);
+            //tree.PostorderIterative(BST);
             System.Console.WriteLine("********");
             // tree.PostorderIterativeNewNotWorking(BST);
 
