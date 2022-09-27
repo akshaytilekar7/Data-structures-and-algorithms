@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharp.Leetcode.Stack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,28 +11,33 @@ namespace AllCoreFiles.CSharp.RedBlackTree
     {
         public static void Main()
         {
-            int[] arr = { 50, 20, 70, 95, 10 };
+            Console.WriteLine("RB TREE");
 
-            //for (int i = 0; i < 5; ++i)
-            //    arr[i] = new Random().Next();
+            int[] arr = new int[500000];
+
+            Random r = new Random();
+            for (int i = 0; i < arr.Length; ++i)
+                arr[i] = r.Next(0, 500000);
 
             RBTServices rbtServices = new RBTServices();
+            TreeOperations treeOperations = new TreeOperations();
+            var BST = treeOperations.Create();
 
-            for (int i = 0; i < 5; ++i)
-                rbtServices.Insert(arr[i]);
-
-            //printf("H = %d\n", rbtServices.He(p_rb));
-
-            rbtServices.Inorder();
-
-            Console.WriteLine("asasasasas");
-            for (int i = 0; i < 50; i = i + 1)
+            for (int i = 0; i < arr.Length; ++i)
             {
-                //status = remove_from_rbtree(p_rb, arr[i]);
-                //assert(status == SUCCESS);
-                //printf("%d:Removed data:%d\n", i, arr[i]);
-                //printf("Remaining nodes = %d, H = %d\n", 50 - (i + 1), get_rb_height(p_rb));
+                rbtServices.InsertItrative(arr[i]);
+                treeOperations.Insert(BST, arr[i]);
             }
+
+            Console.WriteLine("RB TREE");
+            //rbtServices.Inorder();
+            Console.WriteLine("Height is " + rbtServices.GetHeight(rbtServices.RbTree.Root));
+
+            Console.WriteLine("\n\nBST TREE");
+            //treeOperations.Inorder(BST);
+            Console.WriteLine("Height is " + treeOperations.GetHeight(BST.root));
+
         }
+
     }
 }

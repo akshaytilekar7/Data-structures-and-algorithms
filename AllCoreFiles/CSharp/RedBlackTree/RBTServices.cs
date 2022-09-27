@@ -49,7 +49,7 @@ namespace AllCoreFiles.CSharp.RedBlackTree
         public Node GetMaxNode(Node node)
         {
             Node travel = node;
-            while (travel.Right != RbTree.Nil) //
+            while (travel.Right != RbTree.Nil)
                 travel = travel.Right;
             return travel;
         }
@@ -65,6 +65,50 @@ namespace AllCoreFiles.CSharp.RedBlackTree
             if (node == RbTree.Nil)
                 return 0;
             return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
+        }
+
+        public int InsertItrative(int new_data)
+        {
+            var z = GetNode(new_data, RbTree.Nil);
+
+            if (RbTree.Root == RbTree.Nil)
+            {
+                RbTree.Root = z;
+                RbTree.Count += 1;
+                InsertFixup(z);
+                return (1);
+            }
+
+            var p_run = RbTree.Root;
+            while (true)
+            {
+                if (new_data <= p_run.Data)
+                {
+                    if (p_run.Left == RbTree.Nil)
+                    {
+                        p_run.Left = z;
+                        z.Parent = p_run;
+                        break;
+                    }
+                    else
+                        p_run = p_run.Left;
+                }
+                else
+                {
+                    if (p_run.Right == RbTree.Nil)
+                    {
+                        p_run.Right = z;
+                        z.Parent = p_run;
+                        break;
+                    }
+                    else
+                        p_run = p_run.Right;
+                }
+            }
+
+            RbTree.Count += 1;
+            InsertFixup( z);
+            return (1);
         }
 
         #region traversal
