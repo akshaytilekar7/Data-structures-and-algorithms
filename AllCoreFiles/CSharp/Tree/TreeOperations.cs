@@ -57,20 +57,20 @@ namespace CSharp.Leetcode.Stack
             return 1;
         }
 
-        public static void PostorderHelper(Node root)
+        public static void InorderHelper(Node root)
         {
             if (root != null)
             {
-                PostorderHelper(root.Left);
-                PostorderHelper(root.Right);
+                InorderHelper(root.Left);
+                InorderHelper(root.Right);
                 Console.Write(" " + root.Data);
             }
         }
 
-        public void Postorder(BST tree)
+        public void Inorder(BST tree)
         {
             Console.Write("[IN]");
-            PostorderHelper(tree.root);
+            InorderHelper(tree.root);
             Console.Write(" [END]\n");
         }
 
