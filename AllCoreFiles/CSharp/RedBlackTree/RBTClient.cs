@@ -35,7 +35,7 @@ namespace AllCoreFiles.CSharp.RedBlackTree
 
             Console.WriteLine("\n\nBST TREE");
             //treeOperations.Inorder(BST);
-            Console.WriteLine("Height is " + treeOperations.GetHeight(BST.root));
+            //Console.WriteLine("Height is " + treeOperations.GetHeight(BST.root));
 
         }
 
