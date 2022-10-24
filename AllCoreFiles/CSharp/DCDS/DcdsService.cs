@@ -9,118 +9,118 @@ namespace CSharp
     public class DcdsService
     {
         SetService SetService = new SetService();
-
-        public DynamicCollectionOfDisjointSets create_dcds()
+        public DynamicCollectionOfDisjointSets CreateDcds()
         {
-            DynamicCollectionOfDisjointSets dcds = get_dcds_node(null);
-            dcds.prev = dcds;
-            dcds.next = dcds;
+            DynamicCollectionOfDisjointSets dcds = GetDcdsNode(null);
+            dcds.Prev = dcds;
+            dcds.Next = dcds;
             return (dcds);
         }
 
-        public int make_set(DynamicCollectionOfDisjointSets dcds, int r_element)
+        public int MakeSet(DynamicCollectionOfDisjointSets dcds, int element)
         {
-            DynamicCollectionOfDisjointSets traverse;
-            for (traverse = dcds.next; traverse != dcds; traverse = traverse.next)
+            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
             {
-                int s = SetService.search_element(traverse.set, r_element);
+                int s = SetService.SearchElement(traverse.Set, element);
                 if (s == 1)
-                    return (Constants.DCDS_REPRESENTATIVE_EXISTS);
+                    return (Constants.Dcds_representative_exists);
             }
 
-            Set p_new_set = SetService.CreateSet(r_element);
-            generic_dcds_insert(dcds.prev, get_dcds_node(p_new_set), dcds);
+            Set p_new_set = SetService.CreateSet(element);
+            GenericDcdsInsert(dcds.Prev, GetDcdsNode(p_new_set), dcds);
 
             return (1);
         }
 
-        public int union_set(DynamicCollectionOfDisjointSets p_dcds, int r_data_1, int r_data_2)
+        internal int UnionSet(DynamicCollectionOfDisjointSets p_dcds, int r_data_1, int r_data_2)
         {
             Set p_set_1 = null;
             Set p_set_2 = null;
-
+            DynamicCollectionOfDisjointSets p_dcds_run = null;
             DynamicCollectionOfDisjointSets p_dcds_node_2 = null;
-            DynamicCollectionOfDisjointSets p_dcds_run;
-            for (p_dcds_run = p_dcds.next; p_dcds_run != p_dcds; p_dcds_run = p_dcds_run.next)
+            int i;
+            int s;
+
+            for (p_dcds_run = p_dcds.Next; p_dcds_run != p_dcds; p_dcds_run = p_dcds_run.Next)
             {
-                if (p_dcds_run.set.RepresentativeElement == r_data_1)
-                    p_set_1 = p_dcds_run.set;
-                if (p_dcds_run.set.RepresentativeElement == r_data_2)
+                if (p_dcds_run.Set.RepresentativeElement == r_data_1)
+                    p_set_1 = p_dcds_run.Set;
+                if (p_dcds_run.Set.RepresentativeElement == r_data_2)
                 {
                     p_dcds_node_2 = p_dcds_run;
-                    p_set_2 = p_dcds_run.set;
+                    p_set_2 = p_dcds_run.Set;
                 }
             }
 
             if (p_set_1 == null || p_set_2 == null)
-                return (Constants.REPRESENTATIVE_ELEMENT_NOT_FOUND);
+                return (Constants.Representative_element_not_found);
 
-            int i;
-            for (i = 0; i < p_set_2.RepresentativeElement; ++i)
-                SetService.PushBack(p_set_1, p_set_2.NumberSetArr[i]);
+            for (i = 0; i < p_set_2.TotalElements; ++i)
+                SetService.PushBack(p_set_1, p_set_2.NumberSets[i]);
 
-            SetService.destroy_set(p_set_2);
-            generic_dcds_delete(p_dcds_node_2);
+            GenericDcdsDelete(p_dcds_node_2);
 
             return (1);
         }
 
-        public Set find_set(DynamicCollectionOfDisjointSets dcds, int r_data)
+        Set find_set(DynamicCollectionOfDisjointSets p_dcds, int r_data)
         {
-            for (var traverse = dcds.next; traverse != dcds; traverse = traverse.next)
-                if (traverse.set.RepresentativeElement == r_data)
-                    return (traverse.set);
+            DynamicCollectionOfDisjointSets p_dcds_run = null;
+
+            for (p_dcds_run = p_dcds.Next; p_dcds_run != p_dcds; p_dcds_run = p_dcds_run.Next)
+                if (p_dcds_run.Set.RepresentativeElement == r_data)
+                    return (p_dcds_run.Set);
 
             return (null);
         }
 
-        public void show_dcds(DynamicCollectionOfDisjointSets dcds, string msg)
+        public void ShowDcds(DynamicCollectionOfDisjointSets dcds, string msg)
         {
             if (msg != null)
                 Console.WriteLine(msg);
 
-            for (var traverse = dcds.next; traverse != dcds; traverse = traverse.next)
+            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
             {
-                Console.Write("[SET]\t.\t[" + traverse.set.RepresentativeElement + "]\t");
+                Console.Write("[SET]\t->\t[" + traverse.Set.RepresentativeElement + "]\t");
                 int i;
-                for (i = 0; i < traverse.set.TotalElements; ++i)
-                    Console.Write("[" + traverse.set.NumberSetArr[i] + "]");
+                for (i = 0; i < traverse.Set.TotalElements; ++i)
+                    Console.Write("[" + traverse.Set.NumberSets[i] + "]");
                 Console.WriteLine("[END]");
             }
         }
 
-        public int destroy_dcds(DynamicCollectionOfDisjointSets dcds)
+        public int DestroyDcds(DynamicCollectionOfDisjointSets dcds)
         {
             DynamicCollectionOfDisjointSets dcds1 = dcds;
             DynamicCollectionOfDisjointSets next;
             
-            for (var traverse = dcds1.next; traverse != dcds1; traverse = next)
+            for (var traverse = dcds1.Next; traverse != dcds1; traverse = next)
             {
-                next = traverse.next;
-                SetService.destroy_set(traverse.set);
+                next = traverse.Next;
+                SetService.DestroySet(traverse.Set);
             }
             return (1);
         }
 
-        public void generic_dcds_insert(DynamicCollectionOfDisjointSets p_beg, DynamicCollectionOfDisjointSets p_mid, DynamicCollectionOfDisjointSets p_end)
+        public void GenericDcdsInsert(DynamicCollectionOfDisjointSets start, DynamicCollectionOfDisjointSets mid, DynamicCollectionOfDisjointSets end)
         {
-            p_mid.next = p_end;
-            p_mid.prev = p_beg;
-            p_beg.next = p_mid;
-            p_end.prev = p_mid;
+            mid.Next = end;
+            mid.Prev = start;
+            start.Next = mid;
+            end.Prev = mid;
         }
 
-        public void generic_dcds_delete(DynamicCollectionOfDisjointSets p_delete_node)
+        public void GenericDcdsDelete(DynamicCollectionOfDisjointSets deletedNode)
         {
-            p_delete_node.prev.next = p_delete_node.next;
-            p_delete_node.next.prev = p_delete_node.prev;
+            deletedNode.Prev.Next = deletedNode.Next;
+            deletedNode.Next.Prev = deletedNode.Prev;
         }
 
-        public DynamicCollectionOfDisjointSets get_dcds_node(Set p_set)
+        public DynamicCollectionOfDisjointSets GetDcdsNode(Set set)
         {
-            DynamicCollectionOfDisjointSets p_new_node = new DynamicCollectionOfDisjointSets();
-            p_new_node.set = p_set;
-            return (p_new_node);
+            DynamicCollectionOfDisjointSets newNode = new DynamicCollectionOfDisjointSets();
+            newNode.Set = set;
+            return (newNode);
         }
     }
 }

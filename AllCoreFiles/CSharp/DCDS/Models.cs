@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSharp
+﻿namespace CSharp
 {
     public class DynamicCollectionOfDisjointSets
     {
-        public Set set;
-        public DynamicCollectionOfDisjointSets prev;
-        public DynamicCollectionOfDisjointSets next;
+        public Set Set;
+        public DynamicCollectionOfDisjointSets Prev;
+        public DynamicCollectionOfDisjointSets Next;
     };
 
     public class Set
     {
-        public int[] NumberSetArr;
+        public List<int> NumberSets = new List<int>();
         public int TotalElements;
         public int RepresentativeElement; // primary key
     };
     public static class Constants
     {
-        public static int DCDS_REPRESENTATIVE_EXISTS = 2;
-        public static int REPRESENTATIVE_ELEMENT_NOT_FOUND = 3;
+        public static int Dcds_representative_exists = 2;
+        public static int Representative_element_not_found = 3;
     }
 }

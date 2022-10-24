@@ -2,37 +2,36 @@
 {
     public class SetService
     {
-        public Set CreateSet(int r_element)
+        public Set CreateSet(int totalElements)
         {
             Set p_set = new Set();
-            PushBack(p_set, r_element);
-            p_set.RepresentativeElement = r_element;
+            PushBack(p_set, totalElements);
+            p_set.RepresentativeElement = totalElements;
             return (p_set);
         }
 
         public int PushBack(Set set, int element)
         {
             set.TotalElements += 1;
-            set.NumberSetArr = new int[set.TotalElements];
-            set.NumberSetArr[set.TotalElements - 1] = element; // why -1
+            set.NumberSets.Add(element); // why -1
             return (1);
         }
 
-        public int search_element(Set set, int search_element)
+        public int SearchElement(Set set, int searchElement)
         {
             for (int i = 0; i < set.TotalElements; ++i)
-                if (set.NumberSetArr[i] == search_element)
+                if (set.NumberSets[i] == searchElement)
                     return (1);
             return (0);
         }
 
-        public int destroy_set(Set p_set)
+        public int DestroySet(Set set)
         {
 
-            if (p_set != null)
+            if (set != null)
             {
-                if (p_set.NumberSetArr != null)
-                    p_set.NumberSetArr = null;
+                if (set.NumberSets != null)
+                    set.NumberSets = null;
             }
             return (1);
         }
