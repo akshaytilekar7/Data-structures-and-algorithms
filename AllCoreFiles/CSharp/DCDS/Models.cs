@@ -1,17 +1,17 @@
 ﻿namespace CSharp
 {
-    public class DynamicCollectionOfDisjointSets
+    public class DCDS
     {
         public Set Set;
-        public DynamicCollectionOfDisjointSets Prev;
-        public DynamicCollectionOfDisjointSets Next;
+        public DCDS Prev;
+        public DCDS Next;
     };
 
     public class Set
     {
-        public List<int> NumberSets = new List<int>();
-        public int TotalElements;
-        public int RepresentativeElement; // primary key
+        public List<int> listInt = new List<int>();
+        public int Count;
+        public int PrimaryKey; // primary key
     };
     public static class Constants
     {

@@ -1,108 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSharp
+﻿namespace CSharp
 {
     public class DcdsService
     {
         SetService SetService = new SetService();
-        public DynamicCollectionOfDisjointSets CreateDcds()
+
+        public DCDS CreateDcds()
         {
-            DynamicCollectionOfDisjointSets dcds = GetDcdsNode(null);
+            var dcds = GetDcdsNode(null);
             dcds.Prev = dcds;
             dcds.Next = dcds;
-            return (dcds);
+            return dcds;
         }
 
-        public int MakeSet(DynamicCollectionOfDisjointSets dcds, int element)
+        public int MakeSet(DCDS dcds, int element)
         {
             for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
             {
-                int s = SetService.SearchElement(traverse.Set, element);
+                int s = SetService.Search(traverse.Set, element);
                 if (s == 1)
-                    return (Constants.Dcds_representative_exists);
+                    return Constants.Dcds_representative_exists;
             }
 
-            Set p_new_set = SetService.CreateSet(element);
-            GenericDcdsInsert(dcds.Prev, GetDcdsNode(p_new_set), dcds);
-
-            return (1);
+            Set set = SetService.CreateNewSet(element);
+            GenericDcdsInsert(dcds.Prev, GetDcdsNode(set), dcds);
+            return 1;
         }
 
-        internal int UnionSet(DynamicCollectionOfDisjointSets p_dcds, int r_data_1, int r_data_2)
+        internal int UnionSet(DCDS dcds, int pk1, int pk2)
         {
-            Set p_set_1 = null;
-            Set p_set_2 = null;
-            DynamicCollectionOfDisjointSets p_dcds_run = null;
-            DynamicCollectionOfDisjointSets p_dcds_node_2 = null;
+            Set set1 = null;
+            Set set2 = null;
+            DCDS dcds2 = null;
             int i;
             int s;
 
-            for (p_dcds_run = p_dcds.Next; p_dcds_run != p_dcds; p_dcds_run = p_dcds_run.Next)
+            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
             {
-                if (p_dcds_run.Set.RepresentativeElement == r_data_1)
-                    p_set_1 = p_dcds_run.Set;
-                if (p_dcds_run.Set.RepresentativeElement == r_data_2)
+                if (traverse.Set.PrimaryKey == pk1)
+                    set1 = traverse.Set;
+                if (traverse.Set.PrimaryKey == pk2)
                 {
-                    p_dcds_node_2 = p_dcds_run;
-                    p_set_2 = p_dcds_run.Set;
+                    dcds2 = traverse;
+                    set2 = traverse.Set;
                 }
             }
 
-            if (p_set_1 == null || p_set_2 == null)
-                return (Constants.Representative_element_not_found);
+            if (set1 == null || set2 == null)
+                return Constants.Representative_element_not_found;
 
-            for (i = 0; i < p_set_2.TotalElements; ++i)
-                SetService.PushBack(p_set_1, p_set_2.NumberSets[i]);
+            for (i = 0; i < set2.Count; ++i)
+                SetService.Add(set1, set2.listInt[i]);
 
-            GenericDcdsDelete(p_dcds_node_2);
+            GenericDcdsDelete(dcds2);
 
-            return (1);
+            return 1;
         }
 
-        Set find_set(DynamicCollectionOfDisjointSets p_dcds, int r_data)
+        Set FindSet(DCDS dcds, int pk)
         {
-            DynamicCollectionOfDisjointSets p_dcds_run = null;
+            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
+                if (traverse.Set.PrimaryKey == pk)
+                    return traverse.Set;
 
-            for (p_dcds_run = p_dcds.Next; p_dcds_run != p_dcds; p_dcds_run = p_dcds_run.Next)
-                if (p_dcds_run.Set.RepresentativeElement == r_data)
-                    return (p_dcds_run.Set);
-
-            return (null);
+            return null;
         }
 
-        public void ShowDcds(DynamicCollectionOfDisjointSets dcds, string msg)
+        public void ShowDcds(DCDS dcds, string msg)
         {
             if (msg != null)
                 Console.WriteLine(msg);
 
             for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
             {
-                Console.Write("[SET]\t->\t[" + traverse.Set.RepresentativeElement + "]\t");
+                Console.Write("[SET]\t->\t[" + traverse.Set.PrimaryKey + "]\t");
                 int i;
-                for (i = 0; i < traverse.Set.TotalElements; ++i)
-                    Console.Write("[" + traverse.Set.NumberSets[i] + "]");
+                for (i = 0; i < traverse.Set.Count; ++i)
+                    Console.Write("[" + traverse.Set.listInt[i] + "]");
                 Console.WriteLine("[END]");
             }
         }
 
-        public int DestroyDcds(DynamicCollectionOfDisjointSets dcds)
+        public int DestroyDcds(DCDS dcds)
         {
-            DynamicCollectionOfDisjointSets dcds1 = dcds;
-            DynamicCollectionOfDisjointSets next;
+            DCDS dcds1 = dcds;
+            DCDS next;
             
             for (var traverse = dcds1.Next; traverse != dcds1; traverse = next)
             {
                 next = traverse.Next;
-                SetService.DestroySet(traverse.Set);
+                SetService.Destroy(traverse.Set);
             }
-            return (1);
+            return 1;
         }
 
-        public void GenericDcdsInsert(DynamicCollectionOfDisjointSets start, DynamicCollectionOfDisjointSets mid, DynamicCollectionOfDisjointSets end)
+        public void GenericDcdsInsert(DCDS start, DCDS mid, DCDS end)
         {
             mid.Next = end;
             mid.Prev = start;
@@ -110,16 +101,18 @@ namespace CSharp
             end.Prev = mid;
         }
 
-        public void GenericDcdsDelete(DynamicCollectionOfDisjointSets deletedNode)
+        public void GenericDcdsDelete(DCDS deletedNode)
         {
             deletedNode.Prev.Next = deletedNode.Next;
             deletedNode.Next.Prev = deletedNode.Prev;
         }
 
-        public DynamicCollectionOfDisjointSets GetDcdsNode(Set set)
+        public DCDS GetDcdsNode(Set set)
         {
-            DynamicCollectionOfDisjointSets newNode = new DynamicCollectionOfDisjointSets();
-            newNode.Set = set;
+            var newNode = new DCDS()
+            {
+                Set = set,
+            };
             return (newNode);
         }
     }
