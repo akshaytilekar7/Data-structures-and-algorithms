@@ -1,5 +1,20 @@
 ﻿namespace CSharp.WeightedGraphAlgo
 {
+    /*
+
+    Dijkstras algorithm 
+        is used only to find shortest path.
+
+    Minimum Spanning tree (Prim's or Kruskal's algorithm) 
+        get minimum egdes with minimum edge value.
+
+    Prim [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
+        algorithms are almost the same, except for the "relax function".
+
+    GMST and MSTPrim
+        MSTPrim ha GMST ahe
+ 
+*/
     public class AlgoDijkistra
     {
         private readonly GraphManagement _graphManagement;
