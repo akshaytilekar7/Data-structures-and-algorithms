@@ -10,11 +10,11 @@ namespace CSharp.Graph
 
             int i;
             int[] V = { 1, 2, 3, 4 };
-            Edge[] E = {
-                new Edge() { VertexStart = 1, VertexEnd = 2, Weight = 5 },
-                new Edge() { VertexStart = 2, VertexEnd = 3, Weight = 5 },
-                new Edge() { VertexStart = 2, VertexEnd = 4, Weight = 1 },
-                new Edge() { VertexStart = 4, VertexEnd = 3, Weight = 1 }
+            WeightedGraphAlgo.Edge[] E = {
+                new WeightedGraphAlgo.Edge() { VertexStart = 1, VertexEnd = 2, Weight = 5 },
+                new WeightedGraphAlgo.Edge() { VertexStart = 2, VertexEnd = 3, Weight = 5 },
+                new WeightedGraphAlgo.Edge() { VertexStart = 2, VertexEnd = 4, Weight = 1 },
+                new WeightedGraphAlgo.Edge() { VertexStart = 4, VertexEnd = 3, Weight = 1 }
             };
 
             GraphManagement graphManagement = new GraphManagement();
