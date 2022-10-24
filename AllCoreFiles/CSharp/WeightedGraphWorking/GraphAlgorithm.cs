@@ -3,7 +3,7 @@
     Dijkstras algorithm 
         is used only to find shortest path.
 
-    Minimum Spanning tree (Prim's or Kruskal's algorithm) 
+    Minimum Spanning tree (Prim's or Kruskal's (DCDS) algorithm) 
         get minimum egdes with minimum edge value.
 
     Prim [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
