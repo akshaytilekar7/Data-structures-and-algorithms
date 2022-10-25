@@ -1,4 +1,4 @@
-﻿namespace CSharp
+﻿namespace AllCoreFiles.CSharp.GraphDSA.GraphDcds
 {
     public class DcdsService
     {
@@ -56,7 +56,7 @@
             return 1;
         }
 
-        Set FindSet(DCDS dcds, int pk)
+        public Set FindSet(DCDS dcds, int pk)
         {
             for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
                 if (traverse.Set.PrimaryKey == pk)
@@ -84,7 +84,7 @@
         {
             DCDS dcds1 = dcds;
             DCDS next;
-            
+
             for (var traverse = dcds1.Next; traverse != dcds1; traverse = next)
             {
                 next = traverse.Next;

@@ -1,4 +1,4 @@
-﻿namespace CSharp.DCDS
+﻿namespace AllCoreFiles.CSharp.GraphDSA.GraphDcds
 {
     internal class DcdsClient
     {

@@ -1,4 +1,4 @@
-﻿namespace CSharp.WeightedGraphAlgo
+﻿namespace AllCoreFiles.CSharp.GraphDSA.GraphManagement
 {
     public class Graph
     {
@@ -20,12 +20,19 @@
         public VertexNode Predecessor { get; set; }
     }
 
+    public enum Color
+    {
+        WHITE,
+        BLACK,
+    }
     public class LinkList
     {
         public int Vertex { get; set; }
         public LinkList Prev { get; set; }
         public LinkList Next { get; set; }
         public int Weight { get; set; }
+        public Color Color { get; set; }
+
     }
 
     public class Edge

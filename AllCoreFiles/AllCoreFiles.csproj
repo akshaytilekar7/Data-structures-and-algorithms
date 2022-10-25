@@ -6,4 +6,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="CSharp\DCDS\**" />
+    <Compile Remove="CSharp\GraphKruskals_DCDS\**" />
+    <Compile Remove="CSharp\WeightedGraphAlgo\**" />
+    <Compile Remove="CSharp\WeightedGraphWorking\**" />
+    <Compile Remove="CSharp\WeightedGraph\**" />
+    <EmbeddedResource Remove="CSharp\DCDS\**" />
+    <EmbeddedResource Remove="CSharp\GraphKruskals_DCDS\**" />
+    <EmbeddedResource Remove="CSharp\WeightedGraphAlgo\**" />
+    <EmbeddedResource Remove="CSharp\WeightedGraphWorking\**" />
+    <EmbeddedResource Remove="CSharp\WeightedGraph\**" />
+    <None Remove="CSharp\DCDS\**" />
+    <None Remove="CSharp\GraphKruskals_DCDS\**" />
+    <None Remove="CSharp\WeightedGraphAlgo\**" />
+    <None Remove="CSharp\WeightedGraphWorking\**" />
+    <None Remove="CSharp\WeightedGraph\**" />
+  </ItemGroup>
+
 </Project>

@@ -1,15 +1,17 @@
-﻿namespace CSharp.WeightedGraphAlgo
+﻿using AllCoreFiles.CSharp.GraphDSA.GraphManagement;
+
+namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
 {
-    public class AlgoPrims
+    public class Prims
     {
-        private readonly GraphManagement _graphManagement;
+        private readonly GraphService _graphManagement;
         private const int Infinity = 1000;
-        public AlgoPrims(GraphManagement graphManagement)
+        public Prims(GraphService graphManagement)
         {
             _graphManagement = graphManagement;
         }
 
-        public void Prims(int data)
+        public void PrimsMST(int data)
         {
             var pq = InitilizeSingleSource(data);
 

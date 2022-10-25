@@ -1,6 +1,6 @@
-﻿namespace CSharp.WeightedGraphAlgo
+﻿namespace AllCoreFiles.CSharp.GraphDSA.GraphManagement
 {
-    public class GraphManagement
+    public class GraphService
     {
         const int SUCCESS = 1;
         const int TRUE = 1;
@@ -12,7 +12,7 @@
         const int GraphIsCorrupted = 6;
 
         public readonly Graph _graph;
-        public GraphManagement()
+        public GraphService()
         {
             _graph = new Graph();
             _graph.Root = GetNewVertex(-1);
@@ -198,6 +198,22 @@
                 travese = travese.Next;
             }
             Console.Write("\n");
+        }
+        public Edge GetEdge(int vertexStart, int vertexEnd, int weight)
+        {
+            Edge edge = null;
+            var vStart = SearchVertexNode(_graph.Root, vertexStart);
+            var vEnd = SearchVertexLinkList(vStart.LinkList, vertexEnd);
+            if (vEnd.Weight == weight)
+            {
+                edge = new Edge()
+                {
+                    VertexStart = vertexStart,
+                    VertexEnd = vertexEnd,
+                    Weight = weight
+                };
+            }
+            return edge;
         }
     }
 

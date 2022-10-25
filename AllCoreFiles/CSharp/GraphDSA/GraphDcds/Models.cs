@@ -1,4 +1,4 @@
-﻿namespace CSharp
+﻿namespace AllCoreFiles.CSharp.GraphDSA.GraphDcds
 {
     public class DCDS
     {

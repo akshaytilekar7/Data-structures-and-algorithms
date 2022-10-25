@@ -1,4 +1,6 @@
-﻿namespace CSharp.WeightedGraphAlgo
+﻿using AllCoreFiles.CSharp.GraphDSA.GraphManagement;
+
+namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
 {
     /*
 
@@ -15,15 +17,14 @@
         MSTPrim ha GMST ahe
  
 */
-    public class AlgoDijkistra
+    public class Dijkistra
     {
-        private readonly GraphManagement _graphManagement;
+        private readonly GraphService _graphManagement;
         private const int Infinity = 1000;
-        public AlgoDijkistra(GraphManagement graphManagement)
+        public Dijkistra(GraphService graphManagement)
         {
             _graphManagement = graphManagement;
         }
-
         public void FindShortestPathFrom(int data)
         {
             var pq = InitilizeSingleSource(data);

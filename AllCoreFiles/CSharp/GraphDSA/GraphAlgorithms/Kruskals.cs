@@ -1,11 +1,12 @@
-﻿using CSharp.WeightedGraphAlgo;
+﻿using AllCoreFiles.CSharp.GraphDSA.GraphDcds;
+using AllCoreFiles.CSharp.GraphDSA.GraphManagement;
 
-namespace CSharp.DCDS
+namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
 {
-    public class AlgoKruskals
+    public class Kruskals
     {
-        private readonly GraphManagement graphManagement;
-        public AlgoKruskals(GraphManagement graphManagement)
+        private readonly GraphService graphManagement;
+        public Kruskals(GraphService graphManagement)
         {
             this.graphManagement = graphManagement;
         }
