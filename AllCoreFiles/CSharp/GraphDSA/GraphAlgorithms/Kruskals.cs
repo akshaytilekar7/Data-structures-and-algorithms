@@ -13,52 +13,44 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
         public List<Edge> kruskal()
         {
             DcdsService dcdsService = new DcdsService();
-            DCDS p_dcds = dcdsService.CreateDcds();
+            List<Edge> edges = new List<Edge>();
 
-            List<Edge> p_edge_A = new List<Edge>();
+            var graphEdges = BuildEdgesFromGraph();
 
-            var p_edge_vector = BuildEdges();
-            p_edge_vector = Sort(p_edge_vector);
+            graphEdges = graphEdges.OrderBy(x => x.Weight).ToList();
 
             for (var pv_run = graphManagement._graph.Root.Next; pv_run != graphManagement._graph.Root; pv_run = pv_run.Next)
-                dcdsService.MakeSet(p_dcds, pv_run.Vertex);
+                dcdsService.MakeSet(pv_run.Vertex);
 
-            for (int i = 0; i < p_edge_vector.Count(); ++i)
+            for (int i = 0; i < graphEdges.Count(); ++i)
             {
-                var pu_set = dcdsService.FindSet(p_dcds, p_edge_vector[i].VertexStart);
-                var pv_set = dcdsService.FindSet(p_dcds, p_edge_vector[i].VertexEnd);
-                if (pu_set != pv_set && pv_set != null)
+                var set1 = dcdsService.FindSet(graphEdges[i].VertexStart);
+                var set2 = dcdsService.FindSet(graphEdges[i].VertexEnd);
+                if (set1 != set2)
                 {
-                    if (pu_set != null)
-                        dcdsService.UnionSet(p_dcds, pu_set.PrimaryKey, pv_set.PrimaryKey);
-                    p_edge_A.Add(p_edge_vector[i]);
+                    dcdsService.UnionSet(set1.FirstElementPk, set2.FirstElementPk);
+                    edges.Add(graphEdges[i]);
                 }
             }
 
-            dcdsService.DestroyDcds(p_dcds);
-            return p_edge_A;
-        }
-        List<Edge> Sort(List<Edge> edges)
-        {
-            edges = edges.OrderBy(x => x.Weight).ToList();
             return edges;
         }
-        List<Edge> BuildEdges()
+        List<Edge> BuildEdgesFromGraph()
         {
             List<Edge> listEdges = new List<Edge>();
 
-            for (var pv_run = graphManagement._graph.Root.Next; pv_run != graphManagement._graph.Root; pv_run = pv_run.Next)
+            for (var traverse = graphManagement._graph.Root.Next; traverse != graphManagement._graph.Root; traverse = traverse.Next)
             {
-                for (var ph_run = pv_run.LinkList.Next; ph_run != pv_run.LinkList; ph_run = ph_run.Next)
+                for (var traverseInner = traverse.LinkList.Next; traverseInner != traverse.LinkList; traverseInner = traverseInner.Next)
                 {
-                    if (ph_run.Color == Color.WHITE)
+                    if (traverseInner.Color == Color.WHITE)
                     {
-                        ph_run.Color = Color.BLACK;
-                        var vertexNode = graphManagement.SearchVertexNode(graphManagement._graph.Root, ph_run.Vertex);
-                        var ph_node = graphManagement.SearchVertexLinkList(vertexNode.LinkList, pv_run.Vertex);
-                        ph_node.Color = Color.BLACK;
-                        var p_new_edge = graphManagement.GetEdge(pv_run.Vertex, ph_run.Vertex, ph_run.Weight);
-                        listEdges.Add(p_new_edge);
+                        traverseInner.Color = Color.BLACK;
+                        var vertexNode = graphManagement.SearchVertexNode(graphManagement._graph.Root, traverseInner.Vertex);
+                        var linkListNode = graphManagement.SearchVertexLinkList(vertexNode.LinkList, traverse.Vertex);
+                        linkListNode.Color = Color.BLACK;
+                        var newEdge = graphManagement.GetEdge(traverse.Vertex, traverseInner.Vertex, traverseInner.Weight);
+                        listEdges.Add(newEdge);
                     }
                 }
             }

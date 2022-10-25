@@ -2,118 +2,72 @@
 {
     public class DcdsService
     {
-        SetService SetService = new SetService();
-
-        public DCDS CreateDcds()
+        List<Set> sets = new List<Set>();
+        public int MakeSet(int element)
         {
-            var dcds = GetDcdsNode(null);
-            dcds.Prev = dcds;
-            dcds.Next = dcds;
-            return dcds;
-        }
-
-        public int MakeSet(DCDS dcds, int element)
-        {
-            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
+            foreach (var item in sets)
             {
-                int s = SetService.Search(traverse.Set, element);
-                if (s == 1)
+                if (item.listInt.Contains(element))
                     return Constants.Dcds_representative_exists;
             }
 
-            Set set = SetService.CreateNewSet(element);
-            GenericDcdsInsert(dcds.Prev, GetDcdsNode(set), dcds);
+            Set set = new Set();
+            set.listInt.Add(element);
+            set.FirstElementPk = element;
+
+            sets.Add(set);
             return 1;
         }
 
-        internal int UnionSet(DCDS dcds, int pk1, int pk2)
+        internal int UnionSet(int pk1, int pk2)
         {
             Set set1 = null;
             Set set2 = null;
-            DCDS dcds2 = null;
-            int i;
-            int s;
 
-            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
+            foreach (var set in sets)
             {
-                if (traverse.Set.PrimaryKey == pk1)
-                    set1 = traverse.Set;
-                if (traverse.Set.PrimaryKey == pk2)
-                {
-                    dcds2 = traverse;
-                    set2 = traverse.Set;
-                }
+                if (set.FirstElementPk == pk1)
+                    set1 = set;
+                if (set.FirstElementPk == pk2)
+                    set2 = set;
             }
 
-            if (set1 == null || set2 == null)
-                return Constants.Representative_element_not_found;
+            sets.Remove(set1);
+            sets.Remove(set2);
 
-            for (i = 0; i < set2.Count; ++i)
-                SetService.Add(set1, set2.listInt[i]);
+            var newSet = new Set();
+            newSet.FirstElementPk = pk1;
+            newSet.listInt.AddRange(set1.listInt);
+            newSet.listInt.AddRange(set2.listInt);
 
-            GenericDcdsDelete(dcds2);
+            sets.Add(newSet);
 
             return 1;
         }
 
-        public Set FindSet(DCDS dcds, int pk)
+        public Set FindSet(int element)
         {
-            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
-                if (traverse.Set.PrimaryKey == pk)
-                    return traverse.Set;
-
+            foreach (var item in sets)
+            {
+                if (item.listInt.Contains(element))
+                    return item;
+            }
             return null;
         }
 
-        public void ShowDcds(DCDS dcds, string msg)
+        public void ShowDcds(string msg)
         {
             if (msg != null)
                 Console.WriteLine(msg);
 
-            for (var traverse = dcds.Next; traverse != dcds; traverse = traverse.Next)
+            foreach (var item in sets)
             {
-                Console.Write("[SET]\t->\t[" + traverse.Set.PrimaryKey + "]\t");
+                Console.Write("[SET]\t->\t[" + item.FirstElementPk + "]\t");
                 int i;
-                for (i = 0; i < traverse.Set.Count; ++i)
-                    Console.Write("[" + traverse.Set.listInt[i] + "]");
+                for (i = 0; i < item.listInt.Count; ++i)
+                    Console.Write("[" + item.listInt[i] + "]");
                 Console.WriteLine("[END]");
             }
-        }
-
-        public int DestroyDcds(DCDS dcds)
-        {
-            DCDS dcds1 = dcds;
-            DCDS next;
-
-            for (var traverse = dcds1.Next; traverse != dcds1; traverse = next)
-            {
-                next = traverse.Next;
-                SetService.Destroy(traverse.Set);
-            }
-            return 1;
-        }
-
-        public void GenericDcdsInsert(DCDS start, DCDS mid, DCDS end)
-        {
-            mid.Next = end;
-            mid.Prev = start;
-            start.Next = mid;
-            end.Prev = mid;
-        }
-
-        public void GenericDcdsDelete(DCDS deletedNode)
-        {
-            deletedNode.Prev.Next = deletedNode.Next;
-            deletedNode.Next.Prev = deletedNode.Prev;
-        }
-
-        public DCDS GetDcdsNode(Set set)
-        {
-            var newNode = new DCDS()
-            {
-                Set = set,
-            };
-            return (newNode);
         }
     }
 }
