@@ -45,7 +45,7 @@
             return 1;
         }
 
-        public Set FindSet(int element)
+        public Set FindSetByElememt(int element)
         {
             foreach (var item in sets)
             {
