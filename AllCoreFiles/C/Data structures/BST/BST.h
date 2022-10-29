@@ -25,6 +25,12 @@ struct BST
 	unsigned long long int count;
 };
 
+struct Dictionary
+{
+	struct Node* node;
+	int VisitedCount;
+};
+
 struct Node* GetNewNode(int data);
 
 int Insert(struct BST* tree, int data);

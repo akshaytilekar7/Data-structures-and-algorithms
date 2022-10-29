@@ -1,24 +1,19 @@
 ﻿namespace CSharp.DP
 {
-    public class RodCut
+    public class RodCut2
     {
-        static long length = 11;
-        static long[] arr = new long[length];
-        public static void Main()
+        static long input = Convert.ToInt32(10);
+        static long length = input + 1;
+        static long[] arr = { 0, 5, 4, 9, 8, 13, 12, 17, 16, 21 };
+        public static void Main123()
         {
-            for (int i = 1; i < length; ++i)
-            {
-                if (i % 2 == 0)
-                    arr[i] = 2 * i + 1;
-                else
-                    arr[i] = 2 * i - 2;
-            }
+            long i;
 
             Console.WriteLine("Showing p:");
-            for (int i = 1; i < length; ++i)
-                Console.Write("arr[" + i + "]:" + arr[i] + "\n");
+            for (i = 1; i < length; ++i)
+                Console.Write("arr[" + i + "]:" + arr[i - 1] + "\n");
 
-            for (int i = 1; i < length; ++i)
+            for (i = 0; i < length; ++i)
             {
                 long rs = ComputeRod(i);
                 Console.WriteLine("r[" + i + "]:" + rs + "\n");
@@ -34,7 +29,7 @@
             if (index == 1)
                 return arr[1];
 
-            for (i = 1; i <= index / 2; ++i)
+            for (i = 1; i < index / 2; ++i)
             {
                 long ri = ComputeRod(i) + ComputeRod(index - i);
                 if (ri > arrVal)

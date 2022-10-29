@@ -346,12 +346,6 @@ void PreorderIterative(struct BST* tree)
 	puts(" [END]\n");
 }
 
-struct Dictionary
-{
-	struct Node* node;
-	int VisitedCount;
-};
-
 // NOT WORKING
 void PostorderIterative(struct BST* tree)
 {
