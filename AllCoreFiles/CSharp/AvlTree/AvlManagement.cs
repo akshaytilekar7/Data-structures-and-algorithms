@@ -54,7 +54,7 @@ namespace CSharp.AvlTree
 
             while (grandParent != null)
             {
-                int imbalanceCount = GetBalanceOfNode(child);
+                int imbalanceCount = GetBalanceOfNode(grandParent);
                 if (imbalanceCount < -1 || imbalanceCount > 1)
                     break;
 
@@ -68,21 +68,21 @@ namespace CSharp.AvlTree
 
             if (child == parent.Left && parent == grandParent.Left)
             {
-                RightRotate(child);
+                RightRotate(grandParent);
             }
             else if (child == parent.Right && parent == grandParent.Right)
             {
-                LeftRotate(child);
+                LeftRotate(grandParent);
             }
             else if (child == parent.Right && parent == grandParent.Left)
             {
-                LeftRotate(grandParent);
-                RightRotate(child);
+                LeftRotate(parent);
+                RightRotate(grandParent);
             }
             else if (child == parent.Left && parent == grandParent.Right)
             {
-                RightRotate(grandParent);
-                LeftRotate(child);
+                RightRotate(parent);
+                LeftRotate(grandParent);
             }
         }
         public void Inorder()
