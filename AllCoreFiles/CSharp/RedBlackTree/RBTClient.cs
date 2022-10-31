@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AllCoreFiles.CSharp.RedBlackTree
+namespace AllCoreFiles.CSharp.RedBlackTree1
 {
     public class RBTClient
     {
@@ -35,7 +35,7 @@ namespace AllCoreFiles.CSharp.RedBlackTree
 
             Console.WriteLine("\n\nBST TREE");
             //treeOperations.Inorder(BST);
-            //Console.WriteLine("Height is " + treeOperations.GetHeight(BST.root));
+            Console.WriteLine("Height is " + treeOperations.GetHeight(BST.root));
 
         }
 

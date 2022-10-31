@@ -1,4 +1,6 @@
-﻿namespace AllCoreFiles.CSharp.RedBlackTree
+﻿// https://www.youtube.com/watch?v=C6NOlAPo5_o
+
+namespace AllCoreFiles.CSharp.RedBlackTree1
 {
     public enum Color
     {
@@ -8,17 +10,17 @@
 
     public class Node
     {
-        public int Data;
-        public Color Color; 
-        public Node Left;
-        public Node Right;
-        public Node Parent;
+        public int Data { get; set; }
+        public Color Color { get; set; }
+        public Node Left { get; set; }
+        public Node Right { get; set; }
+        public Node Parent { get; set; }
     };
 
     public class RbTree
     {
-        public Node Root;
-        public Node Nil; 
+        public Node Root { get; set; }
+        public Node Nil = new Node(); 
         public int Count;
     };
 }

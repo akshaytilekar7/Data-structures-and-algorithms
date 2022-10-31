@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace AllCoreFiles.CSharp.RedBlackTree
+﻿namespace AllCoreFiles.CSharp.RedBlackTree1
 {
     public class RBTServices
     {
         public readonly RbTree RbTree;
-
         public RBTServices()
         {
             RbTree = new RbTree();
@@ -16,7 +12,6 @@ namespace AllCoreFiles.CSharp.RedBlackTree
             RbTree.Nil.Left = null;
             RbTree.Nil.Right = null;
             RbTree.Nil.Parent = null;
-            //RbTree.Nil = null;
             RbTree.Root = RbTree.Nil;
         }
         public Node GetNode(int data, Node pNil)
@@ -28,10 +23,6 @@ namespace AllCoreFiles.CSharp.RedBlackTree
             newNode.Right = pNil;
             newNode.Parent = pNil;
             return newNode;
-
-            //Node node = new Node();
-            //node.Data = data;
-            //return node;
         }
         public void Insert(int data)
         {
@@ -66,7 +57,6 @@ namespace AllCoreFiles.CSharp.RedBlackTree
                 return 0;
             return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
-
         public int InsertItrative(int new_data)
         {
             var z = GetNode(new_data, RbTree.Nil);
@@ -129,7 +119,6 @@ namespace AllCoreFiles.CSharp.RedBlackTree
         }
 
         #endregion #region
-
         private void InsertFixup(Node newNode)
         {
             while (newNode.Parent.Color == Color.RED)
