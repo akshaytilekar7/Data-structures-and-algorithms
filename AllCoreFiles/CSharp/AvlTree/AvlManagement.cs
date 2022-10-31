@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CSharp.AvlTree
 {
     public class AvlManagement
     {
-        private readonly AvlTree _avlTree;
+        public readonly AvlTree _avlTree;
         public AvlManagement()
         {
             this._avlTree = new AvlTree();
@@ -19,9 +15,10 @@ namespace CSharp.AvlTree
         }
         public void Insert(int data)
         {
+            var z = GetNewNode(data);
             if (_avlTree.Root == null)
             {
-                _avlTree.Root = GetNewNode(data);
+                _avlTree.Root = z;
                 return;
             }
             var node = _avlTree.Root;
@@ -31,7 +28,7 @@ namespace CSharp.AvlTree
                 {
                     if (node.Left == null)
                     {
-                        node.Left = GetNewNode(data);
+                        node.Left = z;
                         node.Left.Parent = node;
                         break;
                     }
@@ -41,12 +38,51 @@ namespace CSharp.AvlTree
                 {
                     if (node.Right == null)
                     {
-                        node.Right = GetNewNode(data);
+                        node.Right = z;
                         node.Right.Parent = node;
                         break;
                     }
                     node = node.Right;
                 }
+            }
+
+            Node child = z;
+            Node parent = child.Parent;
+            Node grandParent = null;
+            if (parent != null)
+                grandParent = parent.Parent;
+
+            while (grandParent != null)
+            {
+                int imbalanceCount = GetBalanceOfNode(child);
+                if (imbalanceCount < -1 || imbalanceCount > 1)
+                    break;
+
+                parent = parent.Parent;
+                grandParent = grandParent.Parent;
+                child = child.Parent;
+            }
+
+            if (grandParent == null)
+                return;
+
+            if (child == parent.Left && parent == grandParent.Left)
+            {
+                RightRotate(child);
+            }
+            else if (child == parent.Right && parent == grandParent.Right)
+            {
+                LeftRotate(child);
+            }
+            else if (child == parent.Right && parent == grandParent.Left)
+            {
+                LeftRotate(grandParent);
+                RightRotate(child);
+            }
+            else if (child == parent.Left && parent == grandParent.Right)
+            {
+                RightRotate(grandParent);
+                LeftRotate(child);
             }
         }
         public void Inorder()
