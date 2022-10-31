@@ -176,7 +176,6 @@ namespace CSharp.AvlTree
             if (node == null) return 0;
             return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
-
         public int GetBalanceOfNode(Node node)
         {
             if (node == null) return 0;
@@ -184,7 +183,6 @@ namespace CSharp.AvlTree
             int rightHeight = GetHeight(node.Right);
             return leftHeight - rightHeight;
         }
-
         public Node GetUpperImbalanceNode(Node node)
         {
             var travel = node;
