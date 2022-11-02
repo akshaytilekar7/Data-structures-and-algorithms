@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace CSharp.AvlTree
+﻿namespace CSharp.AvlTree
 {
     public class AvlManagement
     {
@@ -8,41 +6,51 @@ namespace CSharp.AvlTree
         public AvlManagement()
         {
             this._avlTree = new AvlTree();
+            this._avlTree.Root = null;
         }
         public Node GetNewNode(int data)
         {
-            return new Node() { Data = data };
+            return new Node() { Data = data, Left = null, Right = null, Parent = null };
         }
         public void Insert(int data)
         {
             var z = GetNewNode(data);
-            if (_avlTree.Root == null)
+            var node = _avlTree.Root;
+            if (node == null)
             {
                 _avlTree.Root = z;
                 return;
             }
-            var node = _avlTree.Root;
+
             while (true)
             {
-                if (data < node.Data)
+                if (data <= node.Data)
                 {
                     if (node.Left == null)
                     {
                         node.Left = z;
-                        node.Left.Parent = node;
+                        z.Parent = node;
                         break;
                     }
-                    node = node.Left;
+                    else
+                    {
+                        node = node.Left;
+                        continue;
+                    }
                 }
                 else
                 {
                     if (node.Right == null)
                     {
                         node.Right = z;
-                        node.Right.Parent = node;
+                        z.Parent = node;
                         break;
                     }
-                    node = node.Right;
+                    else
+                    {
+                        node = node.Right;
+                        continue;
+                    }
                 }
             }
 
@@ -58,30 +66,30 @@ namespace CSharp.AvlTree
                 if (imbalanceCount < -1 || imbalanceCount > 1)
                     break;
 
-                parent = parent.Parent;
                 grandParent = grandParent.Parent;
+                parent = parent.Parent;
                 child = child.Parent;
             }
 
             if (grandParent == null)
                 return;
 
-            if (child == parent.Left && parent == grandParent.Left)
+            if (parent == grandParent.Left && child == parent.Left)
             {
                 RightRotate(grandParent);
             }
-            else if (child == parent.Right && parent == grandParent.Right)
-            {
-                LeftRotate(grandParent);
-            }
-            else if (child == parent.Right && parent == grandParent.Left)
+            else if (parent == grandParent.Left && child == parent.Right)
             {
                 LeftRotate(parent);
                 RightRotate(grandParent);
             }
-            else if (child == parent.Left && parent == grandParent.Right)
+            else if (parent == grandParent.Right && child == parent.Left)
             {
                 RightRotate(parent);
+                LeftRotate(grandParent);
+            }
+            else if (parent == grandParent.Right && child == parent.Right)
+            {
                 LeftRotate(grandParent);
             }
         }
@@ -133,15 +141,16 @@ namespace CSharp.AvlTree
                     node = node.Right;
             }
         }
-        private void LeftRotate(Node x)
+        void LeftRotate(Node x)
         {
+            /* Part 1 */
             var y = x.Right;
             x.Right = y.Left;
             if (y.Left != null)
                 y.Left.Parent = x;
 
+            /* Part 2 */
             y.Parent = x.Parent;
-
             if (x.Parent == null)
                 _avlTree.Root = y;
             else if (x == x.Parent.Left)
@@ -149,32 +158,36 @@ namespace CSharp.AvlTree
             else if (x == x.Parent.Right)
                 x.Parent.Right = y;
 
+            /* Part 3 */
             y.Left = x;
             x.Parent = y;
         }
-        private void RightRotate(Node x)
+        void RightRotate(Node x)
         {
+            /* Part 1 */
             var y = x.Left;
             x.Left = y.Right;
             if (y.Right != null)
                 y.Right.Parent = x;
 
+            /* Part 2 */
             y.Parent = x.Parent;
-
             if (x.Parent == null)
                 _avlTree.Root = y;
-            else if (x == x.Parent.Right)
-                x.Parent.Right = y;
             else if (x == x.Parent.Left)
                 x.Parent.Left = y;
+            else if (x == x.Parent.Right)
+                x.Parent.Right = y;
 
+            /* Part 3 */
             y.Right = x;
             x.Parent = y;
         }
         public int GetHeight(Node node)
         {
-            if (node == null) return 0;
-            return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
+            if (node == null)
+                return 0;
+            return Math.Max(GetHeight(node.Left), GetHeight(node.Right)) + 1;
         }
         public int GetBalanceOfNode(Node node)
         {
@@ -183,18 +196,628 @@ namespace CSharp.AvlTree
             int rightHeight = GetHeight(node.Right);
             return leftHeight - rightHeight;
         }
-        public Node GetUpperImbalanceNode(Node node)
+        public Node FindImbalanceFromNodeToRoot(Node node)
         {
+            if (node == null)
+                return (null);
+
             var travel = node;
             while (travel != null)
             {
-                int imbalnceCount = GetBalanceOfNode(travel);
-                if (imbalnceCount < -1 || imbalnceCount > 1)
+                int imbalanceCount = GetBalanceOfNode(travel);
+                if (imbalanceCount < -1 || imbalanceCount > 1)
                     return travel;
                 travel = travel.Parent;
             }
             return null;
         }
+        public void DeleteMineAlsoWorking(Node z)
+        {
+            if (z == null)
+                return;
+            if (z.Left == null)
+            {
+                if (z.Parent == null)
+                    _avlTree.Root = z.Right;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Right;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Right;
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent;
+                z = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                if (z.Parent == null)
+                    _avlTree.Root = z.Left;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Left;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Left;
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+                z = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
 
+                if (z.Right != w)
+                {
+                    w.Parent.Left = w.Right;
+
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+                if (z.Parent == null)
+                    _avlTree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+
+                w.Parent = z.Parent;
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                z = w;
+            }
+            Node grandparent = z;
+            Node child = null;
+            Node parent = null;
+
+            while ((grandparent = FindImbalanceFromNodeToRoot(grandparent)) != null)
+            {
+                var heightLeftsubTree = GetHeight(grandparent.Left);
+                var heightRightsubTree = GetHeight(grandparent.Right);
+                if (heightLeftsubTree > heightRightsubTree)
+                    parent = grandparent.Left;
+                else parent = grandparent.Right;
+
+                if (parent != null)
+                {
+                    heightLeftsubTree = GetHeight(parent.Left);
+                    heightRightsubTree = GetHeight(parent.Right);
+                    if (heightLeftsubTree > heightRightsubTree)
+                        child = parent.Left;
+                    else child = parent.Right;
+                }
+
+                if (!(child != null && parent != null && grandparent != null))
+                    break;
+
+                if (child == parent.Left && parent == grandparent.Left)
+                {
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Left)
+                {
+                    LeftRotate(parent);
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Left && parent == grandparent.Right)
+                {
+                    RightRotate(parent);
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Right)
+                {
+                    LeftRotate(grandparent);
+                }
+            }
+        }
+        public void DeleteWorking(Node z)
+        {
+            if (z == null)
+                return;
+            if (z.Left == null)
+            {
+                Transplant(z, z.Right);
+                z = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                Transplant(z, z.Left);
+                z = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    Transplant(w, w.Right);
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+
+                Transplant(z, w);
+                // w.Parent = z.Parent;
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                z = w;
+            }
+            Node grandparent = z;
+            Node child = null;
+            Node parent = null;
+
+            while ((grandparent = FindImbalanceFromNodeToRoot(grandparent)) != null)
+            {
+                var heightLeftsubTree = GetHeight(grandparent.Left);
+                var heightRightsubTree = GetHeight(grandparent.Right);
+                if (heightLeftsubTree > heightRightsubTree)
+                    parent = grandparent.Left;
+                else parent = grandparent.Right;
+
+                if (parent != null)
+                {
+                    heightLeftsubTree = GetHeight(parent.Left);
+                    heightRightsubTree = GetHeight(parent.Right);
+                    if (heightLeftsubTree > heightRightsubTree)
+                        child = parent.Left;
+                    else child = parent.Right;
+                }
+
+                if (!(child != null && parent != null && grandparent != null))
+                    break;
+
+                if (child == parent.Left && parent == grandparent.Left)
+                {
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Left)
+                {
+                    LeftRotate(parent);
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Left && parent == grandparent.Right)
+                {
+                    RightRotate(parent);
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Right)
+                {
+                    LeftRotate(grandparent);
+                }
+            }
+        }
+        public void DeleteWorkinExpanded(Node z)
+        {
+            if (z == null)
+                return;
+            if (z.Left == null)
+            {
+                if (z.Parent == null)
+                    _avlTree.Root = z.Right;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Right;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Right;
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent;
+                z = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                if (z.Parent == null)
+                    _avlTree.Root = z.Left;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Left;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Left;
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+
+                z = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    if (w.Parent == null)
+                        _avlTree.Root = w.Right;
+                    else if (w == w.Parent.Left)
+                        w.Parent.Left = w.Right;
+                    else if (w == w.Parent.Right)
+                        w.Parent.Right = w.Right;
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+
+                if (z.Parent == null)
+                    _avlTree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+                if (w != null)
+                    w.Parent = z.Parent;
+
+                // w.Parent = z.Parent;
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                z = w;
+            }
+            Node grandparent = z;
+            Node child = null;
+            Node parent = null;
+
+            while ((grandparent = FindImbalanceFromNodeToRoot(grandparent)) != null)
+            {
+                var heightLeftsubTree = GetHeight(grandparent.Left);
+                var heightRightsubTree = GetHeight(grandparent.Right);
+                if (heightLeftsubTree > heightRightsubTree)
+                    parent = grandparent.Left;
+                else parent = grandparent.Right;
+
+                if (parent != null)
+                {
+                    heightLeftsubTree = GetHeight(parent.Left);
+                    heightRightsubTree = GetHeight(parent.Right);
+                    if (heightLeftsubTree > heightRightsubTree)
+                        child = parent.Left;
+                    else child = parent.Right;
+                }
+
+                if (!(child != null && parent != null && grandparent != null))
+                    break;
+
+                if (child == parent.Left && parent == grandparent.Left)
+                {
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Left)
+                {
+                    LeftRotate(parent);
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Left && parent == grandparent.Right)
+                {
+                    RightRotate(parent);
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Right)
+                {
+                    LeftRotate(grandparent);
+                }
+            }
+        }
+        public void DeleteGithubChangesWorking(Node z)
+        {
+            if (z.Left == null)
+            {
+                var y = z.Right;
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent;
+                if (z.Parent == null)
+                    _avlTree.Root = y;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = y;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = y;
+                z = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                var y = z.Left;
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+
+                if (z.Parent == null)
+                    _avlTree.Root = y;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = y;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = y;
+                z = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    w.Parent.Left = w.Right;
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+                if (z.Parent == null)
+                    _avlTree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                w.Parent = z.Parent;
+                z = w;
+            }
+
+            Node grandparent = z;
+            Node child = null;
+            Node parent = null;
+
+            while ((grandparent = FindImbalanceFromNodeToRoot(grandparent)) != null)
+            {
+                var heightLeftsubTree = GetHeight(grandparent.Left);
+                var heightRightsubTree = GetHeight(grandparent.Right);
+                if (heightLeftsubTree > heightRightsubTree)
+                    parent = grandparent.Left;
+                else parent = grandparent.Right;
+
+                if (parent != null)
+                {
+                    heightLeftsubTree = GetHeight(parent.Left);
+                    heightRightsubTree = GetHeight(parent.Right);
+                    if (heightLeftsubTree > heightRightsubTree)
+                        child = parent.Left;
+                    else child = parent.Right;
+                }
+
+                if (!(child != null && parent != null && grandparent != null))
+                    break;
+
+                if (child == parent.Left && parent == grandparent.Left)
+                {
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Left)
+                {
+                    LeftRotate(parent);
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Left && parent == grandparent.Right)
+                {
+                    RightRotate(parent);
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Right)
+                {
+                    LeftRotate(grandparent);
+                }
+            }
+
+        }
+        public void DeleteGithubChangesWorking2(Node z)
+        {
+            var temp = z;
+            if (z.Left == null)
+            {
+                var y = z.Right;
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent;
+                if (z.Parent == null)
+                    _avlTree.Root = y;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = y;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = y;
+                z = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                var y = z.Left;
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+
+                if (z.Parent == null)
+                    _avlTree.Root = y;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = y;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = y;
+                z = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    w.Parent.Left = w.Right;
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+                if (z.Parent == null)
+                    _avlTree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                w.Parent = z.Parent;
+                z = w;
+            }
+            Node grandparent = z;
+            Node child = null;
+            Node parent = null;
+
+            temp = null;
+
+            while ((grandparent = FindImbalanceFromNodeToRoot(grandparent)) != null)
+            {
+                var heightLeftsubTree = GetHeight(grandparent.Left);
+                var heightRightsubTree = GetHeight(grandparent.Right);
+                if (heightLeftsubTree > heightRightsubTree)
+                    parent = grandparent.Left;
+                else parent = grandparent.Right;
+
+                if (parent != null)
+                {
+                    heightLeftsubTree = GetHeight(parent.Left);
+                    heightRightsubTree = GetHeight(parent.Right);
+                    if (heightLeftsubTree > heightRightsubTree)
+                        child = parent.Left;
+                    else child = parent.Right;
+                }
+
+                if (child != null && parent != null && grandparent != null)
+                    break;
+
+                if (child == parent.Left && parent == grandparent.Left)
+                {
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Right)
+                {
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Left && parent == grandparent.Right)
+                {
+                    RightRotate(parent);
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Left)
+                {
+                    LeftRotate(parent);
+                    RightRotate(grandparent);
+                }
+            }
+        }
+
+        // DeleteWithErrorFixesCommentWhereErrorWasS
+        public void Delete(Node z)
+        {
+            var temp = z;
+            if (z.Left == null)
+            {
+                var y = z.Right;
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent;
+                if (z.Parent == null)
+                    _avlTree.Root = y;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = y;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = y;
+                z = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                var y = z.Left;
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+
+                if (z.Parent == null)
+                    _avlTree.Root = y;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = y;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = y;
+                z = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    w.Parent.Left = w.Right;
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+                if (z.Parent == null)
+                    _avlTree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w; ////////////// shoubd be z prev was w
+
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                w.Parent = z.Parent;
+                z = w;
+            }
+            Node grandparent = z;
+            Node child = null;
+            Node parent = null;
+
+            temp = null;
+
+            while ((grandparent = FindImbalanceFromNodeToRoot(grandparent)) != null)
+            {
+                var heightLeftsubTree = GetHeight(grandparent.Left);
+                var heightRightsubTree = GetHeight(grandparent.Right);
+                if (heightLeftsubTree > heightRightsubTree)
+                    parent = grandparent.Left;
+                else parent = grandparent.Right;
+
+                if (parent != null)
+                {
+                    heightLeftsubTree = GetHeight(parent.Left);
+                    heightRightsubTree = GetHeight(parent.Right);
+                    if (heightLeftsubTree > heightRightsubTree)
+                        child = parent.Left;  ////////// should be parent - grandparent
+                    else child = parent.Right;  ////////// should be parent instead grandparent
+                }
+
+                if (child != null && parent != null && grandparent != null)
+                    break;
+
+                if (child == parent.Left && parent == grandparent.Left)
+                {
+                    RightRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Right)
+                {
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Left && parent == grandparent.Right)
+                {
+                    RightRotate(parent);
+                    LeftRotate(grandparent);
+                }
+                else if (child == parent.Right && parent == grandparent.Left)
+                {
+                    LeftRotate(parent);
+                    RightRotate(grandparent);
+                }
+            }
+        }
+
+        private void Transplant(Node u, Node v)
+        {
+            if (u.Parent == null)
+                _avlTree.Root = v;
+            else if (u == u.Parent.Left)
+                u.Parent.Left = v;
+            else if (u == u.Parent.Right)
+                u.Parent.Right = v;
+            if (v != null)
+                v.Parent = u.Parent;
+        }
     }
 }
