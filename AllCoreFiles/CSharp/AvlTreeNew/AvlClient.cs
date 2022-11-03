@@ -27,8 +27,7 @@ namespace CSharp.AvlTreeNew
 
             foreach (var item in MyRandomArray)
             {
-                var node1 = avlManagement.GetNode(item);
-                avlManagement.Delete(node1);
+                avlManagement.Delete(item);
                 var node2 = treeOperations.GetNode(item);
                 treeOperations.Delete(node2);
                 Console.WriteLine("delete height is : " + avlManagement.GetHeight(avlManagement._avlTree.Root));

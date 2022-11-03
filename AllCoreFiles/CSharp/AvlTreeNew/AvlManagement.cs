@@ -17,87 +17,6 @@
             var newNode = InsertHelper(data);
             InsertFix(newNode);
         }
-        public void InsertCopy(int data)
-        {
-            var z = GetNewNode(data);
-            var node = _avlTree.Root;
-            if (node == null)
-            {
-                _avlTree.Root = z;
-                return;
-            }
-
-            while (true)
-            {
-                if (data <= node.Data)
-                {
-                    if (node.Left == null)
-                    {
-                        node.Left = z;
-                        z.Parent = node;
-                        break;
-                    }
-                    else
-                    {
-                        node = node.Left;
-                        continue;
-                    }
-                }
-                else
-                {
-                    if (node.Right == null)
-                    {
-                        node.Right = z;
-                        z.Parent = node;
-                        break;
-                    }
-                    else
-                    {
-                        node = node.Right;
-                        continue;
-                    }
-                }
-            }
-
-            Node child = z;
-            Node parent = child.Parent;
-            Node grandParent = null;
-            if (parent != null)
-                grandParent = parent.Parent;
-
-            while (grandParent != null)
-            {
-                int imbalanceCount = GetBalanceOfNode(grandParent);
-                if (imbalanceCount < -1 || imbalanceCount > 1)
-                    break;
-
-                grandParent = grandParent.Parent;
-                parent = parent.Parent;
-                child = child.Parent;
-            }
-
-            if (grandParent == null)
-                return;
-
-            if (parent == grandParent.Left && child == parent.Left)
-            {
-                RightRotate(grandParent);
-            }
-            else if (parent == grandParent.Left && child == parent.Right)
-            {
-                LeftRotate(parent);
-                RightRotate(grandParent);
-            }
-            else if (parent == grandParent.Right && child == parent.Left)
-            {
-                RightRotate(parent);
-                LeftRotate(grandParent);
-            }
-            else if (parent == grandParent.Right && child == parent.Right)
-            {
-                LeftRotate(grandParent);
-            }
-        }
         private Node InsertHelper(int data)
         {
             var z = GetNewNode(data);
@@ -159,30 +78,15 @@
             if (grandparent == null)
                 return;
 
-            FixupTrasplant(child, parent, grandparent);
+            FixupByRotation(child, parent, grandparent);
         }
-        private void FixupTrasplant(Node child, Node parent, Node grandparent)
+        public void Delete(int data)
         {
-            if (child == parent.Left && parent == grandparent.Left)
-            {
-                RightRotate(grandparent);
-            }
-            else if (child == parent.Right && parent == grandparent.Right)
-            {
-                LeftRotate(grandparent);
-            }
-            else if (child == parent.Left && parent == grandparent.Right)
-            {
-                RightRotate(parent);
-                LeftRotate(grandparent);
-            }
-            else if (child == parent.Right && parent == grandparent.Left)
-            {
-                LeftRotate(parent);
-                RightRotate(grandparent);
-            }
+            var node = GetNode(data);
+            var grandparent = DeleteHelper(node);
+            DeleteFixup(grandparent);
         }
-        public void Delete(Node z)
+        private Node DeleteHelper(Node z)
         {
             Node grandparent = null;
             if (z.Left == null)
@@ -239,11 +143,9 @@
                 w.Parent = z.Parent;
                 grandparent = w;
             }
-
-            DeleteTrasplant(grandparent);
-
+            return grandparent;
         }
-        public void DeleteTrasplant(Node grandparent)
+        private void DeleteFixup(Node grandparent)
         {
             Node child = null;
             Node parent = null;
@@ -270,7 +172,28 @@
                 if (child == null || parent == null || grandparent == null)
                     return;
 
-                FixupTrasplant(child, parent, grandparent);
+                FixupByRotation(child, parent, grandparent);
+            }
+        }
+        private void FixupByRotation(Node child, Node parent, Node grandparent)
+        {
+            if (child == parent.Left && parent == grandparent.Left)
+            {
+                RightRotate(grandparent);
+            }
+            else if (child == parent.Right && parent == grandparent.Right)
+            {
+                LeftRotate(grandparent);
+            }
+            else if (child == parent.Left && parent == grandparent.Right)
+            {
+                RightRotate(parent);
+                LeftRotate(grandparent);
+            }
+            else if (child == parent.Right && parent == grandparent.Left)
+            {
+                LeftRotate(parent);
+                RightRotate(grandparent);
             }
         }
         public void Inorder()
@@ -321,15 +244,13 @@
                     node = node.Right;
             }
         }
-        void LeftRotate(Node x)
+        private void LeftRotate(Node x)
         {
-            /* Part 1 */
             var y = x.Right;
             x.Right = y.Left;
             if (y.Left != null)
                 y.Left.Parent = x;
 
-            /* Part 2 */
             y.Parent = x.Parent;
             if (x.Parent == null)
                 _avlTree.Root = y;
@@ -338,19 +259,16 @@
             else if (x == x.Parent.Right)
                 x.Parent.Right = y;
 
-            /* Part 3 */
             y.Left = x;
             x.Parent = y;
         }
-        void RightRotate(Node x)
+        private void RightRotate(Node x)
         {
-            /* Part 1 */
             var y = x.Left;
             x.Left = y.Right;
             if (y.Right != null)
                 y.Right.Parent = x;
 
-            /* Part 2 */
             y.Parent = x.Parent;
             if (x.Parent == null)
                 _avlTree.Root = y;
@@ -359,7 +277,6 @@
             else if (x == x.Parent.Right)
                 x.Parent.Right = y;
 
-            /* Part 3 */
             y.Right = x;
             x.Parent = y;
         }
@@ -368,14 +285,14 @@
             if (node == null) return 0;
             return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
-        public int GetBalanceOfNode(Node node)
+        private int GetBalanceOfNode(Node node)
         {
             if (node == null) return 0;
             int left = GetHeight(node.Left);
             int right = GetHeight(node.Right);
             return left - right;
         }
-        public Node FindImbalanceFromNodeToRoot(Node node) 
+        private Node FindImbalanceFromNodeToRoot(Node node) 
         {
             if (node == null) return null;
             var travel = node;
