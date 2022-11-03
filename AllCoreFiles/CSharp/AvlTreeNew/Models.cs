@@ -1,4 +1,4 @@
-﻿namespace CSharp.AvlTree1
+﻿namespace CSharp.AvlTreeNew
 {
     public class Node
     {

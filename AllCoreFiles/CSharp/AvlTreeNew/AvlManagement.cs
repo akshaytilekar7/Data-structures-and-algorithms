@@ -1,4 +1,4 @@
-﻿namespace CSharp.AvlTree1
+﻿namespace CSharp.AvlTreeNew
 {
     public class AvlManagement
     {
@@ -12,12 +12,12 @@
         {
             return new Node() { Data = data, Left = null, Right = null, Parent = null };
         }
-        public void Insert1(int data)
+        public void Insert(int data)
         {
             var newNode = InsertHelper(data);
             InsertFix(newNode);
         }
-        public void Insert(int data)
+        public void InsertCopy(int data)
         {
             var z = GetNewNode(data);
             var node = _avlTree.Root;
@@ -366,7 +366,7 @@
         public int GetHeight(Node node)
         {
             if (node == null) return 0;
-            return 1 + GetHeight(node.Left) + GetHeight(node.Right);
+            return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
         public int GetBalanceOfNode(Node node)
         {

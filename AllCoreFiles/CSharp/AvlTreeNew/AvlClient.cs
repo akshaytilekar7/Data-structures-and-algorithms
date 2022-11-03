@@ -1,6 +1,6 @@
 ﻿using CSharp.Leetcode.Stack;
 
-namespace CSharp.AvlTree1
+namespace CSharp.AvlTreeNew
 {
     public class AvlClient
     {
@@ -16,17 +16,14 @@ namespace CSharp.AvlTree1
             {
                 treeOperations.Insert(BST, item);
                 avlManagement.Insert(item);
-                avlManagement.Inorder();
                 var node = avlManagement.GetNode(item);
                 Console.WriteLine("AVL height is : " + avlManagement.GetHeight(avlManagement._avlTree.Root));
                 Console.WriteLine("Normal height is : " + treeOperations.GetHeight(BST.root));
             }
+            avlManagement.Inorder();
 
             Random rnd = new Random();
             var MyRandomArray = arr.OrderBy(x => rnd.Next()).ToList();
-            Console.WriteLine("START");
-            MyRandomArray.ForEach(x => Console.Write(" " + x + " "));
-            Console.WriteLine("END");
 
             foreach (var item in MyRandomArray)
             {
@@ -34,10 +31,8 @@ namespace CSharp.AvlTree1
                 avlManagement.Delete(node1);
                 var node2 = treeOperations.GetNode(item);
                 treeOperations.Delete(node2);
-                avlManagement.Inorder();
                 Console.WriteLine("delete height is : " + avlManagement.GetHeight(avlManagement._avlTree.Root));
                 Console.WriteLine("Normal height is : " + treeOperations.GetHeight(BST.root));
-
             }
 
             Console.WriteLine("DONE DONE DONE");
