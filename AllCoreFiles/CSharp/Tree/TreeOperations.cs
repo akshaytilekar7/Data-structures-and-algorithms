@@ -8,10 +8,11 @@ namespace CSharp.Leetcode.Stack
 {
     public class TreeOperations
     {
+        public BST tree;
         public BST Create()
         {
 
-            BST tree = new BST();
+            tree = new BST();
             tree.count = 0;
             return tree;
         }
@@ -141,6 +142,93 @@ namespace CSharp.Leetcode.Stack
                     root = root.Right;
             }
             Console.WriteLine(" [END]");
+        }
+
+        public int GetHeight(Node node)
+        {
+            if (node == null) return 0;
+            return 1 + GetHeight(node.Left) + GetHeight(node.Right);
+        }
+
+        public void Delete(Node z)
+        {
+            Node grandparent = null;
+            if (z.Left == null)
+            {
+                if (tree.root == z)
+                    tree.root = z.Right;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Right;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Right;
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent; //////
+                grandparent = z.Right;
+            }
+            else if (z.Right == null)
+            {
+                if (tree.root == z)
+                    tree.root = z.Left;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Left;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Left;
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+
+                grandparent = z.Left;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    w.Parent.Left = w.Right;
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+
+                w.Left = z.Left;
+                w.Left.Parent = w;
+
+                if (tree.root == z)
+                    tree.root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+
+                w.Parent = z.Parent;
+                grandparent = w;
+            }
+
+
+        }
+
+        public Node GetNode(int data)
+        {
+            if (tree.root == null)
+                return null;
+            var node = tree.root;
+            while (true)
+            {
+                if (node == null)
+                    return null;
+
+                if (node.Data == data)
+                    return node;
+
+                if (data < node.Data)
+                    node = node.Left;
+                else
+                    node = node.Right;
+            }
         }
 
     }

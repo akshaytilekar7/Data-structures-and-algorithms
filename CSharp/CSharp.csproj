@@ -13,4 +13,8 @@
     <None Remove="GraphKruskals\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AllCoreFiles\AllCoreFiles.csproj" />
+  </ItemGroup>
+
 </Project>
