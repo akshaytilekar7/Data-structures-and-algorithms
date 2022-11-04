@@ -9,9 +9,9 @@
             RbTree.Nil = new Node();
             RbTree.Nil.Color = Color.BLACK;
             RbTree.Nil.Data = -1;
-            RbTree.Nil.Left = null;
-            RbTree.Nil.Right = null;
-            RbTree.Nil.Parent = null;
+            RbTree.Nil.Left = RbTree.Nil;
+            RbTree.Nil.Right = RbTree.Nil;
+            RbTree.Nil.Parent = RbTree.Nil;
             RbTree.Root = RbTree.Nil;
         }
         public Node GetNode(int data, Node pNil)
@@ -97,7 +97,7 @@
             }
 
             RbTree.Count += 1;
-            InsertFixup( z);
+            InsertFixup(z);
             return (1);
         }
 
@@ -226,6 +226,106 @@
 
             y.Right = x;
             x.Parent = y;
+        }
+        public void Delete(Node z)
+        {
+            Node problematicSubtreeNode = RbTree.Nil;
+            var y = z;
+            var yColor = y.Color;
+
+            if (z.Left == RbTree.Nil)
+            {
+                problematicSubtreeNode = z.Right;
+
+                if (RbTree.Root == z)
+                    RbTree.Root = z.Right;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Right;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Right;
+
+                if (z.Right != RbTree.Nil)
+                    z.Right.Parent = z.Parent;
+
+            }
+            else if (z.Right == RbTree.Nil)
+            {
+                problematicSubtreeNode = z.Left;
+                if (RbTree.Root == z)
+                    RbTree.Root = z.Left;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Left;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = z.Left;
+
+                if (z.Left != RbTree.Nil)
+                    z.Left.Parent = z.Parent;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != RbTree.Nil)
+                    w = w.Left;
+
+                y = w;
+                yColor = y.Color; // save IS color - bcz if it is black then problem
+                problematicSubtreeNode = w.Right;
+
+                if (w != z.Right)
+                {
+                    w.Parent.Left = w.Right;
+                    if (w.Right != RbTree.Nil)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Left;
+                    w.Right.Parent = w;
+                }
+
+                if (RbTree.Root == z)
+                    RbTree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+
+                w.Left = z.Left;
+                w.Left.Parent = z;
+                w.Parent = z.Parent;
+                w.Color = z.Color;
+                // IS get deleted color, so trasnpose problem in RST instead of both tree
+            }
+            if (yColor == Color.BLACK && problematicSubtreeNode != RbTree.Nil)
+                DeleteFixup(z);
+        }
+        public void DeleteFixup(Node x)
+        {
+            while (x != RbTree.Root && x.Color == Color.BLACK)
+            {
+                if (x == x.Parent.Left)
+                {
+                    var brother = x.Parent.Right;
+
+                    if (brother.Color == Color.RED)
+                    {
+
+                    }
+                    else if (brother.Left.Color == Color.BLACK && brother.Right.Color == Color.BLACK)
+                    {
+
+                    }
+                    else 
+                    {
+                        if (brother.Right.Color == Color.RED)
+                        {
+                            
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
         }
     }
 }
