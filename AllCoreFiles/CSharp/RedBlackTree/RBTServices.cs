@@ -307,7 +307,6 @@
             if (v != null)
                 v.Parent = u.Parent;
         }
-
         public void DeleteFixup(Node x)
         {
             while (x != RbTree.Root && x.Color == Color.BLACK)
