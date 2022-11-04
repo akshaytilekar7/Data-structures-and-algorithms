@@ -9,9 +9,9 @@
             RbTree.Nil = new Node();
             RbTree.Nil.Color = Color.BLACK;
             RbTree.Nil.Data = -1;
-            RbTree.Nil.Left = RbTree.Nil;
-            RbTree.Nil.Right = RbTree.Nil;
-            RbTree.Nil.Parent = RbTree.Nil;
+            RbTree.Nil.Right = null;
+            RbTree.Nil.Right = null;
+            RbTree.Nil.Parent = null;
             RbTree.Root = RbTree.Nil;
         }
         public Node GetNode(int data, Node pNil)
@@ -19,23 +19,10 @@
             Node newNode = new Node();
             newNode.Data = data;
             newNode.Color = Color.RED;
-            newNode.Left = pNil;
+            newNode.Right = pNil;
             newNode.Right = pNil;
             newNode.Parent = pNil;
             return newNode;
-        }
-        public void Insert(int data)
-        {
-            if (RbTree.Root == RbTree.Nil)
-            {
-                RbTree.Root = GetNode(data, RbTree.Nil);
-                RbTree.Count++;
-                return;
-            }
-
-            InsertHelper(RbTree.Root, data);
-            RbTree.Count++;
-            return;
         }
         public Node GetMaxNode(Node node)
         {
@@ -57,51 +44,6 @@
                 return 0;
             return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
-        public int InsertItrative(int new_data)
-        {
-            var z = GetNode(new_data, RbTree.Nil);
-
-            if (RbTree.Root == RbTree.Nil)
-            {
-                RbTree.Root = z;
-                RbTree.Count += 1;
-                InsertFixup(z);
-                return (1);
-            }
-
-            var p_run = RbTree.Root;
-            while (true)
-            {
-                if (new_data <= p_run.Data)
-                {
-                    if (p_run.Left == RbTree.Nil)
-                    {
-                        p_run.Left = z;
-                        z.Parent = p_run;
-                        break;
-                    }
-                    else
-                        p_run = p_run.Left;
-                }
-                else
-                {
-                    if (p_run.Right == RbTree.Nil)
-                    {
-                        p_run.Right = z;
-                        z.Parent = p_run;
-                        break;
-                    }
-                    else
-                        p_run = p_run.Right;
-                }
-            }
-
-            RbTree.Count += 1;
-            InsertFixup(z);
-            return (1);
-        }
-
-        #region traversal
         public void InorderHelper(Node root)
         {
             if (root != RbTree.Nil)
@@ -117,83 +59,98 @@
             InorderHelper(RbTree.Root);
             Console.Write(" [END]\n");
         }
-
-        #endregion #region
-        private void InsertFixup(Node newNode)
+        public void Insert(int data)
         {
-            while (newNode.Parent.Color == Color.RED)
+            var newNode = InsertHelper(data);
+            InsertFixup(newNode);
+        }
+        private Node InsertHelper(int data)
+        {
+            var z = GetNewNode(data);
+
+            if (RbTree.Root == RbTree.Nil)
             {
-                if (newNode.Parent == newNode.Parent.Parent.Left)
+                RbTree.Root = z;
+                return z;
+            }
+
+            var node = RbTree.Root;
+            while (true)
+            {
+                if (data <= node.Data)
                 {
-                    var uncle = newNode.Parent.Parent.Right;
+                    if (node.Left == RbTree.Nil)
+                    {
+                        node.Left = z;
+                        z.Parent = node;
+                        return z;
+                    }
+                    node = node.Left;
+                }
+                else
+                {
+                    if (node.Right == RbTree.Nil)
+                    {
+                        node.Right = z;
+                        z.Parent = node;
+                        return z;
+                    }
+                    node = node.Right;
+                }
+            }
+        }
+        private void InsertFixup(Node z)
+        {
+            while (z.Parent.Color == Color.RED)
+            {
+                if (z.Parent == z.Parent.Parent.Left)
+                {
+                    var uncle = z.Parent.Parent.Right;
                     if (uncle.Color == Color.RED)
                     {
-                        newNode.Parent.Color = uncle.Color = Color.BLACK;
-                        newNode.Parent.Parent.Color = Color.RED;
-                        newNode = newNode.Parent.Parent;
+                        z.Parent.Color = uncle.Color = Color.BLACK;
+                        z.Parent.Parent.Color = Color.RED;
+                        z = z.Parent.Parent;
                     }
                     else
                     {
-                        if (newNode == newNode.Parent.Right)
+                        if (z == z.Parent.Right)
                         {
-                            newNode = newNode.Parent;
-                            LeftRotate(newNode);
+                            z = z.Parent;
+                            LeftRotate(z);
                         }
-                        newNode.Parent.Color = Color.BLACK;
-                        newNode.Parent.Parent.Color = Color.RED;
-                        RightRotate(newNode.Parent.Parent);
+                        z.Parent.Color = Color.BLACK;
+                        z.Parent.Parent.Color = Color.RED;
+                        RightRotate(z.Parent.Parent);
                     }
                 }
                 else
                 {
-                    var uncle = newNode.Parent.Parent.Left;
+                    var uncle = z.Parent.Parent.Left;
                     if (uncle.Color == Color.RED)
                     {
-                        newNode.Parent.Color = uncle.Color = Color.BLACK;
-                        newNode.Parent.Parent.Color = Color.RED;
-                        newNode = newNode.Parent.Parent;
+                        z.Parent.Color = uncle.Color = Color.BLACK;
+                        z.Parent.Parent.Color = Color.RED;
+                        z = z.Parent.Parent;
                     }
                     else
                     {
-                        if (newNode == newNode.Parent.Left)
+                        if (z == z.Parent.Left)
                         {
-                            newNode = newNode.Parent;
-                            RightRotate(newNode);
+                            z = z.Parent;
+                            RightRotate(z);
                         }
-                        newNode.Parent.Color = Color.BLACK;
-                        newNode.Parent.Parent.Color = Color.RED;
-                        LeftRotate(newNode.Parent.Parent);
+                        z.Parent.Color = Color.BLACK;
+                        z.Parent.Parent.Color = Color.RED;
+                        LeftRotate(z.Parent.Parent);
                     }
                 }
             }
             RbTree.Root.Color = Color.BLACK;
         }
-        private Node InsertHelper(Node currnetNode, int newData)
-        {
-            if (currnetNode == RbTree.Nil)
-            {
-                currnetNode = GetNode(newData, RbTree.Nil);
-                return currnetNode;
-            }
-            else
-            {
-                if (currnetNode.Data < newData)
-                {
-                    currnetNode.Right = InsertHelper(currnetNode.Right, newData);
-                    currnetNode.Right.Parent = currnetNode;
-                }
-                else
-                {
-                    currnetNode.Left = InsertHelper(currnetNode.Left, newData);
-                    currnetNode.Left.Parent = currnetNode;
-                }
-            }
-            InsertFixup(currnetNode);
-            return currnetNode;
-        }
         private void LeftRotate(Node x)
         {
-            Node y = x.Right;
+            var y = x.Right;
             x.Right = y.Left;
             if (y.Left != RbTree.Nil)
                 y.Left.Parent = x;
@@ -201,9 +158,9 @@
             y.Parent = x.Parent;
             if (x.Parent == RbTree.Nil)
                 RbTree.Root = y;
-            else if (x.Parent.Left == x)
+            else if (x == x.Parent.Left)
                 x.Parent.Left = y;
-            else if (x.Parent.Right == x)
+            else if (x == x.Parent.Right)
                 x.Parent.Right = y;
 
             y.Left = x;
@@ -211,7 +168,7 @@
         }
         private void RightRotate(Node x)
         {
-            Node y = x.Left;
+            var y = x.Left;
             x.Left = y.Right;
             if (y.Right != RbTree.Nil)
                 y.Right.Parent = x;
@@ -219,30 +176,29 @@
             y.Parent = x.Parent;
             if (x.Parent == RbTree.Nil)
                 RbTree.Root = y;
-            else if (x.Parent.Right == x)
-                x.Parent.Right = y;
-            else if (x.Parent.Left == x)
+            else if (x == x.Parent.Left)
                 x.Parent.Left = y;
+            else if (x == x.Parent.Right)
+                x.Parent.Right = y;
 
             y.Right = x;
             x.Parent = y;
         }
-        public void Delete(Node z)
+        public void DeleteNotWorking(Node z)
         {
-            Node problematicSubtreeNode = RbTree.Nil;
             var y = z;
             var yColor = y.Color;
 
             if (z.Left == RbTree.Nil)
             {
-                problematicSubtreeNode = z.Right;
+                y = z.Right;
 
                 if (RbTree.Root == z)
                     RbTree.Root = z.Right;
-                else if (z == z.Parent.Left)
-                    z.Parent.Left = z.Right;
                 else if (z == z.Parent.Right)
                     z.Parent.Right = z.Right;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Right;
 
                 if (z.Right != RbTree.Nil)
                     z.Right.Parent = z.Parent;
@@ -250,13 +206,13 @@
             }
             else if (z.Right == RbTree.Nil)
             {
-                problematicSubtreeNode = z.Left;
+                y = z.Left;
                 if (RbTree.Root == z)
                     RbTree.Root = z.Left;
-                else if (z == z.Parent.Left)
-                    z.Parent.Left = z.Left;
                 else if (z == z.Parent.Right)
                     z.Parent.Right = z.Left;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = z.Left;
 
                 if (z.Left != RbTree.Nil)
                     z.Left.Parent = z.Parent;
@@ -267,9 +223,9 @@
                 while (w.Left != RbTree.Nil)
                     w = w.Left;
 
+                y = w.Right; //////CHECK
                 y = w;
                 yColor = y.Color; // save IS color - bcz if it is black then problem
-                problematicSubtreeNode = w.Right;
 
                 if (w != z.Right)
                 {
@@ -277,55 +233,195 @@
                     if (w.Right != RbTree.Nil)
                         w.Right.Parent = w.Parent;
 
-                    w.Right = z.Left;
+                    w.Right = z.Right;
                     w.Right.Parent = w;
                 }
 
                 if (RbTree.Root == z)
                     RbTree.Root = w;
-                else if (z == z.Parent.Left)
-                    z.Parent.Left = w;
                 else if (z == z.Parent.Right)
                     z.Parent.Right = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
 
-                w.Left = z.Left;
+                w.Left = z.Right;
                 w.Left.Parent = z;
                 w.Parent = z.Parent;
                 w.Color = z.Color;
                 // IS get deleted color, so trasnpose problem in RST instead of both tree
             }
-            if (yColor == Color.BLACK && problematicSubtreeNode != RbTree.Nil)
+            if (yColor == Color.BLACK && y != RbTree.Nil)
                 DeleteFixup(z);
         }
+        public void Delete(Node z)
+        {
+            Node x = null;
+            Node y = null;
+            Color y_original_color = Color.NILL;
+            if (z == null)
+                return;
+            if (z.Left == RbTree.Nil)
+            {
+                x = z.Right;
+                Transplant(z, z.Right);
+            }
+            else if (z.Right == RbTree.Nil)
+            {
+                x = z.Left;
+                Transplant(z, z.Left);
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != RbTree.Nil)
+                    w = w.Left;
+
+                y = w;
+                y_original_color = y.Color;
+                x = y.Right;
+
+                if (z.Right != w)
+                {
+                    Transplant(w, w.Right);
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+
+                Transplant(z, w);
+                w.Left = z.Left;
+                w.Left.Parent = w;
+                z = w;
+            }
+
+            if (y_original_color == Color.BLACK && x != RbTree.Nil)
+                DeleteFixup(x);
+        }
+        private void Transplant(Node u, Node v)
+        {
+            if (u.Parent == RbTree.Nil)
+                RbTree.Root = v;
+            else if (u == u.Parent.Left)
+                u.Parent.Left = v;
+            else if (u == u.Parent.Right)
+                u.Parent.Right = v;
+            if (v != null)
+                v.Parent = u.Parent;
+        }
+
         public void DeleteFixup(Node x)
         {
             while (x != RbTree.Root && x.Color == Color.BLACK)
             {
-                if (x == x.Parent.Left)
+                if (x == x.Parent.Right)
                 {
-                    var brother = x.Parent.Right;
+                    var w = x.Parent.Right;
 
-                    if (brother.Color == Color.RED)
+                    if (w.Color == Color.RED)
                     {
-
+                        w.Color = Color.BLACK;                  /* case 1 */
+                        x.Parent.Color = Color.RED;             /* case 1 */
+                        LeftRotate(x.Parent);                   /* case 1 */
+                        w = x.Parent.Right;                     /* case 1 */
                     }
-                    else if (brother.Left.Color == Color.BLACK && brother.Right.Color == Color.BLACK)
-                    {
 
-                    }
-                    else 
+                    if (w == RbTree.Nil)
                     {
-                        if (brother.Right.Color == Color.RED)
+                        x = x.Parent;
+                        continue;
+                    }
+                    if (w.Right.Color == Color.BLACK && w.Right.Color == Color.BLACK)
+                    {
+                        w.Color = Color.RED;
+                        x = x.Parent;
+                    }
+                    else
+                    {
+                        if (w.Right.Color == Color.BLACK)
                         {
-                            
+                            w.Right.Color = Color.BLACK;        /* case 3 */
+                            w.Color = Color.RED;                /* case 3 */
+                            RightRotate(w);                     /* case 3 */
+                            w = x.Parent.Right;                 /* case 3 */
                         }
+                        w.Color = x.Parent.Color;               /* case 4 */
+                        x.Parent.Color = Color.BLACK;           /* case 4 */
+                        w.Right.Color = Color.BLACK;            /* case 4 */
+                        LeftRotate(x.Parent);                   /* case 4 */
+                        x = RbTree.Root;
+
                     }
                 }
                 else
                 {
+                    var w = x.Parent.Left;
 
+                    if (w.Color == Color.RED)
+                    {
+                        w.Color = Color.BLACK;
+                        x.Parent.Color = Color.RED;
+                        RightRotate(x.Parent);
+                        w = x.Parent.Left;
+                    }
+
+                    if (w == RbTree.Nil)
+                    {
+                        x = x.Parent;
+                        continue;
+                    }
+                    if (w.Right.Color == Color.BLACK && w.Left.Color == Color.BLACK)
+                    {
+                        w.Color = Color.RED;
+                        x = x.Parent;
+                    }
+                    else
+                    {
+                        if (w.Left.Color == Color.BLACK)
+                        {
+                            w.Right.Color = Color.BLACK;
+                            w.Color = Color.RED;
+                            LeftRotate(w);
+                            w = x.Parent.Left;
+                        }
+                        w.Color = x.Parent.Color;
+                        x.Parent.Color = Color.BLACK;
+                        w.Left.Color = Color.BLACK;
+                        RightRotate(x.Parent);
+                        x = RbTree.Root;
+
+                    }
                 }
             }
+            x.Color = Color.BLACK;
         }
+        public Node GetNewNode(int data)
+        {
+            return new Node()
+            {
+                Data = data,
+                Left = RbTree.Nil,
+                Right = RbTree.Nil,
+                Parent = RbTree.Nil,
+            };
+        }
+        public Node GetNode(int data)
+        {
+            if (RbTree.Root == RbTree.Nil)
+                return null;
+            var node = RbTree.Root;
+            while (true)
+            {
+                if (node == RbTree.Nil || node == null)
+                    return null;
+
+                if (node.Data == data)
+                    return node;
+
+                if (data < node.Data)
+                    node = node.Left;
+                else
+                    node = node.Right;
+            }
+        }
+
     }
 }

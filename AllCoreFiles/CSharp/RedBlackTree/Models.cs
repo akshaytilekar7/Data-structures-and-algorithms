@@ -5,7 +5,8 @@ namespace AllCoreFiles.CSharp.RedBlackTree1
     public enum Color
     {
         RED = 0,
-        BLACK
+        BLACK,
+        NILL,
     };
 
     public class Node
