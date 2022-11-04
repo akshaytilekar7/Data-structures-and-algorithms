@@ -8,13 +8,12 @@ namespace CSharp.Leetcode.Stack
 {
     public class TreeOperations
     {
-        public BST tree;
-        public BST Create()
-        {
+        public readonly BST tree;
 
+        public TreeOperations()
+        {
             tree = new BST();
             tree.count = 0;
-            return tree;
         }
 
         public Node GetNewNode(int data)
@@ -44,7 +43,7 @@ namespace CSharp.Leetcode.Stack
             return root;
         }
 
-        public int Insert(BST tree, int data)
+        public int Insert(int data)
         {
             if (tree.root == null)
             {
@@ -68,7 +67,7 @@ namespace CSharp.Leetcode.Stack
             }
         }
 
-        public void Inorder(BST tree)
+        public void Inorder()
         {
             Console.Write("[IN]");
             InorderHelper(tree.root);

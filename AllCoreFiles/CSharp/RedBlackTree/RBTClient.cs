@@ -11,33 +11,40 @@ namespace AllCoreFiles.CSharp.RedBlackTree1
     {
         public static void Main()
         {
-            Console.WriteLine("RB TREE");
-
-            int[] arr = new int[500000];
-
-            Random r = new Random();
-            for (int i = 0; i < arr.Length; ++i)
-                arr[i] = r.Next(0, 500000);
-
             RBTServices rbtServices = new RBTServices();
-            TreeOperations treeOperations = new TreeOperations();
-            var BST = treeOperations.Create();
+            //TreeOperations treeOperations = new TreeOperations();
 
-            for (int i = 0; i < arr.Length; ++i)
+            int[] arr = { 100, 50, 150, 40, 60, 30, 45, 55, 65, 20, 46, 140, 145 };
+
+            foreach (var item in arr)
             {
-                rbtServices.InsertItrative(arr[i]);
-                treeOperations.Insert(BST, arr[i]);
+                //treeOperations.Insert(item);
+                rbtServices.Insert(item);
+                Console.WriteLine("Height : " + rbtServices.GetHeight(rbtServices.RbTree.Root));
+                // Console.WriteLine("Normal height is : " + treeOperations.GetHeight(BST.root));
+            }
+            rbtServices.Inorder();
+            // Random rnd = new Random();
+            // var MyRandomArray = arr.OrderBy(x => rnd.Next()).ToList();
+            int[] MyRandomArray = { 145, 60, 100, 45, 46, 30, 20, 50, 65, 150, 140, 55, 40 };
+            foreach (var item in MyRandomArray)
+            {
+                var node = rbtServices.GetNode(item);
+                if (node != null)
+                {
+                    rbtServices.Delete(node);
+                    Console.WriteLine("Removed data: {0}", item);
+                    Console.WriteLine("Height : " + rbtServices.GetHeight(rbtServices.RbTree.Root));
+                }
+                //rbtServices.Inorder();
+                //var node2 = treeOperations.GetNode(item);
+                //treeOperations.Delete(node2);
+                //Console.WriteLine("RB height is : " + rbtServices.GetHeight(rbtServices.RbTree.Root));
+                //Console.WriteLine("Normal height is : " + treeOperations.GetHeight(BST.root));
             }
 
-            Console.WriteLine("RB TREE");
-            //rbtServices.Inorder();
-            Console.WriteLine("Height is " + rbtServices.GetHeight(rbtServices.RbTree.Root));
-
-            Console.WriteLine("\n\nBST TREE");
-            //treeOperations.Inorder(BST);
-            //Console.WriteLine("Height is " + treeOperations.GetHeight(BST.root));
-
+            Console.WriteLine("DONE DONE DONE");
+            Console.ReadLine();
         }
-
     }
 }
