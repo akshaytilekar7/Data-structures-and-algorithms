@@ -1,4 +1,4 @@
-﻿using CSharp.DP.Knapsack
+﻿using CSharp.DP.Knapsack;
 namespace CSharp.DP
 {
     public class Test
