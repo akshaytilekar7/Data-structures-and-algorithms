@@ -90,6 +90,73 @@
                 Inorder(node.Right);
             }
         }
+        public void BFS()
+        {
+            Console.Write("BFS Start ");
+            var node = binarySearchTree.Root;
+            if (node == null)
+                return;
 
+            Queue<Node> queue = new Queue<Node>();
+            queue.Enqueue(node);
+
+            while (queue.Count > 0)
+            {
+                var pop = queue.Dequeue();
+                Console.Write("[{0}] ", pop.Data);
+                if (pop.Left != null)
+                    queue.Enqueue(pop.Left);
+                if (pop.Right != null)
+                    queue.Enqueue(pop.Right);
+            }
+            Console.WriteLine(" BFS End ");
+        }
+
+
+        public void LevelOrderTraverser()
+        {
+            Console.WriteLine("\nLevelOrderTraverser Start\n");
+
+            var node = binarySearchTree.Root;
+            if (node == null)
+                return;
+            Queue<Node> queue1 = new Queue<Node>();
+            Queue<Node> queue2 = new Queue<Node>();
+
+            queue1.Enqueue(node);
+
+            while (queue1.Count > 0 || queue2.Count > 0)
+            {
+                if (queue1.Count == 0)
+                {
+                    while (queue2.Count != 0)
+                    {
+                        var pop = queue2.Dequeue();
+                        Console.Write(" [{0}] ", pop.Data);
+                        if (pop.Left != null)
+                            queue1.Enqueue(pop.Left);
+                        if (pop.Right != null)
+                            queue1.Enqueue(pop.Right);
+                    }
+                    Console.WriteLine();
+                }
+                if (queue2.Count == 0)
+                {
+                    while (queue1.Count != 0)
+                    {
+                        var pop = queue1.Dequeue();
+                        Console.Write(" [{0}] ", pop.Data);
+                        if (pop.Left != null)
+                            queue2.Enqueue(pop.Left);
+                        if (pop.Right != null)
+                            queue2.Enqueue(pop.Right);
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            Console.WriteLine(" LevelOrderTraverser End ");
+
+        }
     }
 }

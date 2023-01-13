@@ -6,7 +6,7 @@
         {
             BstService tree = new BstService();
 
-            int[] arr1 = { 100, 150, 75, 200, 125, 85, 50, 65, 130, 129, 127, 128 };
+            int[] arr1 = { 20, 8, 22, 4, 12, 10, 14, 25, 23 };
 
             for (int i = 0; i < arr1.Length; i++)
                 tree.Insert(arr1[i]);
@@ -15,9 +15,11 @@
 
             Console.WriteLine(tree.IsExist(0));
             Console.WriteLine(tree.IsExist(100));
-            Console.WriteLine(tree.IsExist(128));
-            Console.WriteLine(tree.IsExist(125));
-            Console.WriteLine(tree.IsExist(-125));
+
+            tree.BFS();
+            tree.LevelOrderTraverser();
+
+
         }
     }
 }
