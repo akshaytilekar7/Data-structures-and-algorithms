@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp", "CSharp\CSharp.csproj", "{58D3A851-8D03-46C6-9018-32DDB5D04FAC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllCoreFiles", "AllCoreFiles\AllCoreFiles.csproj", "{133B85D6-0ABD-4129-B149-D41694AFBF6E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graph", "Graph\Graph.csproj", "{D16FBB15-6EE2-402D-A4AD-9E7690612763}"
@@ -19,18 +17,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Debug|x64.Build.0 = Debug|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Debug|x86.Build.0 = Debug|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Release|x64.ActiveCfg = Release|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Release|x64.Build.0 = Release|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Release|x86.ActiveCfg = Release|Any CPU
-		{58D3A851-8D03-46C6-9018-32DDB5D04FAC}.Release|x86.Build.0 = Release|Any CPU
 		{133B85D6-0ABD-4129-B149-D41694AFBF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{133B85D6-0ABD-4129-B149-D41694AFBF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{133B85D6-0ABD-4129-B149-D41694AFBF6E}.Debug|x64.ActiveCfg = Debug|Any CPU
