@@ -5,12 +5,16 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
     /*
 
     Dijkstras algorithm 
-        is used only to find shortest path.
+        is used only to find shortest path from node i to all nodes .
+
+    Prims minimum spanning tree
+        genrate minimum spannig tree
 
     Minimum Spanning tree (Prim's or Kruskal's algorithm) 
-        get minimum egdes with minimum edge value.
+        get with minimum edge value.
 
-    Prim [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
+    Prims [ w(u,v) ] and Dijkstra [ w(u,v) + u.key ] 
+
         algorithms are almost the same, except for the "relax function".
 
     GMST and MSTPrim

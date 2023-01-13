@@ -2,9 +2,10 @@
 {
     public class Set
     {
-        public List<int> listInt = new List<int>();
-        public int FirstElementPk; 
+        public List<int> Ints;
+        public int Pk; 
     };
+
     public static class Constants
     {
         public static int Dcds_representative_exists = 2;

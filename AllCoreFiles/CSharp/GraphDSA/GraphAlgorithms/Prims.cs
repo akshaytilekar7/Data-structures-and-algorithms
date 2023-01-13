@@ -10,8 +10,7 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
         {
             _graphManagement = graphManagement;
         }
-
-        public void PrimsMST(int data)
+        public void GenerateMSTByPrims(int data)
         {
             var pq = InitilizeSingleSource(data);
 
@@ -20,7 +19,7 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
                 var src = pq.PopMin();
                 var traverse = src.LinkList.Next;
 
-                // src sagle neghbours / adj list in PQ madhe ahe - te CROSSING EDGES thartat
+                // src adj list madhe je vertices PQ madhe ahe - te CROSSING EDGES thartat
                 // and we select least weight edge - which is safe edge - GMST
                 while (traverse != src.LinkList)
                 {
@@ -34,16 +33,14 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
             }
             pq.Clear();
         }
-
         private static void Relax(VertexNode src, VertexNode dest, int weight)
         {
             if (dest.Distance > weight) // NEW 
             {
-                dest.Predecessor = src;
                 dest.Distance = weight;
+                dest.Predecessor = src;
             }
         }
-
         private List<VertexNode> InitilizeSingleSource(int src)
         {
             List<VertexNode> pq = new List<VertexNode>();
@@ -60,7 +57,7 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphAlgorithms
             srcVertex.Distance = 0;
             return pq;
         }
-        public void PrintPrims(int src)
+        public void Print(int src)
         {
             var srcVertex = _graphManagement.SearchVertexNode(_graphManagement._graph.Root, src);
 

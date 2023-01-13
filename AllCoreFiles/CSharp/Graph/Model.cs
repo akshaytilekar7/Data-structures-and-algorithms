@@ -16,8 +16,8 @@ namespace CSharp.Graph
 
     public enum Color
     {
-        WHITE = 0,
-        GRAY,
+        Untouch = 0,
+        Visited,
         BLACK
     }
 

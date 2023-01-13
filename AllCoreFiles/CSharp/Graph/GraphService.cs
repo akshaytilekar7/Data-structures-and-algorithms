@@ -26,7 +26,7 @@
             vertexNode.Next = vertexNode;
             vertexNode.Prev = vertexNode;
             vertexNode.Vertex = 0;
-            vertexNode.Color = Color.WHITE;
+            vertexNode.Color = Color.Untouch;
             return vertexNode;
         }
         public LinkListNode CreateNode()
@@ -244,7 +244,7 @@
             VertexNode traverse = graph.VertexNode.Next;
             while (traverse != graph.VertexNode)
             {
-                traverse.Color = Color.WHITE;
+                traverse.Color = Color.Untouch;
                 traverse = traverse.Next;
             }
         }
@@ -257,7 +257,7 @@
             int connectedComponentCount = 0;
             while (traverse != graph.VertexNode)
             {
-                if (traverse.Color == Color.WHITE)
+                if (traverse.Color == Color.Untouch)
                 {
                     Console.Write("connected component: " + (++connectedComponentCount) + "\n");
                     Console.Write("[START]. ");
@@ -271,14 +271,14 @@
         }
         private void DFSRecursiveHelper(Graph graph, VertexNode vertexNode)
         {
-            vertexNode.Color = Color.GRAY;
+            vertexNode.Color = Color.Visited;
             Console.Write(vertexNode.Vertex + " ");
 
             LinkListNode linkListNode = vertexNode.LinkList.Next;
             while (linkListNode != vertexNode.LinkList)
             {
                 VertexNode node = SearchVertex(graph.VertexNode, linkListNode.Vertex);
-                if (node.Color == Color.WHITE)
+                if (node.Color == Color.Untouch)
                     DFSRecursiveHelper(graph, node);
                 linkListNode = linkListNode.Next;
             }
@@ -292,7 +292,7 @@
             int connectedComponentCount = 0;
             while (traverse != graph.VertexNode)
             {
-                if (traverse.Color == Color.WHITE)
+                if (traverse.Color == Color.Untouch)
                 {
                     Console.Write("connected component: " + (++connectedComponentCount) + "\n");
                     Console.Write("[START] ->\n");
@@ -306,18 +306,18 @@
         private void BFSUsingQueueHelper(Graph graph, VertexNode vertexNode)
         {
             Queue<VertexNode> queue = new Queue<VertexNode>();
-            vertexNode.Color = Color.GRAY;
+            vertexNode.Color = Color.Visited;
             queue.Enqueue(vertexNode);
             while (queue.Count > 0)
             {
                 VertexNode node = queue.Dequeue();
-                node.Color = Color.GRAY;
+                node.Color = Color.Visited;
                 Console.Write(node.Vertex + " ");
                 LinkListNode traverse = node.LinkList.Next;
                 while (traverse != node.LinkList)
                 {
                     VertexNode vNode = SearchVertex(graph.VertexNode, traverse.Vertex);
-                    if (vNode.Color == Color.WHITE && !queue.Contains(vNode))
+                    if (vNode.Color == Color.Untouch && !queue.Contains(vNode))
                         queue.Enqueue(vNode);
                     traverse = traverse.Next;
                 }
@@ -332,7 +332,7 @@
             int connectedComponentCount = 0;
             while (traverse != graph.VertexNode)
             {
-                if (traverse.Color == Color.WHITE)
+                if (traverse.Color == Color.Untouch)
                 {
                     Console.Write("connected component: " + (++connectedComponentCount) + "\n");
                     Console.Write("[START] ->\n");
@@ -347,7 +347,7 @@
         {
             int index = 0;
             VertexNode[] arr = new VertexNode[graph.TotalVertex];
-            vertexNode.Color = Color.GRAY;
+            vertexNode.Color = Color.Visited;
             int startIndex = 0;
             arr[index++] = vertexNode;
             while (index > 0 && arr[startIndex] != null)
@@ -355,13 +355,13 @@
                 VertexNode node = arr[startIndex];
                 arr[startIndex] = null;
                 startIndex++;
-                node.Color = Color.GRAY;
+                node.Color = Color.Visited;
                 Console.Write(node.Vertex + " ");
                 LinkListNode traverse = node.LinkList.Next;
                 while (traverse != node.LinkList)
                 {
                     VertexNode vNode = SearchVertex(graph.VertexNode, traverse.Vertex);
-                    if (vNode.Color == Color.WHITE && !arr.Contains(vNode))
+                    if (vNode.Color == Color.Untouch && !arr.Contains(vNode))
                         arr[index++] = (vNode);
                     traverse = traverse.Next;
                 }

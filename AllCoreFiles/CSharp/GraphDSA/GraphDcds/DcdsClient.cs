@@ -8,16 +8,16 @@
 
             DcdsService dcdsService = new DcdsService();
 
-            dcdsService.MakeSet(10);
+            dcdsService.CreateSet(10);
             dcdsService.ShowDcds("after make_set(10):");
 
-            dcdsService.MakeSet(20);
+            dcdsService.CreateSet(20);
             dcdsService.ShowDcds("after make_set(20):");
 
-            dcdsService.MakeSet(30);
+            dcdsService.CreateSet(30);
             dcdsService.ShowDcds("after make_set(30):");
 
-            dcdsService.MakeSet(40);
+            dcdsService.CreateSet(40);
             dcdsService.ShowDcds("after make_set(40):");
 
             dcdsService.UnionSet(10, 20);

@@ -32,17 +32,17 @@ namespace AllCoreFiles.CSharp.GraphDSA.GraphManagement
             Kruskals algoKruskals = new Kruskals(graphManagement);
             Console.WriteLine("FIND SHORTEST PATH FROM 3");
 
-            dijkistraAlgo.FindShortestPathFrom(3);
-            dijkistraAlgo.PrintShortestPathFrom(3, 1);
-            dijkistraAlgo.PrintAllShortestPath(3);
+            //dijkistraAlgo.FindShortestPathFrom(3);
+            //dijkistraAlgo.PrintShortestPathFrom(3, 1);
+            //dijkistraAlgo.PrintAllShortestPath(3);
 
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("PRIMS 3");
 
-            primsAlgo.PrimsMST(3);
-            primsAlgo.PrintPrims(3);
+            //Console.WriteLine("PRIMS 3");
+            //primsAlgo.GenerateMSTByPrims(3);
+            //primsAlgo.Print(3);
 
             Console.WriteLine("Algo Kruskals");
             var list = algoKruskals.kruskal();
