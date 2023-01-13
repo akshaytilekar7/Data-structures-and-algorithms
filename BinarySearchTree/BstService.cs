@@ -2,10 +2,10 @@
 {
     public class BstService
     {
-        BinarySearchTree binarySearchTree;
+        BinarySearchTree tree;
         public BstService()
         {
-            binarySearchTree = new BinarySearchTree();
+            tree = new BinarySearchTree();
         }
         private Node GetNewNode(int data)
         {
@@ -16,13 +16,13 @@
         public void Insert(int data)
         {
             var newNode = GetNewNode(data);
-            if (binarySearchTree.Root == null)
+            if (tree.Root == null)
             {
-                binarySearchTree.Root = newNode;
+                tree.Root = newNode;
                 return;
             }
 
-            var node = binarySearchTree.Root;
+            var node = tree.Root;
             while (true)
             {
                 if (data < node.Data)
@@ -47,14 +47,13 @@
                 }
             }
         }
-
         public bool IsExist(int data)
         {
             return GetNode(data) != null;
         }
         public Node GetNode(int data)
         {
-            var node = binarySearchTree.Root;
+            var node = tree.Root;
             while (true)
             {
                 if (node == null)
@@ -73,12 +72,64 @@
         {
             var z = GetNode(data);
 
+            if (z.Left == null)
+            {
+                if (z == tree.Root)
+                    tree.Root = z.Right;
+                else if (z.Parent.Left == z)
+                    z.Parent.Left = z.Right;
+                else if (z.Parent.Right == z)
+                    z.Parent.Right = z.Right;
 
+                if (z.Right != null)
+                    z.Right.Parent = z.Parent;
+            }
+            else if (z.Right == null)
+            {
+                if (z == tree.Root)
+                    tree.Root = z.Left;
+                else if (z.Parent.Left == z)
+                    z.Parent.Left = z.Left;
+                else if (z.Parent.Right == z)
+                    z.Parent.Right = z.Left;
+
+                if (z.Left != null)
+                    z.Left.Parent = z.Parent;
+            }
+            else
+            {
+                var w = z.Right;
+                while (w.Left != null)
+                    w = w.Left;
+
+                if (z.Right != w)
+                {
+                    w.Parent.Left = w.Right;
+                    if (w.Right != null)
+                        w.Right.Parent = w.Parent;
+
+                    w.Right = z.Right;
+                    w.Right.Parent = w;
+                }
+
+                w.Left = z.Left;
+                w.Left.Parent = w;
+
+                if (tree.Root == z)
+                    tree.Root = w;
+                else if (z == z.Parent.Left)
+                    z.Parent.Left = w;
+                else if (z == z.Parent.Right)
+                    z.Parent.Right = w;
+
+                w.Parent = z.Parent;
+            }
         }
-        public void Inorder()
+        public void Inorder(string msg = "")
         {
+            Console.WriteLine(msg);
             Console.Write("Inorder Start\t");
-            Inorder(binarySearchTree.Root);
+            Inorder(tree.Root);
             Console.Write("\tInorder End\n");
         }
         private void Inorder(Node node)
@@ -93,7 +144,7 @@
         public void BFS()
         {
             Console.Write("BFS Start ");
-            var node = binarySearchTree.Root;
+            var node = tree.Root;
             if (node == null)
                 return;
 
@@ -111,13 +162,11 @@
             }
             Console.WriteLine(" BFS End ");
         }
-
-
         public void LevelOrderTraverser()
         {
             Console.WriteLine("\nLevelOrderTraverser Start\n");
 
-            var node = binarySearchTree.Root;
+            var node = tree.Root;
             if (node == null)
                 return;
             Queue<Node> queue1 = new Queue<Node>();

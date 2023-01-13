@@ -151,7 +151,6 @@ namespace CSharp.Leetcode.Stack
 
         public void Delete(Node z)
         {
-            Node grandparent = null;
             if (z.Left == null)
             {
                 if (tree.root == z)
@@ -161,8 +160,7 @@ namespace CSharp.Leetcode.Stack
                 else if (z == z.Parent.Right)
                     z.Parent.Right = z.Right;
                 if (z.Right != null)
-                    z.Right.Parent = z.Parent; //////
-                grandparent = z.Right;
+                    z.Right.Parent = z.Parent;
             }
             else if (z.Right == null)
             {
@@ -174,8 +172,6 @@ namespace CSharp.Leetcode.Stack
                     z.Parent.Right = z.Left;
                 if (z.Left != null)
                     z.Left.Parent = z.Parent;
-
-                grandparent = z.Left;
             }
             else
             {
@@ -204,10 +200,7 @@ namespace CSharp.Leetcode.Stack
                     z.Parent.Right = w;
 
                 w.Parent = z.Parent;
-                grandparent = w;
             }
-
-
         }
 
         public Node GetNode(int data)
