@@ -6,8 +6,8 @@
         public DCLLService()
         {
             linklist = new Node();
-            linklist.Next = linklist;
-            linklist.Prev = linklist;
+            linklist.Next = linklist; // most imp
+            linklist.Prev = linklist; // most imp
         }
         private Node GetNewNode(int data)
         {
