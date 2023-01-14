@@ -1,145 +1,23 @@
-﻿namespace BinarySearchTree
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BinarySearchTree
 {
-    public class BstService
+    public class BstService : BstInfrastructure
     {
-        BinarySearchTree tree;
-        public BstService()
+        public int GetHeight()
         {
-            tree = new BinarySearchTree();
+            return GetHeight(tree.Root);
         }
-        private Node GetNewNode(int data)
+        private int GetHeight(Node node)
         {
-            var node = new Node();
-            node.Data = data;
-            return node;
-        }
-        public void Insert(int data)
-        {
-            var newNode = GetNewNode(data);
-            if (tree.Root == null)
-            {
-                tree.Root = newNode;
-                return;
-            }
+            if (node == null)
+                return 0;
 
-            var node = tree.Root;
-            while (true)
-            {
-                if (data < node.Data)
-                {
-                    if (node.Left == null)
-                    {
-                        node.Left = newNode;
-                        newNode.Parent = node;
-                        break;
-                    }
-                    node = node.Left;
-                }
-                else
-                {
-                    if (node.Right == null)
-                    {
-                        node.Right = newNode;
-                        newNode.Parent = node;
-                        break;
-                    }
-                    node = node.Right;
-                }
-            }
-        }
-        public bool IsExist(int data)
-        {
-            return GetNode(data) != null;
-        }
-        public Node GetNode(int data)
-        {
-            var node = tree.Root;
-            while (true)
-            {
-                if (node == null)
-                    return null;
-
-                if (node.Data == data)
-                    return node;
-
-                if (data < node.Data)
-                    node = node.Left;
-                else
-                    node = node.Right;
-            }
-        }
-        public void Delete(int data)
-        {
-            var z = GetNode(data);
-
-            if (z.Left == null)
-            {
-                if (z == tree.Root)
-                    tree.Root = z.Right;
-                else if (z.Parent.Left == z)
-                    z.Parent.Left = z.Right;
-                else if (z.Parent.Right == z)
-                    z.Parent.Right = z.Right;
-
-                if (z.Right != null)
-                    z.Right.Parent = z.Parent;
-            }
-            else if (z.Right == null)
-            {
-                if (z == tree.Root)
-                    tree.Root = z.Left;
-                else if (z.Parent.Left == z)
-                    z.Parent.Left = z.Left;
-                else if (z.Parent.Right == z)
-                    z.Parent.Right = z.Left;
-
-                if (z.Left != null)
-                    z.Left.Parent = z.Parent;
-            }
-            else
-            {
-                var w = z.Right;
-                while (w.Left != null)
-                    w = w.Left;
-
-                if (z.Right != w)
-                {
-                    w.Parent.Left = w.Right;
-                    if (w.Right != null)
-                        w.Right.Parent = w.Parent;
-
-                    w.Right = z.Right;
-                    w.Right.Parent = w;
-                }
-
-                w.Left = z.Left;
-                w.Left.Parent = w;
-
-                if (tree.Root == z)
-                    tree.Root = w;
-                else if (z == z.Parent.Left)
-                    z.Parent.Left = w;
-                else if (z == z.Parent.Right)
-                    z.Parent.Right = w;
-
-                w.Parent = z.Parent;
-            }
-        }
-        public void Inorder(string msg = "")
-        {
-            Console.WriteLine(msg);
-            Console.Write("Inorder Start\t");
-            Inorder(tree.Root);
-            Console.Write("\tInorder End\n");
-        }
-        private void Inorder(Node node)
-        {
-            if (node != null)
-            {
-                Inorder(node.Left);
-                Console.Write("[{0}] ", node.Data);
-                Inorder(node.Right);
-            }
+            return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
         public void BFS()
         {
@@ -206,6 +84,115 @@
 
             Console.WriteLine(" LevelOrderTraverser End ");
 
+        }
+        public void SpiralPrint()
+        {
+            Console.WriteLine("\n SpiralPrint Start\n");
+
+            var node = tree.Root;
+            if (node == null)
+                return;
+            Stack<Node> stack1 = new Stack<Node>(); // rigth to left
+            Stack<Node> stack2 = new Stack<Node>(); // left to right
+
+            stack1.Push(node);
+
+            while (stack1.Count > 0 || stack2.Count > 0)
+            {
+                if (stack1.Count == 0)
+                {
+                    while (stack2.Count != 0)
+                    {
+                        var pop = stack2.Pop();
+                        Console.Write(" [{0}] ", pop.Data);
+                        if (pop.Right != null)
+                            stack1.Push(pop.Right);
+                        if (pop.Left != null)
+                            stack1.Push(pop.Left);
+                    }
+                    Console.WriteLine();
+                }
+                if (stack2.Count == 0)
+                {
+                    while (stack1.Count != 0)
+                    {
+                        var pop = stack1.Pop();
+                        Console.Write(" [{0}] ", pop.Data);
+                        if (pop.Left != null)
+                            stack2.Push(pop.Left);
+                        if (pop.Right != null)
+                            stack2.Push(pop.Right);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine(" SpiralPrint End ");
+        }
+        public int GetDiameter()
+        {
+            return Diameter(tree.Root);
+        }
+        public int Diameter(Node root)
+        {
+            // Diameter Number of nodes on the longest path between two end nodes.
+            // Diameter at each node is defined by 1 + leftHeight + rightHeight.
+            // Just calculate that at each node to get the maximum diameter.
+            // Hence use the height method and just add the
+            // Add a line to calculate the diameter which gives the O(N) solution.
+            int diameter = 0;
+            GetHeight(root);
+            return diameter;
+
+            int GetHeight(Node root)
+            {
+                if (root == null)
+                    return 0;
+
+                int lHeight = GetHeight(root.Left);
+                int rHeight = GetHeight(root.Right);
+
+                diameter = Math.Max(diameter, 1 + lHeight + rHeight);
+
+                return 1 + Math.Max(lHeight, rHeight);
+            }
+        }
+        public int GetWidth()
+        {
+            return GetWidth(tree.Root);
+        }
+        private int GetWidth(Node node)
+        {
+            // https://www.youtube.com/watch?v=poOw9DDMZKw
+            // number nodes between left and rigth MOST nodes in each leval
+            // dont include null nodes which exist at boundries
+            if (node == null) return 0;
+            List<Node> lst = new List<Node>();
+            lst.Add(node);
+            int max = 0;
+            while (lst.Any())
+            {
+                while (lst.Any() && lst.LastOrDefault() == null) lst.RemoveAt(lst.Count() - 1);
+                while (lst.Any() && lst.FirstOrDefault() == null) lst.RemoveAt(0);
+                max = Math.Max(lst.Count(), max);
+                int size = lst.Count();
+                for (int i = 0; i < size; i++)
+                {
+                    var item = lst.First();
+                    lst.Remove(lst.First());
+                    if (item == null)
+                    {
+                        lst.Add(null);
+                        lst.Add(null);
+                    }
+                    else
+                    {
+                        lst.Add(item.Left);
+                        lst.Add(item.Right);
+                    }
+                }
+            }
+
+            return max;
         }
     }
 }
