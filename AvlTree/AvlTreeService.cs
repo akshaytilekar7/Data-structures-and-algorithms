@@ -196,14 +196,12 @@
                     node = node.Right;
             }
         }
-
         public void Delete(int data)
         {
             var z = GetNode(data);
             var grandparent = Delete(z);
             DeleteFixup(grandparent);
         }
-
         public Node Delete(Node z)
         {
             Node grandparent;
@@ -262,7 +260,6 @@
             }
             return grandparent;
         }
-
         private void DeleteFixup(Node grandparent)
         {
             Node parent;
@@ -293,7 +290,6 @@
                 FixupByRotation(child, parent, grandparent);
             }
         }
-
         private Node GetImbalanceNodeTillRoot(Node node)
         {
             if (node == null) return null;
