@@ -13,7 +13,11 @@
             node.Data = data;
             return node;
         }
-        private int GetHeight(Node node)
+        public int GetHeight()
+        {
+            return GetHeight(avlTree.Root);
+        }
+        public int GetHeight(Node node)
         {
             if (node == null)
                 return 0;
@@ -57,6 +61,11 @@
                 InsertFixup(newNode);
             }
         }
+        private bool IsBalanceNotValid(Node node)
+        {
+            var balance = GetBalance(node);
+            return (balance < -1 || balance > 1);
+        }
         private void InsertFixup(Node child)
         {
             if (avlTree.Root == child) return;
@@ -69,6 +78,7 @@
             if (child == null || parent == null || grandparent == null)
                 return;
 
+            
             while (grandparent != null)
             {
                 if (IsBalanceNotValid(grandparent))
@@ -94,7 +104,7 @@
             else if (grandparent.Right == parent && parent.Right == child)
             {
                 // right right
-                LeftRotate(grandparent); 
+                LeftRotate(grandparent);
 
             }
             else if (grandparent.Left == parent && parent.Right == child)
@@ -112,16 +122,39 @@
         }
         private void LeftRotate(Node x)
         {
-            
+            var y = x.Right;
+            x.Right = y.Left;
+            if (y.Left != null)
+                y.Left.Parent = x;
+
+            y.Parent = x.Parent;
+            if (x.Parent == null)
+                avlTree.Root = y;
+            else if (x == x.Parent.Left)
+                x.Parent.Left = y;
+            else if (x == x.Parent.Right)
+                x.Parent.Right = y;
+
+            y.Left = x;
+            x.Parent = y;
         }
         private void RightRotate(Node x)
         {
+            var y = x.Left;
+            x.Left = y.Right;
+            if (y.Right != null)
+                y.Right.Parent = x;
 
-        }
-        private bool IsBalanceNotValid(Node node)
-        {
-            var balance = GetBalance(node);
-            return !(balance < -1 || balance > 1);
+            y.Parent = x.Parent;
+            if (x.Parent == null)
+                avlTree.Root = y;
+            else if (x == x.Parent.Right)
+                x.Parent.Right = y;
+            else if (x == x.Parent.Left)
+                x.Parent.Left = y;
+
+            y.Right = x;
+            x.Parent = y;
         }
         private int GetBalance(Node node)
         {

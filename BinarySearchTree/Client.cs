@@ -4,20 +4,21 @@
     {
         public static void Main()
         {
+            Console.WriteLine("BinarySearchTree");
             BstService bstService = new BstService();
 
-            int[] arr = { 20, 8, 22, 4, 12, 10, 14, 35, 30 };
+            int[] arr = { 20, 8, 22, 4, 12, 10, 14, 35, 30, -90, 562 };
 
             for (int i = 0; i < arr.Length; i++)
                 bstService.Insert(arr[i]);
 
             bstService.Inorder();
 
-            Console.WriteLine(bstService.IsExist(0));
-            Console.WriteLine(bstService.IsExist(100));
-            bstService.BFS();
-            bstService.LevelOrderTraverser();
-            bstService.SpiralPrint();
+            //Console.WriteLine(bstService.IsExist(0));
+            //Console.WriteLine(bstService.IsExist(100));
+            //bstService.BFS();
+            //bstService.LevelOrderTraverser();
+            //bstService.SpiralPrint();
 
             //Random r = new Random();
             //arr = arr.OrderBy(x => r.Next()).ToArray();
@@ -29,8 +30,8 @@
             //}
 
             Console.WriteLine("Height is : {0}", bstService.GetHeight());
-            Console.WriteLine("Width is : {0}", bstService.GetWidth());
-            Console.WriteLine("Diameter is : {0}", bstService.GetDiameter());
+            //Console.WriteLine("Width is : {0}", bstService.GetWidth());
+            //Console.WriteLine("Diameter is : {0}", bstService.GetDiameter());
 
             // bstService.Inorder("C# Done");
         }
