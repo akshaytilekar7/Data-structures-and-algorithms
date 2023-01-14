@@ -177,6 +177,7 @@
         }
         private void FixupByRotation(Node child, Node parent, Node grandparent)
         {
+
             if (child == parent.Left && parent == grandparent.Left)
             {
                 RightRotate(grandparent);
@@ -187,6 +188,7 @@
             }
             else if (child == parent.Left && parent == grandparent.Right)
             {
+                // rigth left
                 RightRotate(parent);
                 LeftRotate(grandparent);
             }
