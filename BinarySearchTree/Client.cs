@@ -7,12 +7,22 @@
             Console.WriteLine("BinarySearchTree");
             BstService bstService = new BstService();
 
-            int[] arr = { 20, 8, 22, 4, 12, 10, 14, 35, 30, -90, 562 };
+            BstService tree = new BstService();
+
+            int[] arr = { 100, 50, 150, 40, 60, 30, 45, 55, 65, 20, 46, 140, 145, 5, 35, -65, 500, 89, 14, 12, 12 };
 
             for (int i = 0; i < arr.Length; i++)
-                bstService.Insert(arr[i]);
+                tree.Insert(arr[i]);
 
-            bstService.Inorder();
+            Random r = new Random();
+            arr = arr.OrderBy(x => r.Next()).ToArray();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                tree.Delete(arr[i]);
+                tree.Inorder("After delete : " + arr[i]);
+                Console.WriteLine("Height is : {0}", tree.GetHeight());
+                Console.WriteLine();
+            }
 
             //Console.WriteLine(bstService.IsExist(0));
             //Console.WriteLine(bstService.IsExist(100));
