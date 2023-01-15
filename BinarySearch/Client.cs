@@ -10,19 +10,19 @@
 
             BinarySearch binarySearch = new BinarySearch();
 
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchIterative(array, 1));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchIterative(array, 4));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchIterative(array, 7));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchIterative(array, 100));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchIterative(array, 5));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchIterative(array, 100));
+            Console.WriteLine("Index {0}", binarySearch.Search(array, 1));
+            Console.WriteLine("Index {0}", binarySearch.Search(array, 4));
+            Console.WriteLine("Index {0}", binarySearch.Search(array, 7));
+            Console.WriteLine("Index {0}", binarySearch.Search(array, 100));
+            Console.WriteLine("Index {0}", binarySearch.Search(array, 5));
+            Console.WriteLine("Index {0}", binarySearch.Search(array, 100));
 
 
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchRecursive(array, 1));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchRecursive(array, 4));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchRecursive(array, 7));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchRecursive(array, 100));
-            Console.WriteLine("Index {0}", binarySearch.BinarySearchRecursive(array, 5));
+            Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 1));
+            Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 4));
+            Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 7));
+            Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 100));
+            Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 5));
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class BinarySearch
     {
-        public int BinarySearchIterative(int[] array, int value)
+        public int Search(int[] array, int value)
         {
             int start = 0;
             int end = array.Length - 1;
@@ -19,11 +19,11 @@
             return -1;
         }
 
-        public int BinarySearchRecursive(int[] array, int value)
+        public int SearchRecursive(int[] array, int value)
         {
-            return BinarySearchRecursive(array, value, 0, array.Length - 1);
+            return SearchRecursive(array, value, 0, array.Length - 1);
         }
-        private int BinarySearchRecursive(int[] array, int value, int start, int end)
+        private int SearchRecursive(int[] array, int value, int start, int end)
         {
             if (start > end)
                 return -1;
@@ -33,9 +33,9 @@
             if (value == array[midIndex])
                 return midIndex;
             else if (value < array[midIndex])
-                return BinarySearchRecursive(array, value, start, midIndex - 1);
+                return SearchRecursive(array, value, start, midIndex - 1);
             else
-                return BinarySearchRecursive(array, value, midIndex + 1, end);
+                return SearchRecursive(array, value, midIndex + 1, end);
         }
     }
 }
