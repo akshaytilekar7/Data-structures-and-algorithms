@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCLL", "DCLL\DCLL.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLL", "SLL\SLL.csproj", "{A60B7B89-587A-42C8-B7A6-34D5553F3DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCLL", "SCLL\SCLL.csproj", "{379156CD-2DBB-40B5-80D9-474C2F21287E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,18 +111,6 @@ Global
 		{A60B7B89-587A-42C8-B7A6-34D5553F3DB5}.Release|x64.Build.0 = Release|Any CPU
 		{A60B7B89-587A-42C8-B7A6-34D5553F3DB5}.Release|x86.ActiveCfg = Release|Any CPU
 		{A60B7B89-587A-42C8-B7A6-34D5553F3DB5}.Release|x86.Build.0 = Release|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Debug|x64.Build.0 = Debug|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Debug|x86.Build.0 = Debug|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Release|x64.ActiveCfg = Release|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Release|x64.Build.0 = Release|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Release|x86.ActiveCfg = Release|Any CPU
-		{379156CD-2DBB-40B5-80D9-474C2F21287E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
