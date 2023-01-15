@@ -31,7 +31,8 @@ B]
 	MergeSort
 		-	based on divide and conquer
 		-	foundation logic
-			-	divide array into 2 parts untils its undividable ( means subarray size 1 ) => Merge function
+			-	divide array into 2 parts untils its undividable 
+				( means subarray size 1 ) => Merge function
 			-	sort 2 single element array into one sorted array => MergeProcedure function
 
 		-	Merge(int arr[], int start, int end)
