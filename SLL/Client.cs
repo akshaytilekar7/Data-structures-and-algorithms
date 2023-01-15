@@ -6,7 +6,7 @@
         {
             SLLService linkList = new SLLService();
 
-            var arr = new int[] { 1, 5, 100, 5321, 5, 6345, -5, 5, 324, 65, 5 };
+            var arr = new int[] { 1, 2134, 2, 3, 4, 5, 1, 1, 32, 1, 2134, 1 };
             Console.WriteLine("Is Empty {0}", linkList.IsEmpty());
 
             foreach (var item in arr)
@@ -18,25 +18,35 @@
             linkList.AddBefore(6000, 56362);
             linkList.AddAfter(1, 1000);
 
-            //Console.WriteLine(linkList.GetFirst());
-            //Console.WriteLine(linkList.GetLast());
-            //linkList.Print();
-            //Console.WriteLine(linkList.PopLast());
-            //Console.WriteLine(linkList.PopFirst());
-            //linkList.Print();
-            //Console.WriteLine(linkList.IsExist(-90));
-            //Console.WriteLine(linkList.IsExist(100));
-            //Console.WriteLine(linkList.IsExist(40));
-            //Console.WriteLine("Is Empty {0}", linkList.IsEmpty());
-            //linkList.Delete(6000);
-            //linkList.Delete(1);
-            //linkList.Delete(5000);
-            //linkList.Delete(5);
+            linkList.AddFirst(45000);
+            linkList.AddLast(65000);
+            linkList.AddBefore(-8888, -9000);
+            linkList.AddBefore(-8888, 56362);
+            linkList.AddAfter(-8888, 1000);
 
             linkList.Print();
-            linkList.DeleteFirstOccurance(5);
-            linkList.DeleteLastOccurance(5);
-            linkList.DeleteAllOccurance(5);
+            Console.WriteLine("First {0}", linkList.GetFirst());
+            Console.WriteLine("Last {0}", linkList.GetLast());
+            Console.WriteLine("Pop First {0}", linkList.PopFirst());
+            Console.WriteLine("Pop Last {0}", linkList.PopLast());
+            linkList.Print();
+
+            Console.WriteLine(linkList.IsExist(2));
+            Console.WriteLine(linkList.IsExist(6000));
+            Console.WriteLine(linkList.IsExist(-40));
+            Console.WriteLine("Is Empty {0}", linkList.IsEmpty());
+
+            linkList.Print();
+            linkList.Delete(6000);
+            linkList.Delete(1);
+            linkList.Delete(5000);
+            linkList.Delete(5);
+
+            linkList.DeleteFirstOccurance(32);
+            linkList.DeleteLastOccurance(2134);
+            linkList.Print();
+
+            linkList.DeleteAllOccurance(1);
 
             linkList.DeleteFirstOccurance(50);
             linkList.DeleteLastOccurance(50);
