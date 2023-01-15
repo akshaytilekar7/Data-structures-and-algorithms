@@ -1,5 +1,6 @@
 ﻿namespace Stack
 {
+    // LIFO 
     public class StackService : BaseService
     {
         public bool IsEmpty()
@@ -8,13 +9,13 @@
         }
         public void Push(int data)
         {
-            GenericInsert(linklist, GetNewNode(data), linklist.Next);
+            GenericInsert(linklist.Prev, GetNewNode(data), linklist); // add last
         }
         public int Pop()
         {
             if (IsEmpty()) return -1;
             var data = linklist.Next.Data;
-            GenericDelete(linklist.Next);
+            GenericDelete(linklist.Prev); // remove last
             return data;
         }
         public int Peek()
@@ -36,11 +37,11 @@
         public void Print()
         {
             Console.Write("STACK Start ");
-            var traverse = linklist.Next;
+            var traverse = linklist.Prev;
             while (traverse != linklist)
             {
                 Console.Write(" [{0}] ", traverse.Data);
-                traverse = traverse.Next;
+                traverse = traverse.Prev;
             }
             Console.WriteLine("End");
         }
