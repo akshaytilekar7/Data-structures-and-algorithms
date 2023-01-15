@@ -16,7 +16,7 @@ namespace Stack
             Console.WriteLine("Peek : {0}", stack.Peek());
             Console.WriteLine("GetLength : {0}", stack.GetLength());
 
-            var arr = new int[] { 50, 60, 10, 20, 5 };
+            var arr = new int[] { 10, 20, 30, 40, 50 };
 
             foreach (var item in arr)
                 stack.Push(item);

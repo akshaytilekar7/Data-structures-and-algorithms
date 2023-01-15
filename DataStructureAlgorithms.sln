@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCLL", "DCLL\DCLL.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLL", "SLL\SLL.csproj", "{A60B7B89-587A-42C8-B7A6-34D5553F3DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack", "Stack\Stack.csproj", "{4DFD892B-5AE6-439D-AE19-A1789B819A30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack", "Stack\Stack.csproj", "{4DFD892B-5AE6-439D-AE19-A1789B819A30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue", "Queue\Queue.csproj", "{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +127,18 @@ Global
 		{4DFD892B-5AE6-439D-AE19-A1789B819A30}.Release|x64.Build.0 = Release|Any CPU
 		{4DFD892B-5AE6-439D-AE19-A1789B819A30}.Release|x86.ActiveCfg = Release|Any CPU
 		{4DFD892B-5AE6-439D-AE19-A1789B819A30}.Release|x86.Build.0 = Release|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Debug|x64.Build.0 = Debug|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Debug|x86.Build.0 = Debug|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Release|x64.ActiveCfg = Release|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Release|x64.Build.0 = Release|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Release|x86.ActiveCfg = Release|Any CPU
+		{44C07EEA-2956-4DA1-8DAA-E1CD7C9E4F00}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
