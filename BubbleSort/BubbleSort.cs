@@ -21,10 +21,12 @@
 
         public void BubbleSortAlgo2(int[] array)
         {
+            // required n - 1 pass as last one element is no need to sort
             for (int i = 0; i < array.Length - 1; i++)
             {
+                // array.Length - 1 - i becuase for each iteration
+                // element is sort and correctly fixed at its position
                 for (int j = 0; j < array.Length - 1 - i; j++)
-                // array.Length - 1 - i becuase for each iteration element is sort and correctly fixed at its position
                 {
                     if (array[j] > array[j + 1]) //////// IMP
                     {

@@ -10,13 +10,14 @@
         -   after 2 iteration 2 element will be in its correct position
         -   FOR N ITERATION WE NEED N - 1 ITERATION
         
-           
-        
       Selection Sort
         -   array divide into 2 sub array one sorted and another is unsorted
-        -   find min from unsorted array and swap with start of unsorted array 
+        -   FIND MIN FROM UNSORTED ARRAY AND SWAP WITH START OF UNSORTED ARRAY 
         -   FOR N ITERATION WE NEED N - 1 ITERATION
-        -   
+        
+      InsertionSort
+        -   array divide into 2 sub array one sorted and another is unsorted
+        -   same as card playing
 
 
     
