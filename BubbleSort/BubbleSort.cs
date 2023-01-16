@@ -51,7 +51,7 @@
                         array[j + 1] = temp;
                     }
                 }
-                if (!isSwapDone) break;
+                if (!isSwapDone) break; // useful in case of already sorted array so no N-1 pass executes
             }
         }
 
