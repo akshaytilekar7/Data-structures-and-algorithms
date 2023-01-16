@@ -4,18 +4,14 @@
     {
         public static void Main()
         {
-            int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            Zip zip = new Zip();
+            int[] arr = { 1, -98, 65, 64, -76, 43, 0, 54, 6, 6, 6, 6, 34, 34, 65, 123, 54, 98, 63, 21, 5, 9, 78, 4, 6, 2 };
 
+            //Zip zip = new Zip();
+            //zip.ZipArray(arr);
 
-            foreach (var item in arr)
-                Console.Write(" [{0}] ", item);
-
-            Console.WriteLine();
-            zip.ZipArray(arr);
-
-            foreach (var item in arr)
-                Console.Write(" [{0}] ", item);
+            MergeSort mergeSort = new MergeSort();
+            mergeSort.Sort(arr);
+            mergeSort.Print(arr);
         }
     }
 }
