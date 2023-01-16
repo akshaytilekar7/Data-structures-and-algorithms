@@ -12,29 +12,11 @@
         
            
         
-            78        55        45        98        13       // original
-
-
-           [78        55]       45        98        13       // 78 > 55 YES so swap 
-
-            55       [78        45]       98        13       // 78 > 45 YWA so swap 
-
-            55        45       [78        98]       13       // 78 > 98 NO, so no swap
-
-            55        45        78       [98        13]      // 98 > 13 so swap
-
-            55        45        78        13        98       // After 1st iteration
-
-
-          [55        45]       78        13        98       // 55 > 45
-
-           45       [55        78]       13        98       // 78 > 45 No - no swap
-
-           55        45       [78        13]       98       // 78 > 13 
-
-           55        45       13        [78        98]      // 78 > 98 No -no swap
-
-           55        45       78        13         98       // After 2nd Iteration
+      Selection Sort
+        -   array divide into 2 sub array one sorted and another is unsorted
+        -   find min from unsorted array and swap with start of unsorted array 
+        -   FOR N ITERATION WE NEED N - 1 ITERATION
+        -   
 
 
     
