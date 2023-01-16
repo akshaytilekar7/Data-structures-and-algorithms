@@ -13,8 +13,8 @@
             int mid = length / 2;
             int[] array1 = new int[mid - 1 + 1];
             int[] array2 = new int[length - mid];
-            int i = 0, j = 0, k = 0;
-
+            int j = 0, k = 0;
+            int i;
             for (i = 0; i < array1.Length; i++)
                 array1[i] = mainArray[i];
 
