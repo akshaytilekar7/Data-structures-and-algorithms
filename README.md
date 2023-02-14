@@ -1,32 +1,29 @@
 # Data structures and algorithms
- Data structures and algorithms
+ **Data structures and algorithms**
  
- 
-Data structures
    - Link List
-       - Singly Link List
-       - Singly Circular List
-       - Doubly Link List
-       - Doubly Circular Link List
+      - Singly Link List
+      - Singly Circular List
+      - Doubly Link List
+      - Doubly Circular Link List
    - Stack
    - Queue
    - Prioroty Queue
    
- Algorithms
-   - Sorting
+   - **Sorting**
       - Bubble
       - Bucket Radix
       - Insertion
       - Merge
       - Quick
       - Selection
-   - Searching
+   - **Searching**
      - Binary
      - Jump
-   - Tree
+   - **Tree**
      - Binary Search Tree
      - AVL Tree
-   - Graph
+   - **Graph**
      - Management
      - Dijkastra Algo
      - Kruskals Algo
