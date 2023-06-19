@@ -1,6 +1,6 @@
 ﻿namespace BinarySearchTree
 {
-    public class BstService : BstInfrastructure
+    public class BstService : BstInfrastructure, IBstService
     {
         public int GetHeight()
         {
@@ -126,7 +126,7 @@
         {
             return Diameter(tree.Root);
         }
-        public int Diameter(Node root)
+        private int Diameter(Node root)
         {
             // Diameter Number of nodes on the longest path between two end nodes.
             // Diameter at each node is defined by 1 + leftHeight + rightHeight.
@@ -157,7 +157,7 @@
         private int GetWidth(Node node)
         {
             // https://www.youtube.com/watch?v=poOw9DDMZKw
-            // number nodes between left and rigth MOST nodes in each leval
+            // number of nodes between left and rigth MOST nodes in each leval
             // dont include null nodes which exist at boundries
             if (node == null) return 0;
             List<Node> lst = new List<Node>();

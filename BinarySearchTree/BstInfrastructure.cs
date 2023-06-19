@@ -1,6 +1,6 @@
 ﻿namespace BinarySearchTree
 {
-    public class BstInfrastructure
+    public class BstInfrastructure : IBstInfrastructure
     {
         public BinarySearchTree tree;
         public BstInfrastructure()
@@ -141,6 +141,6 @@
                 Inorder(node.Right);
             }
         }
-       
+
     }
 }
