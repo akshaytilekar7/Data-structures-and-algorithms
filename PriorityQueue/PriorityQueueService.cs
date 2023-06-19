@@ -2,7 +2,6 @@
 {
     public class PriorityQueueService : BaseService
     {
-        // FIFO
         public bool IsEmpty()
         {
             return linklist.Next == linklist && linklist.Prev == linklist;
@@ -19,7 +18,6 @@
             GenericDelete(maxNode); // remove max
             return data;
         }
-
         private Node GetMax()
         {
             int max = 0;

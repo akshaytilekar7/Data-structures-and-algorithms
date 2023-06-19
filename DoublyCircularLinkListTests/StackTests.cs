@@ -35,10 +35,10 @@ namespace DoublyCircularLinkListTests
             stack.Push(200);
             stack.Push(300);
             stack.Push(400);
-            Assert.False(stack.Pop() == 400);
-            Assert.False(stack.Pop() == 300);
-            Assert.False(stack.Pop() == 400);
-            Assert.False(stack.Pop() == 100);
+            Assert.True(stack.Pop() == 400);
+            Assert.True(stack.Pop() == 300);
+            Assert.True(stack.Pop() == 200);
+            Assert.True(stack.Pop() == 100);
             Assert.True(stack.IsEmptyStack());
         }
 
@@ -49,11 +49,11 @@ namespace DoublyCircularLinkListTests
             stack.Push(200);
             stack.Push(300);
             stack.Push(400);
-            Assert.True(stack.Peek() == 100);
-            Assert.False(stack.Pop() == 400);
-            Assert.False(stack.Pop() == 300);
-            Assert.False(stack.Pop() == 400);
-            Assert.False(stack.Pop() == 100);
+            Assert.True(stack.Peek() == 400);
+            Assert.True(stack.Pop() == 400);
+            Assert.True(stack.Pop() == 300);
+            Assert.True(stack.Pop() == 200);
+            Assert.True(stack.Pop() == 100);
             Assert.True(stack.Peek() == -1);
         }
     }

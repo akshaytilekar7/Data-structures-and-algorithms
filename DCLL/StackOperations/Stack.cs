@@ -1,5 +1,6 @@
 namespace DoublyCircularLinkList
 {
+    // either add at last then all operation is at LAST or opposite
     public class Stack : DCLLService, IStack
     {
         public void Push(int data)
@@ -9,12 +10,12 @@ namespace DoublyCircularLinkList
 
         public int Pop()
         {
-            return PopFirst();
+            return PopLast();
         }
 
         public int Peek()
         {
-            return GetFirst();
+            return GetLast();
         }
         public bool IsEmptyStack()
         {

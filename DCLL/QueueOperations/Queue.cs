@@ -1,8 +1,13 @@
 namespace DoublyCircularLinkList
 {
+    // add last and get first
     public class Queue : DCLLService, IQueue
     {
-        public int Dequeue()
+        public void QueueAdd(int data)
+        {
+            AddLast(data);
+        }
+        public virtual int Dequeue()
         {
             return PopFirst();
         }
@@ -12,9 +17,9 @@ namespace DoublyCircularLinkList
             return base.IsEmpty();
         }
 
-        public void QueueAdd(int data)
+        public virtual int Peek()
         {
-            AddFirst(data);
+            return GetFirst();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class DCLLService : IDCLLService
     {
-        private readonly Node linklist;
+        protected Node linklist;
 
         public DCLLService()
         {

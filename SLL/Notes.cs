@@ -39,5 +39,17 @@ SCLL / DCLL
     while(traverse != linkList)
 
 
+Stack
+    either add at last then all operation is at LAST or opposite
+
+Queue
+    add last and get first
+
+
+PriorityQueue
+    Dequeue ie while removing remove MAX ELEMENT
+    Peek also Get max and return no remove
+
+
 
 */

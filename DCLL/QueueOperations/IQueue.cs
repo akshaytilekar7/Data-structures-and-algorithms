@@ -6,5 +6,7 @@
         int Dequeue();
         bool IsEmptyQueue();
         void Print();
+
+        int Peek();
     }
 }

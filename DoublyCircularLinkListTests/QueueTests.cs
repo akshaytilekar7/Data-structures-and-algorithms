@@ -35,10 +35,10 @@ namespace DoublyCircularLinkListTests
             queue.QueueAdd(200);
             queue.QueueAdd(300);
             queue.QueueAdd(400);
-            Assert.False(queue.Dequeue() == 100);
-            Assert.False(queue.Dequeue() == 200);
-            Assert.False(queue.Dequeue() == 300);
-            Assert.False(queue.Dequeue() == 400);
+            Assert.True(queue.Dequeue() == 100);
+            Assert.True(queue.Dequeue() == 200);
+            Assert.True(queue.Dequeue() == 300);
+            Assert.True(queue.Dequeue() == 400);
             Assert.True(queue.IsEmptyQueue());
         }
 
@@ -49,10 +49,10 @@ namespace DoublyCircularLinkListTests
             queue.QueueAdd(200);
             queue.QueueAdd(300);
             queue.QueueAdd(400);
-            Assert.False(queue.Dequeue() == 100);
-            Assert.False(queue.Dequeue() == 200);
-            Assert.False(queue.Dequeue() == 300);
-            Assert.False(queue.Dequeue() == 400);
+            Assert.True(queue.Dequeue() == 100);
+            Assert.True(queue.Dequeue() == 200);
+            Assert.True(queue.Dequeue() == 300);
+            Assert.True(queue.Dequeue() == 400);
         }
     }
 }
