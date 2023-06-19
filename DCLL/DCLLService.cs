@@ -58,6 +58,7 @@
         {
             return linklist.Prev == linklist && linklist.Next == linklist;
         }
+
         public bool IsExist(int data)
         {
             return GetNode(data) != null;
@@ -144,7 +145,7 @@
         {
             return GetLengthRecursiveHelper(linklist.Next);
         }
-
+        
         private int GetLengthRecursiveHelper(Node node)
         {
             if (node == linklist)
@@ -152,7 +153,6 @@
 
             return 1 + GetLengthRecursiveHelper(node.Next);
         }
-
 
         public int PopFirst()
         {
@@ -184,7 +184,6 @@
         {
             throw new NotImplementedException();
         }
-
 
         public void GenericInsert(Node prev, Node newNode, Node next)
         {

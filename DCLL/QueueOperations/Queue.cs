@@ -11,12 +11,10 @@ namespace DoublyCircularLinkList
         {
             return PopFirst();
         }
-
         public bool IsEmptyQueue()
         {
             return base.IsEmpty();
         }
-
         public virtual int Peek()
         {
             return GetFirst();

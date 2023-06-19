@@ -7,12 +7,10 @@ namespace DoublyCircularLinkList
         {
             AddLast(data);
         }
-
         public int Pop()
         {
             return PopLast();
         }
-
         public int Peek()
         {
             return GetLast();
@@ -21,7 +19,6 @@ namespace DoublyCircularLinkList
         {
             return base.IsEmpty();
         }
-
         public void PrintStack()
         {
             base.Print();
