@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SLL\SLL.csproj" />
+    <ProjectReference Include="..\SLL\SinglyLinkList.csproj" />
   </ItemGroup>
 
 </Project>

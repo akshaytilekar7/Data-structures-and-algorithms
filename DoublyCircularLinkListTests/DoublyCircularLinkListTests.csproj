@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DCLL\DCLL.csproj" />
+    <ProjectReference Include="..\DCLL\DoublyCircularLinkList.csproj" />
   </ItemGroup>
 
 </Project>

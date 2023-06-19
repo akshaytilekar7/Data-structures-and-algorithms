@@ -1,4 +1,4 @@
-﻿namespace SLL
+﻿namespace SinglyLinkList
 {
     public class Client
     {

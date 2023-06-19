@@ -1,4 +1,4 @@
-﻿namespace DCLL
+﻿namespace DoublyCircularLinkList
 {
     public interface IDCLLService
     {

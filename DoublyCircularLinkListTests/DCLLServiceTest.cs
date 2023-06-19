@@ -1,4 +1,4 @@
-using DCLL;
+using DoublyCircularLinkList;
 using Xunit;
 
 namespace DoublyCircularLinkListTests

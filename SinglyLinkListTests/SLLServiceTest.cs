@@ -1,4 +1,4 @@
-using SLL;
+using SinglyLinkList;
 using Xunit;
 
 namespace SinglyLinkListTests
