@@ -1,6 +1,6 @@
 ﻿namespace DCLL
 {
-    public class DCLLService
+    public class DCLLService : IDCLLService
     {
         private readonly Node linklist;
         public DCLLService()
@@ -90,22 +90,26 @@
         }
         public int PopFirst()
         {
+            if (IsEmpty()) return -1;
             int data = linklist.Next.Data;
             GenericDelete(linklist.Next);
             return data;
         }
         public int PopLast()
         {
+            if (IsEmpty()) return -1;
             int data = linklist.Prev.Data;
             GenericDelete(linklist.Prev);
             return data;
         }
         public int GetFirst()
         {
+            if (IsEmpty()) return -1;
             return linklist.Next.Data;
         }
         public int GetLast()
         {
+            if (IsEmpty()) return -1;
             return linklist.Prev.Data;
         }
         public void DeleteFirstOccurance(int data)

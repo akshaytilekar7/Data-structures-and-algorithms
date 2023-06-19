@@ -1,6 +1,6 @@
 ﻿namespace SLL
 {
-    public class SLLService
+    public class SLLService : ISLLService
     {
         private readonly Node linklist;
         public SLLService()
@@ -38,15 +38,17 @@
         public void AddBefore(int data, int newData)
         {
             var traverse = linklist.Next;
-            Node dataNode = null;
-            while (traverse.Next != null)
+            var prev = linklist;
+            while (traverse != null)
             {
-                if (traverse.Next.Data == data)
-                    dataNode = traverse; // one step before
+                if (traverse.Data == data)
+                {
+                    GenericInsert(prev, GetNewNode(newData), prev.Next);
+                    return;
+                }
+                prev = prev.Next;
                 traverse = traverse.Next;
             }
-            if (dataNode == null) return;
-            GenericInsert(dataNode, GetNewNode(newData), dataNode.Next);
         }
         public Node GetNode(int data)
         {
@@ -115,10 +117,10 @@
         {
             if (IsEmpty()) return -1;
             var traverse = linklist.Next;
-            Node prev = null;
-            while (traverse.Next != null)
+            var prev = linklist;
+            while (traverse.Next != null) // travel to 2nd last node // IMP
             {
-                prev = traverse;
+                prev = prev.Next;
                 traverse = traverse.Next;
             }
             int data = traverse.Data;
@@ -140,29 +142,33 @@
         }
         public void DeleteFirstOccurance(int data)
         {
-            Node prevNode = null;
             var traverse = linklist.Next;
-            while (traverse.Next != null)
+            Node prevNode = linklist;
+            Node firstOccurancePrevNode = null;
+            while (traverse != null)
             {
-                if (traverse.Next.Data == data)
-                    prevNode = traverse;
+                if (traverse.Data == data)
+                    firstOccurancePrevNode = prevNode;
+                prevNode = prevNode.Next;
                 traverse = traverse.Next;
             }
-            if (prevNode != null)
-                GenericDelete(prevNode);
+            if (firstOccurancePrevNode != null)
+                GenericDelete(firstOccurancePrevNode);
         }
         public void DeleteLastOccurance(int data)
         {
-            Node prevNode = null;
             var traverse = linklist.Next;
-            while (traverse.Next != null)
+            Node prev = linklist;
+            Node lastNode = null;
+            while (traverse != null)
             {
-                if (traverse.Next.Data == data)
-                    prevNode = traverse;
+                if (traverse.Data == data)
+                    lastNode = prev;
+                prev = prev.Next;
                 traverse = traverse.Next;
             }
-            if (prevNode != null)
-                GenericDelete(prevNode);
+            if (lastNode != null)
+                GenericDelete(lastNode);
         }
         public void DeleteAllOccurance(int data)
         {
@@ -180,7 +186,10 @@
         }
         private void GenericDelete(Node nodeBeforeToBeDeletedNode)
         {
-            nodeBeforeToBeDeletedNode.Next = nodeBeforeToBeDeletedNode.Next.Next;
+            if (nodeBeforeToBeDeletedNode.Next == null)
+                nodeBeforeToBeDeletedNode.Next = null;
+            else
+                nodeBeforeToBeDeletedNode.Next = nodeBeforeToBeDeletedNode.Next.Next;
         }
         private void GenericInsert(Node prev, Node newNode, Node next)
         {

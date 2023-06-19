@@ -6,6 +6,14 @@
         {
             SLLService linkList = new SLLService();
 
+            linkList.AddLast(100);
+            linkList.AddLast(200);
+            linkList.AddLast(500);
+            linkList.DeleteFirstOccurance(500);
+            linkList.Print();
+
+            return;
+
             var arr = new int[] { 1, 2134, 2, 3, 4, 5, 1, 1, 32, 1, 2134, 1 };
             Console.WriteLine("Is Empty {0}", linkList.IsEmpty());
 
