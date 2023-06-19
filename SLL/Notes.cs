@@ -19,6 +19,9 @@ SLL
     var traverse = linkList.Next;
     while(traverse != null)
 
+    for PopLast
+    while (traverse.Next != null) // travel to 2nd last node // IMP
+
 DLL
     var traverse = linkList.Next;
     while(traverse != null)
