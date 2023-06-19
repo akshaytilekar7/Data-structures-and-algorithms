@@ -1,7 +1,7 @@
 using DCLL;
 using Xunit;
 
-namespace SinglyLinkListTests
+namespace DoublyCircularLinkListTests
 {
     public class DCLLServiceTest
     {

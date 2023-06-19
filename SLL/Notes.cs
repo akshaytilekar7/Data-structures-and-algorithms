@@ -20,11 +20,19 @@ SLL
     while(traverse != null)
 
     for PopLast
-    while (traverse.Next != null) // travel to 2nd last node // IMP
+        while (traverse.Next != null) // travel to 2nd last node // IMP
+
+    GenericInsert 3 parameter
+    GenericDelelet 1 parapter : previousNode
 
 DLL
     var traverse = linkList.Next;
     while(traverse != null)
+
+    GenericInsert 3 parameter
+    GenericDelelet 1 parapter : deleteNode
+
+
 
 SCLL / DCLL
     var traverse = linkList.Next;
