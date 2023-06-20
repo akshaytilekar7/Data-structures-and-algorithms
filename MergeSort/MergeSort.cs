@@ -44,8 +44,8 @@
         {
             int i, j, k;
 
-            int size1 = mid - start + 1; // IMP
-            int size2 = end - mid; // IMP
+            int size1 = mid - start + 1; // IMP // include start to min
+            int size2 = end - mid; // IMP  // from mid + 1 to end
 
             int[] arr1 = new int[size1];
             int[] arr2 = new int[size2];
