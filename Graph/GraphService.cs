@@ -95,6 +95,7 @@
         }
         public void BFS(VerticleLL verticle)
         {
+            Console.WriteLine();
             Queue<VerticleLL> queue = new Queue<VerticleLL>();
             queue.Enqueue(verticle);
             verticle.Color = Color.Visited;
@@ -113,6 +114,32 @@
                     traverse = traverse.Next;
                 }
             }
+        }
+        public void BFSMoreRedable(int data = -1)
+        {
+            var vNode = data == -1 ? graph.Head : GetVerticleNode(data);
+            Queue<VerticleLL> queue = new Queue<VerticleLL>();
+
+            queue.Enqueue(vNode);
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                if (node.Color == Color.Untouch)
+                {
+                    node.Color = Color.Visited;
+                    Console.Write($"   {node.DataNode}   ");
+                }
+                var traverse = node.HorizontalLL.Next;
+                while (traverse != node.HorizontalLL)
+                {
+                    var vvNode = GetVerticleNode(traverse.DataNode);
+                    if (vvNode.Color == Color.Untouch)
+                        queue.Enqueue(vvNode);
+                    traverse = traverse.Next;
+                }
+            }
+            Console.WriteLine("BFS ");
         }
         public void ResetColor()
         {
