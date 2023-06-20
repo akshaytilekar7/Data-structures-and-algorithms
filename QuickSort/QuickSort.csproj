@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="QuickSortInternet.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="QuickSortInternet.cs" />
+  </ItemGroup>
+
 </Project>

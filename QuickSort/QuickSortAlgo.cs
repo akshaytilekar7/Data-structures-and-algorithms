@@ -1,5 +1,10 @@
 ﻿namespace QuickSort
 {
+    /*
+      work on postioning, in each iteration one element places at exact rigth postion
+      then again same process is apply for partition : left side and right side
+            
+    */ 
     public class QuickSortAlgo
     {
         public void Sort(int[] array)
@@ -39,7 +44,7 @@
             Swap(arr, partitionIndex, end);
             return partitionIndex;
         }
-
+        
         private void QuickSorting(int[] arr, int start, int end)
         {
             if (start < end) // main

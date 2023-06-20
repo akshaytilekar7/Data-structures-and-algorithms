@@ -1,5 +1,23 @@
 ﻿namespace MergeSort
 {
+
+    /*
+    1   closed interval 
+    2   Open interval 
+    3   Semi open
+            [nl n2] nEN :  n1 <= N <= n2
+            (n1 n2) nEN :  n1 <  N < n2
+            [n1 n2) nEN :  n1 <= N < n2
+            (n1 n2] nEN :  n1 <  N <= n2
+    
+            length (a b] => b - a
+            length [a b) => b - a
+            length [a b] => b - a + 1
+            length (a b) => b - a - 1
+
+    merge - divide until single element
+                
+    */
     public class MergeSort
     {
         public void Sort(int[] array)
@@ -9,21 +27,25 @@
 
         private void Merge(int[] arr, int start, int end)
         {
-            if (start < end)
+            if (start < end) // NO SORTING REQUIRE FOR SINGLE ELEMENT
             {
                 int mid = (start + end) / 2;
-                Merge(arr, start, mid);
-                Merge(arr, mid + 1, end);
-                MergeProcedure(arr, start, mid, end);
+                Merge(arr, start, mid); // divide
+                Merge(arr, mid + 1, end); // divide
+                MergeProcedure(arr, start, mid, end); // Merge divide element array
             }
+            //else
+            //{
+            //    Console.WriteLine($" ELSE {start}  {end}");
+            //}
         }
 
         private void MergeProcedure(int[] mainArr, int start, int mid, int end)
         {
             int i, j, k;
 
-            int size1 = mid - start + 1;
-            int size2 = end - mid;
+            int size1 = mid - start + 1; // IMP
+            int size2 = end - mid; // IMP
 
             int[] arr1 = new int[size1];
             int[] arr2 = new int[size2];
@@ -32,13 +54,13 @@
                 arr1[i] = mainArr[start + i];
 
             for (i = 0; i < size2; i++)
-                arr2[i] = mainArr[mid + 1 + i];
+                arr2[i] = mainArr[mid + 1 + i]; // IMP
 
             i = 0;
             j = 0;
             k = start;
 
-            while (true)
+            while (true) // IMP
             {
                 if (arr1[i] <= arr2[j])
                 {

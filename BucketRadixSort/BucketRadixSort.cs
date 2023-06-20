@@ -11,9 +11,9 @@
                     max = array[i];
 
             for (int place = 1; max / place > 0; place *= 10)
-                Countingsort(array, place); // for 3 dight number -  place value is 1 10 100 
+                CountingSort(array, place); // for 3 dight number -  place value is 1 10 100 
         }
-        public void Countingsort(int[] array, int place)
+        public void CountingSort(int[] array, int place)
         {
             int[] bucket = new int[10];
             int[] output = new int[array.Length];

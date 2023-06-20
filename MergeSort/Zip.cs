@@ -25,33 +25,21 @@
             {
                 if (k % 2 == 0)
                 {
-                    mainArray[k] = array1[i];
-                    i++;
-                    k++;
+                    mainArray[k++] = array1[i++];
                     if (i == array1.Length)
                     {
                         while (j < array2.Length)
-                        {
-                            mainArray[k] = array2[j];
-                            k++;
-                            j++;
-                        }
+                            mainArray[k++] = array2[j++];
                         break;
                     }
                 }
                 else
                 {
-                    mainArray[k] = array2[j];
-                    j++;
-                    k++;
+                    mainArray[k++] = array2[j++];
                     if (j == array2.Length)
                     {
                         while (i < array1.Length)
-                        {
-                            mainArray[k] = array1[i];
-                            i++;
-                            k++;
-                        }
+                            mainArray[k++] = array1[i++];
                         break;
                     }
                 }
