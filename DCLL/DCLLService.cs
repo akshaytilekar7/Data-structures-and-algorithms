@@ -172,7 +172,26 @@
 
         public void Print()
         {
-            throw new NotImplementedException();
+            Console.WriteLine();
+            var traverse = linklist.Next;
+            while (traverse != null)
+            {
+                Console.Write($"  {traverse.Data}  ");
+                traverse = traverse.Next;
+            }
+            Console.WriteLine();
+        }
+
+        public void Print(Node node)
+        {
+            Console.WriteLine();
+            var traverse = node;
+            while (traverse != null)
+            {
+                Console.Write($"  {traverse.Data}  ");
+                traverse = traverse.Next;
+            }
+            Console.WriteLine();
         }
 
         public Node ReverseListImmutable()

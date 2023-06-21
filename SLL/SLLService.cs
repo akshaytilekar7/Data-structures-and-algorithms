@@ -2,18 +2,15 @@
 {
     public class SLLService : ISLLService
     {
-        private readonly Node linklist;
-
+        public readonly Node linklist;
         public SLLService()
         {
             linklist = GetNewNode(-1);
         }
-
         public void AddFirst(int data)
         {
             GenericInsert(linklist, GetNewNode(data), linklist.Next);
         }
-
         public void AddLast(int data)
         {
             var traverse = linklist.Next;
@@ -32,7 +29,6 @@
             var node = GetNode(data);
             GenericInsert(node, GetNewNode(newData), node.Next);
         }
-
         public void AddBefore(int data, int newData)
         {
             if (!IsExist(data)) return;
@@ -51,7 +47,6 @@
                 GenericInsert(beforeNode, GetNewNode(newData), beforeNode.Next);
 
         }
-
         public void Delete(int data)
         {
             if (!IsExist(data)) return;
@@ -72,7 +67,6 @@
             if (beforeNode != null)
                 GenericDelete(beforeNode);
         }
-
         public void DeleteAllOccurance(int data)
         {
             if (!IsExist(data)) return;
@@ -89,7 +83,6 @@
             }
 
         }
-
         public void DeleteFirstOccurance(int data)
         {
             if (!IsExist(data)) return;
@@ -109,7 +102,6 @@
 
             GenericDelete(beforeNode);
         }
-
         public void DeleteLastOccurance(int data)
         {
             if (!IsExist(data)) return;
@@ -130,13 +122,11 @@
 
             GenericDelete(beforeNode);
         }
-
         public int GetFirst()
         {
             if (IsEmpty()) return -1;
             return linklist.Next.Data;
         }
-
         public int GetLast()
         {
             if (IsEmpty()) return -1;
@@ -150,7 +140,6 @@
 
             return prev.Data;
         }
-
         public int GetLength()
         {
             int count = 0;
@@ -162,19 +151,16 @@
             }
             return count;
         }
-
         public int GetLengthRecursive()
         {
             return GetLengthRecursiveHelper(linklist.Next);
         }
-
         private int GetLengthRecursiveHelper(Node node)
         {
             if (node == null)
                 return 0;
             return GetLengthRecursiveHelper(node.Next) + 1;
         }
-
         public Node GetNode(int data)
         {
             var traverse = linklist.Next;
@@ -186,17 +172,14 @@
             }
             return null;
         }
-
         public bool IsEmpty()
         {
             return linklist.Next == null; ;
         }
-
         public bool IsExist(int data)
         {
             return GetNode(data) != null;
         }
-
         public int PopFirst()
         {
             if (IsEmpty()) return -1;
@@ -204,7 +187,6 @@
             GenericDelete(linklist);
             return data;
         }
-
         public int PopLast()
         {
             if (IsEmpty()) return -1;
@@ -221,27 +203,79 @@
             GenericDelete(prev);
             return data;
         }
-
-        public void Print()
+        public void Print(string message = "")
         {
-            throw new NotImplementedException();
+            Console.WriteLine(message);
+            var traverse = linklist.Next;
+            while (traverse != null)
+            {
+                Console.Write($"  {traverse.Data}  ");
+                traverse = traverse.Next;
+            }
+            Console.WriteLine();
         }
 
+        public void Print(Node node)
+        {
+            Console.WriteLine();
+            var traverse = node;
+            while (traverse != null)
+            {
+                Console.Write($"  {traverse.Data}  ");
+                traverse = traverse.Next;
+            }
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// TC O(n)
+        /// SC O(1)
+        /// </summary>
+        /// <returns></returns>
         public Node ReverseListImmutable()
         {
-            throw new NotImplementedException();
+            return ReverseListImmutable(linklist.Next);
         }
-
         public void ReverseListMutable()
         {
-            throw new NotImplementedException();
+            if (IsEmpty()) return;
+
+            var cur = linklist.Next;
+            Node prev = null;
+            Node next = null;
+
+            while (cur != null)
+            {
+                next = cur.Next;
+                cur.Next = prev;
+                prev = cur;
+                cur = next;
+            }
+
+            linklist.Next = prev; // EASY BRO
         }
 
+        public Node ReverseListImmutable(Node node)
+        {
+            if (IsEmpty()) return null;
+
+            var cur = node;
+            Node prev = null;
+            Node next = null;
+
+            while (cur != null)
+            {
+                next = cur.Next;
+                cur.Next = prev;
+                prev = cur;
+                cur = next;
+            }
+            return prev;
+        }
         public Node ConcatImmutable(Node list1, Node List2)
         {
             throw new NotImplementedException();
         }
-
         public void ConcatMmutable(Node list1, Node List2)
         {
             throw new NotImplementedException();
@@ -258,13 +292,11 @@
         //    prev.Next = prev.Next == null ? null : next;
         //    deleteNode.Next = null;
         //}
-
-        private void GenericDelete(Node prev)
+        public void GenericDelete(Node prev)
         {
             prev.Next = prev.Next.Next;
         }
-
-        private Node GetNewNode(int data)
+        public Node GetNewNode(int data)
         {
             return new Node() { Data = data };
         }

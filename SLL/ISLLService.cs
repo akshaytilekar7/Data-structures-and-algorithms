@@ -21,7 +21,7 @@
         bool IsExist(int data);
         int PopFirst();
         int PopLast();
-        void Print();
+        void Print(string message = "");
         Node ReverseListImmutable();
         void ReverseListMutable();
     }
