@@ -1,6 +1,6 @@
 ﻿namespace SinglyLinkList
 {
-    public class SLLQuestions
+    public class SLLQuestions : ISLLQuestions
     {
         private readonly SLLService service;
         private readonly Node linklist;
@@ -14,6 +14,7 @@
         /// <summary>
         /// for even mid + 1
         /// for odd exact mid
+        /// check merge sort middle 
         /// TC O(n)
         /// SC O(1)
         /// </summary>
@@ -50,7 +51,6 @@
                 nodeToDelete.Data = val;
             }
         }
-
 
         /// <summary>
         /// TC O(linklist1 + linklist2)
@@ -124,8 +124,7 @@
             var node = MergeTwoSortedListRecursiveHelper(head, current, link1, link2);
             return node;
         }
-
-        public Node MergeTwoSortedListRecursiveHelper(Node head, Node current, Node link1, Node link2)
+        private Node MergeTwoSortedListRecursiveHelper(Node head, Node current, Node link1, Node link2)
         {
             if (link1 == null || link2 == null) return head.Next;
 
@@ -452,7 +451,6 @@
             return MergeTwoSortedList(list1, list2);
 
         }
-
         private Node GetMiddleNodeForMerge(Node linklist1)
         {
             Node slow = linklist1;
