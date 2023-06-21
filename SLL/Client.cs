@@ -6,14 +6,22 @@
         {
             SLLService service = new SLLService();
             SLLQuestions questions = new SLLQuestions(service);
-            var arr = new int[] { 10, 2, 15, 40, 60, 0, 90, 58, 12, 5, 3, 4, 46, 13 };
+            var arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
             foreach (var item in arr)
                 service.AddLast(item);
 
             service.Print();
-            var head = questions.SortLinkList(service.linklist.Next);
+            var head = questions.SwapNodesInKPairNew(service.linklist.Next, 9);
             service.Print(head);
+
+            //service.Print();
+            //var head = questions.OddEvenLinkList(service.linklist.Next);
+            //service.Print(head);
+
+            //service.Print();
+            //var head = questions.SortLinkList(service.linklist.Next);
+            //service.Print(head);
 
             //service.Print();
             //var head = questions.SwapKthNodeFromBithEnd(service.linklist.Next, 5);

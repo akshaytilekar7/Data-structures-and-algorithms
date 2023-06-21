@@ -463,5 +463,162 @@
             return slow;
         }
 
+        /// <summary>
+        /// TC O(n) 
+        /// SC O(1)
+        /// odd indices follow by even indices, EASY 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public Node OddEvenLinkList(Node list)
+        {
+            if (list == null) return null;
+
+            var oddHead = list;
+            var odd = list;
+            var even = list.Next;
+            var evenHead = list.Next;
+
+            while (even != null && even.Next != null)
+            {
+                odd.Next = even.Next;
+                odd = odd.Next;
+                even.Next = odd.Next;
+                even = even.Next;
+            }
+
+            odd.Next = evenHead;
+            return oddHead;
+        }
+
+        /// <summary>
+        /// TC O(n) 
+        /// SC O(1)
+        /// Swap nodes in pair
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public Node SwapNodesInPair(Node list)
+        {
+            if (list == null) return list;
+
+            var head = list;
+            var even = list.Next;
+            var odd = list;
+
+            while (even != null && even.Next != null)
+            {
+                int temp = even.Data;
+                even.Data = odd.Data;
+                odd.Data = temp;
+                even = even.Next.Next;
+
+                // never got error as even pointer is always ahead of odd
+                // and we are checking even null and even next null in while
+                odd = odd.Next.Next;
+            }
+
+            return head;
+        }
+
+        /// <summary>
+        /// TC O(n) 
+        /// SC O(1)
+        /// Swap nodes in pair NOT WORKINF
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public Node SwapNodesInKPair(Node list, int k)
+        {
+            if (list == null) return list;
+
+            var head = list;
+            Node prev = null;
+            Node traverseStart = list;
+            var traverseLast = list;
+
+            int count = 0;
+            while (traverseLast != null)
+            {
+                count++;
+                if (count == k)
+                {
+                    var next = traverseLast.Next;
+
+                    // reverse -> traverseStart to traverseLast
+                    traverseLast.Next = null;
+                    var revNode = ReverseMine(traverseStart);
+
+                    traverseStart = next;
+                }
+                else
+                    prev = traverseLast;
+                traverseLast = traverseLast.Next;
+            }
+
+            return head;
+        }
+
+        /// <summary>
+        /// TC O(n) 
+        /// SC O(1)
+        /// Swap nodes in pair Internet working
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public Node SwapNodesInKPairNew(Node head, int k)
+        {
+            if (head == null || k == 1) return head;
+
+            Node dummy = new Node();
+            dummy.Next = head;
+            Node cur = dummy;
+            var next = dummy;
+            var prev = dummy;
+            int length = 0;
+
+            while (cur.Next != null)
+            {
+                cur = cur.Next;
+                length++;
+            }
+
+            // need to dry run this block
+            while (length >= k)
+            {
+                cur = prev.Next;
+                next = cur.Next;
+                for (int i = 1; i < k; i++)
+                {
+                    cur.Next = next.Next;
+                    next.Next = prev.Next;
+                    prev.Next = next;
+                    next = cur.Next;
+                }
+                prev = cur;
+                length = length - k;
+            }
+            return dummy.Next;
+        }
+
+        private Node ReverseMine(Node node)
+        {
+            if (node == null) return null;
+
+            var curr = node;
+            Node prev = null;
+            Node next = null;
+
+            while (curr != null)
+            {
+                next = curr.Next;
+                curr.Next = prev;
+                prev = curr;
+                curr = next;
+            }
+
+            return prev;
+        }
+
     }
 }
