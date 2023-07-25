@@ -199,6 +199,7 @@
         public void Delete(int data)
         {
             var z = GetNode(data);
+            if (z == null) return;
             var grandparent = Delete(z);
             DeleteFixup(grandparent);
         }
@@ -302,6 +303,30 @@
                 traverse = traverse.Parent;
             }
             return null;
+        }
+
+        public bool IsEmpty()
+        {
+            return tree.Root == null;
+        }
+        public List<int> GetInorderList()
+        {
+            List<int> list = new List<int>();
+            InorderForTestHelper(tree.Root, list);
+            return list;
+        }
+        public void InorderForTestHelper(Node node, List<int> list)
+        {
+            if (node != null)
+            {
+                InorderForTestHelper(node.Left, list);
+                list.Add(node.Data);
+                InorderForTestHelper(node.Right, list);
+            }
+        }
+        public bool IsExist(int data)
+        {
+            return GetNode(data) != null;
         }
     }
 }

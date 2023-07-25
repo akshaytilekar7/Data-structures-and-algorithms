@@ -51,12 +51,6 @@
         {
             return GetNode(data) != null;
         }
-
-        public bool IsEmpty()
-        {
-            return tree.Root == null;
-        }
-
         public Node GetNode(int data)
         {
             var node = tree.Root;
@@ -150,6 +144,10 @@
             }
         }
 
+        public bool IsEmpty()
+        {
+            return tree.Root == null;
+        }
         public List<int> GetInorderList()
         {
             List<int> list = new List<int>();
