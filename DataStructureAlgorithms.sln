@@ -32,17 +32,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{D536E8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearch", "BinarySearch\BinarySearch.csproj", "{CC7EC935-9F02-4BF5-9D0F-D7BB470E3D9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickSort", "QuickSort\QuickSort.csproj", "{361B6886-496D-4561-9F75-A452A04767AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickSort", "Sort\QuickSort\QuickSort.csproj", "{361B6886-496D-4561-9F75-A452A04767AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JumpSearch", "JumpSearch\JumpSearch.csproj", "{A5D73B3B-E092-4B4B-B0E6-A9ABE38D9083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JumpSearch", "Sort\JumpSearch\JumpSearch.csproj", "{A5D73B3B-E092-4B4B-B0E6-A9ABE38D9083}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BubbleSort", "BubbleSort\BubbleSort.csproj", "{A83BBA40-B8D1-4285-90F5-D916DF1C76C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BubbleSort", "Sort\BubbleSort\BubbleSort.csproj", "{A83BBA40-B8D1-4285-90F5-D916DF1C76C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelectionSort", "SelectionSort\SelectionSort.csproj", "{BF77D184-BB67-45BD-A2C4-A910D307DC5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelectionSort", "Sort\SelectionSort\SelectionSort.csproj", "{BF77D184-BB67-45BD-A2C4-A910D307DC5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsertionSort", "InsertionSort\InsertionSort.csproj", "{F24A91F6-31A2-498B-A000-2C1562AC8D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsertionSort", "Sort\InsertionSort\InsertionSort.csproj", "{F24A91F6-31A2-498B-A000-2C1562AC8D59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BucketRadixSort", "BucketRadixSort\BucketRadixSort.csproj", "{22813262-5AC7-408A-BB51-4A0345D1F961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BucketRadixSort", "Sort\BucketRadixSort\BucketRadixSort.csproj", "{22813262-5AC7-408A-BB51-4A0345D1F961}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SinglyLinkList", "SinglyLinkList", "{AA8014ED-6A31-42DD-8CA9-E86C721B4C99}"
 EndProject
