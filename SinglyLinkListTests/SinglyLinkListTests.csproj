@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SinglyLinkList\SinglyLinkList.csproj" />
-    <ProjectReference Include="..\SLL\SinglyLinkList.csproj" />
   </ItemGroup>
 
 </Project>
