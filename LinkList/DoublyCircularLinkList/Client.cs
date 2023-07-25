@@ -12,11 +12,11 @@
             foreach (var item in arr)
                 linkList.AddLast(item);
 
-            linkList.AddFirst(5000);
-            linkList.AddLast(6000);
-            linkList.AddBefore(6000, -9000);
-            linkList.AddBefore(6000, 56362);
-            linkList.AddAfter(1, 1000);
+            //linkList.AddFirst(5000);
+            //linkList.AddLast(6000);
+            //linkList.AddBefore(6000, -9000);
+            //linkList.AddBefore(6000, 56362);
+            //linkList.AddAfter(1, 1000);
 
             //Console.WriteLine(linkList.GetFirst());
             //Console.WriteLine(linkList.GetLast());
@@ -33,14 +33,14 @@
             //linkList.Delete(5000);
             //linkList.Delete(5);
 
-            linkList.Print();
-            linkList.DeleteFirstOccurance(5);
-            linkList.DeleteLastOccurance(5);
-            linkList.DeleteAllOccurance(5);
+            //linkList.Print();
+            //linkList.DeleteFirstOccurance(5);
+            //linkList.DeleteLastOccurance(5);
+            //linkList.DeleteAllOccurance(5);
 
-            linkList.DeleteFirstOccurance(50);
-            linkList.DeleteLastOccurance(50);
-            linkList.DeleteAllOccurance(50);
+            //linkList.DeleteFirstOccurance(50);
+            //linkList.DeleteLastOccurance(50);
+            //linkList.DeleteAllOccurance(50);
 
             linkList.Print();
 
