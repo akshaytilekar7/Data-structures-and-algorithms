@@ -22,9 +22,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriorityQueue", "PriorityQueue\PriorityQueue.csproj", "{6DF7F58E-56A5-4777-902C-B4F2B95753C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sort", "Sort", "{1E8022EA-BEAD-4B76-9CDA-AB4B14E540C2}"
-	ProjectSection(SolutionItems) = preProject
-		Notes.cs = Notes.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{D536E8D8-D433-439A-AA78-9760DCA077E3}"
 EndProject
