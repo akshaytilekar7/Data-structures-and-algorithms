@@ -1,4 +1,4 @@
-namespace DoublyCircularLinkList
+namespace DoublyCircularLinkList.PriorityQueue
 {
     public class PriorityQueue : Queue
     {

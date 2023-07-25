@@ -1,4 +1,4 @@
-﻿using DoublyCircularLinkList;
+﻿using DoublyCircularLinkList.PriorityQueue;
 using Xunit;
 
 namespace DoublyCircularLinkListTests
