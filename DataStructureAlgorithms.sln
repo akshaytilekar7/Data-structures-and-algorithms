@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllCoreFiles", "AllCoreFile
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graph", "Graph\Graph.csproj", "{D16FBB15-6EE2-402D-A4AD-9E7690612763}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearchTree", "BinarySearchTree\BinarySearchTree.csproj", "{C6D7FFFA-1942-467A-BE79-BBF735177C35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearchTree", "Tree\BinarySearchTree\BinarySearchTree.csproj", "{C6D7FFFA-1942-467A-BE79-BBF735177C35}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvlTree", "AvlTree\AvlTree.csproj", "{91838921-C834-4030-89B6-72DE00B1658E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvlTree", "Tree\AvlTree\AvlTree.csproj", "{91838921-C834-4030-89B6-72DE00B1658E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack", "Stack\Stack.csproj", "{4DFD892B-5AE6-439D-AE19-A1789B819A30}"
 EndProject
@@ -50,6 +50,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyCircularLinkListTests", "LinkList\DoublyCircularLinkListTests\DoublyCircularLinkListTests.csproj", "{68FB4F5E-54E4-4901-BF57-D69CCED94312}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyCircularLinkList", "LinkList\DoublyCircularLinkList\DoublyCircularLinkList.csproj", "{969E8B2B-2CC6-48C1-B17A-BF962F76C80F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tree", "Tree", "{D4AE7C4E-B248-4D5A-ACD2-DA1A5CEEE8EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -294,6 +296,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{C6D7FFFA-1942-467A-BE79-BBF735177C35} = {D4AE7C4E-B248-4D5A-ACD2-DA1A5CEEE8EF}
+		{91838921-C834-4030-89B6-72DE00B1658E} = {D4AE7C4E-B248-4D5A-ACD2-DA1A5CEEE8EF}
 		{CC7EC935-9F02-4BF5-9D0F-D7BB470E3D9C} = {D536E8D8-D433-439A-AA78-9760DCA077E3}
 		{A5D73B3B-E092-4B4B-B0E6-A9ABE38D9083} = {D536E8D8-D433-439A-AA78-9760DCA077E3}
 		{361B6886-496D-4561-9F75-A452A04767AF} = {1E8022EA-BEAD-4B76-9CDA-AB4B14E540C2}
