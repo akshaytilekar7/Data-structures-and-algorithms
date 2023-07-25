@@ -52,11 +52,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyCircularLinkListTests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LinkList", "LinkList", "{C3FCD47B-0413-4A91-AFF3-3A5076E73E9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AsymtoticNotation", "AsymtoticNotation", "{B2A0BD5A-D9C7-45A5-8AA0-E6FD1F2462A1}"
-	ProjectSection(SolutionItems) = preProject
-		AsymtoticNotation1.cs = AsymtoticNotation1.cs
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MergeSort", "Sort\MergeSort\MergeSort.csproj", "{655F294C-3714-4641-AC0F-AC71E18F45E7}"
 EndProject
 Global
