@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyCircularLinkList", "L
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tree", "Tree", "{D4AE7C4E-B248-4D5A-ACD2-DA1A5CEEE8EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeTest", "TreeTest\TreeTest.csproj", "{CCF4BBBF-0499-419F-812A-9CD1C7172B70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeTest", "Tree\TreeTest\TreeTest.csproj", "{CCF4BBBF-0499-419F-812A-9CD1C7172B70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

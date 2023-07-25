@@ -1,5 +1,4 @@
 using AvlTree;
-using BinarySearchTree;
 using System.Collections.Generic;
 using Xunit;
 
