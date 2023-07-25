@@ -4,7 +4,7 @@
 #include "List.h"
 
 int main(void)
-{
+{	
 	ListType* p_list = NULL;
 	ListType* p_reversed_list = NULL;
 	ListType* p_list_1 = NULL;
