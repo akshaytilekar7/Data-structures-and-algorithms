@@ -29,7 +29,7 @@ namespace TreeTest
             Assert.False(tree.IsExist(200));
         }
 
-         [Fact]
+        [Fact]
         public void DeleteEmpty()
         {
             Assert.True(tree.IsEmpty());
