@@ -58,7 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LinkList", "LinkList", "{C3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AsymtoticNotation", "AsymtoticNotation", "{B2A0BD5A-D9C7-45A5-8AA0-E6FD1F2462A1}"
 	ProjectSection(SolutionItems) = preProject
-		AsymtoticNotation.cs = AsymtoticNotation.cs
+		AsymtoticNotation1.cs = AsymtoticNotation1.cs
 	EndProjectSection
 EndProject
 Global

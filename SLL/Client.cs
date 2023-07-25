@@ -12,7 +12,7 @@
                 service.AddLast(item);
 
             service.Print();
-            var head = questions.SwapNodesInKPairNew(service.linklist.Next, 9);
+            var head = questions.SwapKNode(service.linklist.Next, 2);
             service.Print(head);
 
             //service.Print();

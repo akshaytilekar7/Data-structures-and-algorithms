@@ -601,6 +601,57 @@
             return dummy.Next;
         }
 
+        public Node SwapKNode(Node list, int k)
+        {
+            if (list == null || k == 1) return list;
+
+            var head = service.GetNewNode(-100);
+            head.Next = list;
+
+            var traverse = list;
+            var beforeStart = list;
+            Node start = list.Next;
+            Node end = null;
+            Node afterEnd = null;
+
+            int count = 0;
+            while (traverse != null && count < k - 1)
+            {
+                count++;
+                traverse = traverse.Next;
+                if (count == 1)
+                {
+                    beforeStart = traverse;
+                    start = traverse.Next;
+                }
+                if (count == k)
+                {
+                    end = traverse;
+                    afterEnd = end.Next;
+
+                    // reverse logic start
+                    Node curr = start;
+                    Node prev = null;
+                    Node next = null;
+                    for (int i = 0; i < k; i++)
+                    {
+                        next = curr.Next;
+                        curr.Next = prev;
+                        prev = curr;
+                        curr = next;
+                    }
+                    beforeStart.Next = prev;
+                    curr.Next = afterEnd;
+                    // reverse logic end
+                    start = afterEnd;
+                    end = null;
+                    count = 0;
+                }
+            }
+            return head;
+
+        }
+
         private Node ReverseMine(Node node)
         {
             if (node == null) return null;
