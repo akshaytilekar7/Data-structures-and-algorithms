@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySearchTree", "BinaryS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvlTree", "AvlTree\AvlTree.csproj", "{91838921-C834-4030-89B6-72DE00B1658E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyCircularLinkList", "DCLL\DoublyCircularLinkList.csproj", "{A1498B73-E7CC-492F-8641-6AF28BB02AF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyCircularLinkList", "DoublyCircularLinkList\DoublyCircularLinkList.csproj", "{A1498B73-E7CC-492F-8641-6AF28BB02AF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SinglyLinkList", "SinglyLinkList\SinglyLinkList.csproj", "{A60B7B89-587A-42C8-B7A6-34D5553F3DB5}"
 EndProject
