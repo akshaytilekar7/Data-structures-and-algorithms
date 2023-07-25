@@ -25,6 +25,7 @@
             }
 
             Console.WriteLine("END $$$$$$$$$$$$$$$$$$");
+            Console.ReadLine();
         }
 
         public static long ComputeRod(long index)

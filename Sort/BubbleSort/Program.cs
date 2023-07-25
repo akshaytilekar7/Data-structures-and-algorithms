@@ -17,7 +17,7 @@
             sort.BubbleSortAlgo3(arr3);
             sort.Print(arr3);
 
-
+            Console.ReadLine();
         }
     }
 }

@@ -11,6 +11,8 @@
 
             //foreach (var item in arr)
             //    Console.Write(" [{0}] ", item);
+
+            Console.ReadLine();
         }
     }
 }

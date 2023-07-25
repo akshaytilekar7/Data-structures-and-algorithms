@@ -45,6 +45,7 @@
             linkList.Print();
 
             Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }

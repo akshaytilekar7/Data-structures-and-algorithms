@@ -24,6 +24,8 @@
             }
 
             Console.WriteLine("Height is : " + tree.GetHeight());
+
+            Console.ReadLine();
         }
     }
 }

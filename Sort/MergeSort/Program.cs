@@ -13,6 +13,7 @@
             MergeSort mergeSort = new MergeSort();
             mergeSort.Sort(arr);
             mergeSort.Print(arr);
+            Console.ReadLine();
         }
     }
 }

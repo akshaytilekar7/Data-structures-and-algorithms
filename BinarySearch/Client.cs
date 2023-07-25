@@ -23,6 +23,8 @@
             Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 7));
             Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 100));
             Console.WriteLine("Index {0}", binarySearch.SearchRecursive(array, 5));
+
+            Console.ReadLine();
         }
     }
 }

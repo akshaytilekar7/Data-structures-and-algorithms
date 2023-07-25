@@ -44,6 +44,8 @@
             //Console.WriteLine("Diameter is : {0}", bstService.GetDiameter());
 
             // bstService.Inorder("C# Done");
+
+            Console.ReadLine();
         }
     }
 }

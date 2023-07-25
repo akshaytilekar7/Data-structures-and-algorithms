@@ -20,6 +20,8 @@
             Console.WriteLine("Index {0}", mine.JumpSearchAlgo(array, 7));
             Console.WriteLine("Index {0}", mine.JumpSearchAlgo(array, 10));
             Console.WriteLine("Index {0}", mine.JumpSearchAlgo(array, 12));
+
+            Console.ReadLine();
         }
     }
 }

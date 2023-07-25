@@ -14,6 +14,8 @@
             Console.WriteLine("MAX COUNT IS : " + count);
 
             //matrixMultiplication.PrintOptimalParens(matrixMultiplication.ArrParenthisis, 1, matrixMultiplication.ArrParenthisis.Length -1 );
+
+            Console.ReadLine();
         }
     }
 }

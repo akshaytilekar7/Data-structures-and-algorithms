@@ -60,5 +60,6 @@ public class Program
                     new TreeNode(8, new TreeNode(13), new TreeNode(4, new TreeNode(5), new TreeNode(1)))); ;
         var res = service.PathSum(treeNode, 22);
         Console.WriteLine(res);
+        Console.ReadLine();
     }
 }

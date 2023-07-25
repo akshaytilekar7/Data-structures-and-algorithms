@@ -51,6 +51,7 @@ namespace CSharp112
             node.left = new TreeNode(2);
             var res = node.HasPathSum(node, 1);
             Console.WriteLine(res);
+            Console.ReadLine();
         }
     }
 }

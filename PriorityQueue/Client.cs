@@ -25,6 +25,7 @@
             Console.WriteLine("Pop : {0}", pq.Dequeue());
 
             pq.Print();
+            Console.ReadLine();
         }
     }
 }
