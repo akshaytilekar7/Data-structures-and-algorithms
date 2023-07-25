@@ -51,6 +51,12 @@
         {
             return GetNode(data) != null;
         }
+
+        public bool IsEmpty()
+        {
+            return tree.Root == null;
+        }
+
         public Node GetNode(int data)
         {
             var node = tree.Root;
@@ -71,6 +77,8 @@
         public void Delete(int data)
         {
             var z = GetNode(data);
+
+            if (z == null) return;
 
             if (z.Left == null)
             {
@@ -139,6 +147,23 @@
                 Inorder(node.Left);
                 Console.Write("[{0}] ", node.Data);
                 Inorder(node.Right);
+            }
+        }
+
+        public List<int> GetInorderList()
+        {
+            List<int> list = new List<int>();
+            InorderForTestHelper(tree.Root, list);
+            return list;
+        }
+
+        public void InorderForTestHelper(Node node, List<int> list)
+        {
+            if (node != null)
+            {
+                InorderForTestHelper(node.Left, list);
+                list.Add(node.Data);    
+                InorderForTestHelper(node.Right, list);
             }
         }
 
