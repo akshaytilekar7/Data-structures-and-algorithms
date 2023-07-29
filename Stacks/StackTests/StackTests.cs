@@ -1,31 +1,31 @@
-﻿using DoublyCircularLinkList;
+﻿using Stack;
 using Xunit;
 
 namespace DoublyCircularLinkListTests
 {
     public class StackTests
     {
-        IStack stack;
+        StackService stack;
 
         public StackTests()
         {
-            stack = new Stack();
+            stack = new StackService();
         }
 
         [Fact]
         public void IsEmpty()
         {
-            Assert.True(stack.IsEmptyStack());
+            Assert.True(stack.IsEmpty());
             stack.Push(100);
-            Assert.False(stack.IsEmptyStack());
+            Assert.False(stack.IsEmpty());
         }
 
         [Fact]
         public void EmptyPop()
         {
-            Assert.True(stack.IsEmptyStack());
+            Assert.True(stack.IsEmpty());
             Assert.True(stack.Pop() == -1);
-            Assert.True(stack.IsEmptyStack());
+            Assert.True(stack.IsEmpty());
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace DoublyCircularLinkListTests
             Assert.True(stack.Pop() == 300);
             Assert.True(stack.Pop() == 200);
             Assert.True(stack.Pop() == 100);
-            Assert.True(stack.IsEmptyStack());
+            Assert.True(stack.IsEmpty());
         }
 
         [Fact]
