@@ -50,7 +50,7 @@ static void GenericDelete(NodeType* deleteNode)
 static NodeType* Search(ListType* list, dataType data)
 {
 	ListType* traverse = list->Next;
-	while (traverse != list->Prev)
+	while (traverse != list)
 	{
 		if (traverse->Data == data) return traverse;
 		traverse = traverse->Next;
@@ -85,7 +85,6 @@ statusType InsertBefore(ListType* list, dataType data, dataType newData)
 {
 	NodeType* node = Search(list, data);
 	if (node == NULL) return DataNotFound;
-
 	GenericInsert(node->Prev, GetNewNode(newData), node); // node cha prev and node
 	return SUCCESS;
 }
@@ -99,7 +98,7 @@ bool IsEmpty(ListType* list)
 bool IsExist(ListType* list, dataType data)
 {
 	NodeType* node = Search(list, data);
-	return (node == NULL);
+	return (node == NULL) ? FALSE : TRUE;
 }
 
 dataType GetLength(ListType* list)

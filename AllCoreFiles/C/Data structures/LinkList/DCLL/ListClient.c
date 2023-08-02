@@ -3,7 +3,7 @@
 #include <assert.h> 
 #include "List.h"
 
-int main(void)
+int main1(void)
 {
 	ListType* p_list = NULL;
 	ListType* p_reversed_list = NULL;

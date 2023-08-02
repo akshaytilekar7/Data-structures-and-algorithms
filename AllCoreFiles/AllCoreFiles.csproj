@@ -24,4 +24,12 @@
     <None Remove="CSharp\WeightedGraph\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="C\Data structures\LinkList\DCLL\ListTests.c" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="C\Data structures\LinkList\DCLL\ListTests.c" />
+  </ItemGroup>
+
 </Project>
