@@ -22,13 +22,13 @@ public class SegmentTree
 
         node.Left = this.ConstructTree(arr, start, mid);
         node.Right = this.ConstructTree(arr, mid + 1, end);
-
         node.Data = node.Left.Data + node.Right.Data;
+        
         return node;
     }
     public void Display()
     {
-        Display(this.root);
+        Display(root);
     }
     private void Display(Node node)
     {
