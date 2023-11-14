@@ -6,7 +6,7 @@
         int GetDiameter();
         int GetHeight();
         int GetWidth();
-        void LevelOrderTraverser();
-        void SpiralPrint();
+        void LevelOrderTraverser1();
+        void SpiralPrint1();
     }
 }

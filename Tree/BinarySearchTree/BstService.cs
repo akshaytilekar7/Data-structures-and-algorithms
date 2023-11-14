@@ -34,9 +34,9 @@
             }
             Console.WriteLine(" BFS End ");
         }
-        public void LevelOrderTraverser()
+        public void LevelOrderTraverser1()
         {
-            Console.WriteLine("\nLevelOrderTraverser Start\n");
+            Console.WriteLine("\nLevelOrderTraverser Start 1\n");
 
             var node = tree.Root;
             if (node == null)
@@ -54,10 +54,8 @@
                     {
                         var pop = queue2.Dequeue();
                         Console.Write(" [{0}] ", pop.Data);
-                        if (pop.Left != null)
-                            queue1.Enqueue(pop.Left);
-                        if (pop.Right != null)
-                            queue1.Enqueue(pop.Right);
+                        if (pop.Left != null) queue1.Enqueue(pop.Left);
+                        if (pop.Right != null) queue1.Enqueue(pop.Right);
                     }
                     Console.WriteLine();
                 }
@@ -67,27 +65,113 @@
                     {
                         var pop = queue1.Dequeue();
                         Console.Write(" [{0}] ", pop.Data);
-                        if (pop.Left != null)
-                            queue2.Enqueue(pop.Left);
-                        if (pop.Right != null)
-                            queue2.Enqueue(pop.Right);
+                        if (pop.Left != null) queue2.Enqueue(pop.Left);
+                        if (pop.Right != null) queue2.Enqueue(pop.Right);
                     }
                     Console.WriteLine();
                 }
             }
-
-            Console.WriteLine(" LevelOrderTraverser End ");
-
+            Console.WriteLine(" LevelOrderTraverser End 1");
         }
-        public void SpiralPrint()
+        public void PrintLevelOrderTraverser2()
+        {
+            var result = LevelOrderTraverser2();
+
+            foreach (var list in result)
+            {
+                foreach (var item in list)
+                    Console.Write(item + "\t");
+                Console.Write("\n");
+            }
+        }
+        private List<List<int>> LevelOrderTraverser2()
+        {
+            var root = tree.Root;
+            List<List<int>> result = new();
+            if (root == null)
+                return result;
+
+            Queue<Node> queue = new();
+            queue.Enqueue(root);
+
+            while (queue.Count() > 0)
+            {
+                List<int> currentLevel = new();
+                var x = queue.Count();  // VV IMP id u used directly used queue.Count() for loop interation will change
+                for (int i = 0; i < x; i++)
+                {
+                    Node currentNode = queue.Dequeue();
+                    currentLevel.Add(currentNode.Data);
+                    if (currentNode.Left != null) queue.Enqueue(currentNode.Left);
+                    if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
+                }
+                result.Add(currentLevel);
+            }
+            return result;
+        }
+        public void PrintAverageOfLevels()
+        {
+            var result = AverageOfLevels();
+
+            foreach (var item in result)
+                Console.WriteLine(item);
+        }
+        public List<double> AverageOfLevels()
+        {
+            List<double> result = new();
+
+            var root = tree.Root;
+            if (root == null)
+                return result;
+
+            Queue<Node> queue = new();
+            queue.Enqueue(root);
+
+            while (queue.Count() > 0)
+            {
+                int levelSize = queue.Count();
+                double averageLevel = 0;
+                for (int i = 0; i < levelSize; i++)
+                {
+                    var currentNode = queue.Dequeue();
+                    averageLevel += currentNode.Data;
+                    if (currentNode.Left != null) queue.Enqueue(currentNode.Left);
+                    if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
+                }
+                averageLevel = averageLevel / levelSize;
+                result.Add(averageLevel);
+            }
+            return result;
+        }
+        public Node findSuccessor(Node root, int key)
+        {
+            if (root == null)
+                return null;
+
+            Queue<Node> queue = new();
+            queue.Enqueue(root);
+
+            while (queue.Count() > 0)
+            {
+                var currentNode = queue.Dequeue();
+                if (currentNode.Left != null)
+                    queue.Enqueue(currentNode.Left);
+                if (currentNode.Right != null)
+                    queue.Enqueue(currentNode.Right);
+                if (currentNode.Data == key)
+                    break;
+            }
+            return queue.Dequeue();
+        }
+        public void SpiralPrint1()
         {
             Console.WriteLine("\n SpiralPrint Start\n");
 
             var node = tree.Root;
             if (node == null)
                 return;
-            Stack<Node> stack1 = new Stack<Node>(); // rigth to left
-            Stack<Node> stack2 = new Stack<Node>(); // left to right
+            Stack<Node> stack1 = new Stack<Node>(); // rigth to Left
+            Stack<Node> stack2 = new Stack<Node>(); // Left to right
 
             stack1.Push(node);
 
@@ -99,10 +183,8 @@
                     {
                         var pop = stack2.Pop();
                         Console.Write(" [{0}] ", pop.Data);
-                        if (pop.Right != null)
-                            stack1.Push(pop.Right);
-                        if (pop.Left != null)
-                            stack1.Push(pop.Left);
+                        if (pop.Right != null) stack1.Push(pop.Right);
+                        if (pop.Left != null) stack1.Push(pop.Left);
                     }
                     Console.WriteLine();
                 }
@@ -112,16 +194,69 @@
                     {
                         var pop = stack1.Pop();
                         Console.Write(" [{0}] ", pop.Data);
-                        if (pop.Left != null)
-                            stack2.Push(pop.Left);
-                        if (pop.Right != null)
-                            stack2.Push(pop.Right);
+                        if (pop.Left != null) stack2.Push(pop.Left);
+                        if (pop.Right != null) stack2.Push(pop.Right);
                     }
                     Console.WriteLine();
                 }
             }
             Console.WriteLine(" SpiralPrint End ");
         }
+
+        public void SpiralPrint2()
+        {
+            Console.WriteLine("\n SpiralPrint2 Start\n");
+            var result = Spiral2();
+
+            foreach (var list in result)
+            {
+                foreach (var item in list)
+                    Console.Write(item + "\t");
+                Console.Write("\n");
+            }
+            Console.WriteLine("\n SpiralPrint2 Start\n");
+        }
+        public List<List<int>> Spiral2()
+        {
+            var root = tree.Root;
+            List<List<int>> result = new();
+            if (root == null)
+                return result;
+
+            List<Node> list = new();
+            list.Add(root);
+
+            var reverse = false;
+
+            while (list.Count() > 0)
+            {
+                int levelSize = list.Count();
+                List<int> currentLevel = new();
+                for (int i = 0; i < levelSize; i++)
+                {
+                    if (!reverse)
+                    {
+                        var currentNode = list.First();
+                        list.RemoveAt(0);
+                        currentLevel.Add(currentNode.Data);
+                        if (currentNode.Left != null) list.Add(currentNode.Left);
+                        if (currentNode.Right != null) list.Add(currentNode.Right);
+                    }
+                    else
+                    {
+                        var currentNode = list.Last();
+                        list.RemoveAt(list.Count() - 1);
+                        currentLevel.Add(currentNode.Data);
+                        if (currentNode.Right != null) list.Add(currentNode.Right);
+                        if (currentNode.Left != null) list.Add(currentNode.Left);
+                    }
+                }
+                reverse = !reverse;
+                result.Add(currentLevel);
+            }
+            return result;
+        }
+
         public int GetDiameter()
         {
             return Diameter(tree.Root);
@@ -157,7 +292,7 @@
         private int GetWidth(Node node)
         {
             // https://www.youtube.com/watch?v=poOw9DDMZKw
-            // number of nodes between left and rigth MOST nodes in each leval
+            // number of nodes between Left and rigth MOST nodes in each leval
             // dont include null nodes which exist at boundries
             if (node == null) return 0;
             List<Node> lst = new List<Node>();
