@@ -3,7 +3,7 @@
     public class SLLQuestions : ISLLQuestions
     {
         private readonly SLLService service;
-        private readonly Node linklist;
+        private readonly ListNode linklist;
 
         public SLLQuestions(SLLService service)
         {
@@ -12,8 +12,8 @@
         }
 
         /// <summary>
-        /// for even mid + 1
         /// for odd exact mid
+        /// for even mid + 1
         /// check merge sort middle 
         /// TC O(n)
         /// SC O(1)
@@ -21,91 +21,97 @@
         /// <returns></returns>
         public int GetMiddle()
         {
-            Node slow = linklist.Next, fast = linklist.Next;
+            ListNode slow = linklist.next;
+            ListNode fast = linklist.next;
 
-            while (fast != null && fast.Next != null) // fast.Next != null IMP
+            while (fast != null && fast.next != null) // fast.Next != null IMP
             {
-                fast = fast.Next.Next;
-                slow = slow.Next;
+                fast = fast.next.next;
+                slow = slow.next;
             }
-            return slow.Data;
+            return slow.val;
         }
 
         /// <summary>
         /// TC O(n)
         /// SC O(1)
-        /// Can NOT Delete last node
+        /// Can NOT Delete last node, Not Sure
         /// </summary>
-        /// <param name="nodeToDelete"></param>
-        public void DeleteNode(ref Node? nodeToDelete)
+        /// <param name="node"></param>
+        public void DeleteNode1(ref ListNode node)
         {
-            if (nodeToDelete == null)
+            if (node == null)
                 return;
 
-            if (nodeToDelete.Next == null)
-                nodeToDelete = null;
+            if (node.next == null)
+                node = null;
             else
             {
-                int val = nodeToDelete.Next.Data;
-                nodeToDelete.Next = nodeToDelete.Next.Next;
-                nodeToDelete.Data = val;
+                int nextVal = node.next.val;
+                node.next = node.next.next;
+                node.val = nextVal;
             }
+        }
+        public void DeleteNode(ref ListNode node)
+        {
+            node.val = node.next.val;
+            node.next = node.next.next;
         }
 
         /// <summary>
         /// TC O(linklist1 + linklist2)
         /// SC O(linklist1 + linklist2)
-        /// Note - after assigning dont forget to update node to next 
+        /// Note - After assigning dont forget to update node to next 
         /// </summary>
-        /// <param name="nodeToDelete"></param>
-        public Node MergeTwoSortedList(Node link1, Node link2)
+        public ListNode MergeTwoSortedList(ListNode link1, ListNode link2)
         {
             if (link1 == null) return link2;
             if (link2 == null) return link1;
-            var dummy = service.GetNewNode(-100);
-            var head = dummy;
+
+            var traverse = service.GetNewNode(-100);
+            var head = traverse;
 
             while (link1 != null && link2 != null)
             {
-                if (link1.Data < link2.Data)
+                if (link1.val < link2.val)
                 {
-                    var newNode = service.GetNewNode(link1.Data);
-                    dummy.Next = newNode;
-                    dummy = dummy.Next;
-                    link1 = link1.Next;
+                    var newNode = service.GetNewNode(link1.val);
+                    traverse.next = newNode;
+                    traverse = traverse.next;
+                    link1 = link1.next;
                     if (link1 == null)
                     {
                         while (link2 != null)
                         {
-                            newNode = service.GetNewNode(link2.Data);
-                            dummy.Next = newNode;
-                            dummy = dummy.Next;
-                            link2 = link2.Next;
+                            newNode = service.GetNewNode(link2.val);
+                            traverse.next = newNode;
+                            traverse = traverse.next;
+                            link2 = link2.next;
                         }
                         break;
                     }
                 }
                 else
                 {
-                    var newNode = service.GetNewNode(link2.Data);
-                    dummy.Next = newNode;
-                    dummy = dummy.Next;
-                    link2 = link2.Next;
+                    var newNode = service.GetNewNode(link2.val);
+                    traverse.next = newNode;
+                    traverse = traverse.next;
+                    link2 = link2.next;
                     if (link2 == null)
                     {
                         while (link1 != null)
                         {
-                            newNode = service.GetNewNode(link1.Data);
-                            dummy.Next = newNode;
-                            dummy = dummy.Next;
-                            link1 = link1.Next;
+                            newNode = service.GetNewNode(link1.val);
+                            traverse.next = newNode;
+                            traverse = traverse.next;
+                            link1 = link1.next;
                         }
                         break;
                     }
                 }
             }
 
-            return head.Next;
+            return head.next;
 
         }
 
@@ -115,7 +121,7 @@
         /// Note -  Note : call with next 
         /// </summary>
         /// <param name="nodeToDelete"></param>
-        public Node MergeTwoSortedListRecursive(Node link1, Node link2)
+        public ListNode MergeTwoSortedListRecursive(ListNode link1, ListNode link2)
         {
             if (link1 == null) return link2;
             if (link2 == null) return link1;
@@ -124,48 +130,48 @@
             var node = MergeTwoSortedListRecursiveHelper(head, current, link1, link2);
             return node;
         }
-        private Node MergeTwoSortedListRecursiveHelper(Node head, Node current, Node link1, Node link2)
+        private ListNode MergeTwoSortedListRecursiveHelper(ListNode head, ListNode current, ListNode link1, ListNode link2)
         {
-            if (link1 == null || link2 == null) return head.Next;
+            if (link1 == null || link2 == null) return head.next;
 
-            if (link1.Data < link2.Data)
+            if (link1.val < link2.val)
             {
-                var newNode = service.GetNewNode(link1.Data);
-                current.Next = newNode;
-                MergeTwoSortedListRecursiveHelper(head, current.Next, link1.Next, link2);
+                var newNode = service.GetNewNode(link1.val);
+                current.next = newNode;
+                MergeTwoSortedListRecursiveHelper(head, current.next, link1.next, link2);
                 if (link1 == null)
                 {
                     while (link2 != null)
                     {
-                        newNode = service.GetNewNode(link2.Data);
-                        current.Next = newNode;
+                        newNode = service.GetNewNode(link2.val);
+                        current.next = newNode;
                         // here we cant use recursive as it will br recursive call with one link null and which gives exception if(link1.Data < link2.Data) case
-                        current = current.Next;
-                        link2 = link2.Next;
+                        current = current.next;
+                        link2 = link2.next;
                     }
-                    return head.Next;
+                    return head.next;
                 }
             }
             else
             {
-                var newNode = service.GetNewNode(link2.Data);
-                current.Next = newNode;
-                MergeTwoSortedListRecursiveHelper(head, current.Next, link1, link2.Next);
+                var newNode = service.GetNewNode(link2.val);
+                current.next = newNode;
+                MergeTwoSortedListRecursiveHelper(head, current.next, link1, link2.next);
                 if (link2 == null)
                 {
                     while (link1 != null)
                     {
-                        newNode = service.GetNewNode(link1.Data);
-                        current.Next = newNode;
+                        newNode = service.GetNewNode(link1.val);
+                        current.next = newNode;
                         // here we cant use recursive as it will br recursive call with one link null and which gives exception if(link1.Data < link2.Data) case
-                        current = current.Next;
-                        link1 = link1.Next;
+                        current = current.next;
+                        link1 = link1.next;
                     }
-                    return head.Next;
+                    return head.next;
                 }
             }
 
-            return head.Next;
+            return head.next;
 
         }
 
@@ -175,7 +181,7 @@
         /// Note -  last carry if condition and carry, sum logic
         /// </summary>
         /// <param name="nodeToDelete"></param>
-        public Node AddTwoList(Node link1, Node link2)
+        public ListNode AddTwoList(ListNode link1, ListNode link2)
         {
             if (link1 == null) return link2;
             if (link2 == null) return link1;
@@ -185,26 +191,25 @@
 
             while (link1 != null || link2 != null)
             {
-                var d1 = link1 == null ? 0 : link1.Data;
-                var d2 = link2 == null ? 0 : link2.Data;
+                var d1 = link1 == null ? 0 : link1.val;
+                var d2 = link2 == null ? 0 : link2.val;
                 var sum = d1 + d2 + carry;
                 carry = sum / 10;
                 var total = sum % 10;
 
-                current.Next = service.GetNewNode(total);
-                current = current.Next;
-                link1 = link1?.Next;
-                link2 = link2?.Next;
+                current.next = service.GetNewNode(total);
+                current = current.next;
+                link1 = link1?.next;
+                link2 = link2?.next;
             }
 
             if (carry != 0)
             {
-                int data = current.Data;
-                current.Data = carry;
-                current.Next = service.GetNewNode(data);
-
+                int data = current.val;
+                current.val = carry;
+                current.next = service.GetNewNode(data);
             }
-            return head.Next;
+            return head.next;
         }
 
         /// <summary>
@@ -214,7 +219,7 @@
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        public bool IsCycleExist(Node head)
+        public bool IsCycleExist(ListNode head)
         {
             if (head == null)
                 return false;
@@ -222,10 +227,10 @@
             var slow = head;
             var fast = head;
 
-            while (fast.Next != null && fast.Next.Next != null) // IMP
+            while (fast.next != null && fast.next.next != null) // IMP
             {
-                slow = slow.Next;
-                fast = fast.Next.Next;
+                slow = slow.next;
+                fast = fast.next.next;
                 if (fast == slow) return true; // at last  // IMP
             }
             return false;
@@ -238,7 +243,7 @@
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        public Node GetCycleNode(Node head)
+        public ListNode GetCycleNode(ListNode head)
         {
             if (head == null)
                 return null;
@@ -246,17 +251,17 @@
             var slow = head;
             var fast = head;
 
-            while (fast.Next != null && fast.Next.Next != null) // IMP
+            while (fast.next != null && fast.next.next != null) // IMP
             {
-                slow = slow.Next;
-                fast = fast.Next.Next;
+                slow = slow.next;
+                fast = fast.next.next;
                 if (fast == slow)
                 {
                     slow = head;
                     while (slow != fast)
                     {
-                        fast = fast.Next;
-                        slow = slow.Next;
+                        fast = fast.next;
+                        slow = slow.next;
                     }
                     return slow;
                 }
@@ -268,57 +273,71 @@
         /// TC O(n) 
         /// SC O(1)
         /// Steps
-        ///     1   Reverse  2   Delete nth node (find nth Node and delete it) 3   Reverse
-        ///     OR  1 Find length 2 travel l - n + 1 node 3 delete it
+        ///     1   Reverse  
+        ///     2   Delete nth node (find nth Node and delete it) 
+        ///     3   Reverse
+        ///     OR  
+        ///     1 Find length 
+        ///     2 travel (l - n + 1) node 
+        ///     3 delete it
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        public Node RemoveNthNodeFromEndOfList(Node head, int n)
+      
+        public ListNode RemoveNthNodeFromEndOfList(ListNode head, int k)
         {
-            int count = 1;
-            if (head == null)
-                return null;
+            ListNode dummy = new ListNode();
+            dummy.next = head;
+            ListNode x = head;
+            ListNode xp = dummy;
+            ListNode y = head;
+            ListNode yp = dummy;
 
-            var reverse = service.ReverseListImmutable(head);
-
-            Node prev = null;
-            var traverse = reverse;
-            while (count < n)
+            for (int i = 0; i < k - 1; i++)
             {
-                count++;
-                prev = traverse;
-                traverse = traverse.Next;
+                xp = x;
+                x = x.next;
             }
 
-            //prev.Next = traverse.Next;  // IMP FAIL where n = 1 ir last element
-            reverse = Delete(reverse, traverse.Data);
+            ListNode traverse = x;
 
-            reverse = service.ReverseListImmutable(reverse.Next);
+            while (traverse.next != null)
+            {
+                yp = y;
+                y = y.next;
+                traverse = traverse.next;
+            }
 
-            return reverse;
+            if (x == y)
+                return head;
 
+            xp.next = y;
+            yp.next = x;
+
+            Swap(x, y);
+
+            return dummy.next;
         }
-
-        private Node Delete(Node head, int data)
+        private ListNode Delete(ListNode head, int data)
         {
             var dummyNode = service.GetNewNode(-100);
-            dummyNode.Next = head;
+            dummyNode.next = head;
             var traverse = head;
-            Node prev = dummyNode;
-            Node beforeNode = null;
+            ListNode prev = dummyNode;
+            ListNode beforeNode = null;
             while (traverse != null)
             {
-                if (data == traverse.Data)
+                if (data == traverse.val)
                 {
                     beforeNode = prev;
                     break;
                 }
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
             if (beforeNode != null)
-                prev.Next = prev.Next.Next;
+                prev.next = prev.next.next;
 
             return dummyNode;  // NOTE not easy at it seems
         }
@@ -331,35 +350,35 @@
         ///             and then compare value by value
         /// </summary>
         /// <param name="head"></param>
-        public bool IsPallindrome(Node linklist1)
+        public bool IsPallindrome(ListNode linklist1)
         {
-            if (linklist1 == null || linklist1.Next == null) return true;
+            if (linklist1 == null || linklist1.next == null) return true;
 
-            Node Mid = GetMiddleNode(linklist1.Next);
-            Node newList = Mid.Next;  // IMP
-            Mid.Next = null; ;  // IMP
+            ListNode Mid = GetMiddleNode(linklist1.next);
+            ListNode newList = Mid.next;  // IMP
+            Mid.next = null; ;  // IMP
             var linklist2 = service.ReverseListImmutable(newList);
             return Compare(linklist1, linklist2);
         }
 
-        private bool Compare(Node linklist1, Node linklist2)
+        private bool Compare(ListNode linklist1, ListNode linklist2)
         {
             while (linklist1 != null && linklist2 != null)  // IMP &&
             {
-                if (linklist1.Data != linklist2.Data) return false;
-                linklist1 = linklist1.Next;
-                linklist2 = linklist2.Next;
+                if (linklist1.val != linklist2.val) return false;
+                linklist1 = linklist1.next;
+                linklist2 = linklist2.next;
             }
             return true;
         }
 
-        private Node GetMiddleNode(Node linklist1)
+        private ListNode GetMiddleNode(ListNode linklist1)
         {
-            Node slow = linklist1, fast = linklist1;
-            while (fast != null && fast.Next != null) // fast.Next != null IMP
+            ListNode slow = linklist1, fast = linklist1;
+            while (fast != null && fast.next != null) // fast.Next != null IMP
             {
-                fast = fast.Next.Next;
-                slow = slow.Next;
+                fast = fast.next.next;
+                slow = slow.next;
             }
             return slow;
         }
@@ -370,35 +389,35 @@
         /// </summary>
         /// <param name="linklist"></param>
         /// <returns></returns>
-        public Node RemoveDuplicateFromSortedList(Node linklist)
+        public ListNode RemoveDuplicateFromSortedList(ListNode linklist)
         {
             if (linklist == null) return null;
             var head = linklist;
             var traverse = linklist;
-            while (traverse != null && traverse.Next != null)
+            while (traverse != null && traverse.next != null)
             {
-                if (traverse.Data == traverse.Next.Data)
-                    traverse.Next = traverse.Next.Next;
-                else traverse = traverse.Next;
+                if (traverse.val == traverse.next.val)
+                    traverse.next = traverse.next.next;
+                else traverse = traverse.next;
             }
             return head;
         }
-        public Node RemoveDuplicateFromSortedListInternet(Node head)
+        public ListNode RemoveDuplicateFromSortedListInternet(ListNode head)
         {
             var dummy = service.GetNewNode(-100);
-            dummy.Next = head;
-            Node curr = head;
-            Node prev = dummy;
+            dummy.next = head;
+            ListNode curr = head;
+            ListNode prev = dummy;
 
             while (curr != null)
             {
-                if (curr.Data == prev.Data)
-                    prev.Next = curr.Next;
+                if (curr.val == prev.val)
+                    prev.next = curr.next;
                 else
                     prev = curr;
-                curr = curr.Next;
+                curr = curr.next;
             }
-            return dummy.Next;
+            return dummy.next;
         }
 
         /// <summary>
@@ -407,28 +426,149 @@
         /// </summary>
         /// <param name="linklist"></param>
         /// <returns></returns>
-        public Node SwapKthNodeFromBithEnd(Node head, int k)
+        public ListNode SwapKthNodeFromBothEnd(ListNode head, int k)
         {
-            var headMian = head;
+            var headMain = head;
             var fast = head;
             var swap1 = head;
             var swap2 = head;
 
             for (int i = 0; i < k - 1; i++)
-                fast = fast.Next;
+                fast = fast.next;
+
             swap1 = fast;
 
-            while (fast.Next != null)  // IMP fast.NEXT
+            while (fast.next != null)  // IMP fast.NEXT
             {
-                fast = fast.Next;
-                swap2 = swap2.Next;   // IMP 
+                fast = fast.next;
+                swap2 = swap2.next;   // IMP 
             }
 
-            int temp = swap1.Data;
-            swap1.Data = swap2.Data;
-            swap2.Data = temp;
+            int temp = swap1.val;
+            swap1.val = swap2.val;
+            swap2.val = temp;
 
-            return headMian;
+            return headMain;
+        }
+
+        public ListNode RemoveNthNodeFromEndOfList_1(ListNode head, int n)
+        {
+            int count = 1;
+            if (head == null)
+                return null;
+
+            var reverse = service.ReverseListImmutable(head);
+
+            ListNode prev = null;
+            var traverse = reverse;
+            while (count < n)
+            {
+                count++;
+                prev = traverse;
+                traverse = traverse.next;
+            }
+
+            //prev.Next = traverse.Next;  // IMP FAIL where n = 1 ir last element
+            reverse = Delete(reverse, traverse.val);
+
+            reverse = service.ReverseListImmutable(reverse.next);
+
+            return reverse;
+
+        }
+
+        private void Swap(ListNode a, ListNode b)
+        {
+            var tmp = a.next;
+            a.next = b.next;
+            b.next = tmp;
+        }
+
+        public ListNode SwapKthNodeFromBothEnd_1(ListNode head, int k)
+        {
+            ListNode dummy = new ListNode();
+            ListNode preRight = dummy;
+            ListNode preLeft = dummy;
+            ListNode right = head;
+            ListNode left = head;
+
+            for (int i = 0; i < k - 1; i++)
+            {
+                preLeft = left;
+                left = left.next;
+            }
+
+            ListNode temp = left;
+
+            while (temp.next != null)
+            {
+                preRight = right;
+                right = right.next;
+                temp = temp.next;
+            }
+
+            if (left == right)
+                return head;
+
+            preLeft.next = right;
+            preRight.next = left;
+
+            temp = left.next;
+            left.next = right.next;
+            right.next = temp;
+
+            return dummy.next;
+        }
+
+        public ListNode SwapKthNodeFromBothEnd_2(ListNode head, int k)
+        {
+            var headMain = head;
+            var fast = head;
+
+            ListNode aPrev = null;
+            ListNode aCurr = null;
+            ListNode aNext = null;
+
+            ListNode bPrev = null;
+            ListNode bCurr = head;
+            ListNode bNext = null;
+
+            for (int i = 0; i < k - 1; i++)
+            {
+                aPrev = fast;
+                fast = fast.next;
+            }
+
+            aCurr = fast;
+            aNext = aCurr.next;
+
+            while (fast.next != null)
+            {
+                bPrev = bCurr;
+                fast = fast.next;
+                bCurr = bCurr.next;
+            }
+
+            bNext = bCurr.next;
+
+            if (aCurr == bCurr) return headMain;
+
+            //aCurr.next = null;
+            //bPrev.next = null;
+
+            if (aPrev != null)
+                aPrev.next = bCurr;
+            if (aCurr.next == bCurr)
+                bCurr.next = aCurr;
+            else
+            {
+                bCurr.next = aNext;
+                if (bPrev != null)
+                    bPrev.next = aCurr;
+            }
+            aCurr.next = bNext;
+
+            return headMain;
         }
 
         /// <summary>
@@ -437,13 +577,13 @@
         /// </summary>
         /// <param name="linklist"></param>
         /// <returns></returns>
-        public Node SortLinkList(Node head)
+        public ListNode SortLinkList(ListNode head)
         {
-            if (head == null || head.Next == null) return head;
+            if (head == null || head.next == null) return head;
 
             var mid = GetMiddleNodeForMerge(head);
-            var list2 = mid.Next;  // IMP
-            mid.Next = null;  // IMP
+            var list2 = mid.next;  // IMP
+            mid.next = null;  // IMP
             var list1 = head;
 
             list1 = SortLinkList(list1);
@@ -451,14 +591,14 @@
             return MergeTwoSortedList(list1, list2);
 
         }
-        private Node GetMiddleNodeForMerge(Node linklist1)
+        private ListNode GetMiddleNodeForMerge(ListNode linklist1)
         {
-            Node slow = linklist1;
-            Node fast = linklist1.Next; // THIS IS MAJOR CHANGE FOR MERGE?? WHY????
-            while (fast != null && fast.Next != null) // fast.Next != null IMP
+            ListNode slow = linklist1;
+            ListNode fast = linklist1.next; // THIS IS MAJOR CHANGE FOR MERGE?? WHY????
+            while (fast != null && fast.next != null) // fast.Next != null IMP
             {
-                fast = fast.Next.Next;
-                slow = slow.Next;
+                fast = fast.next.next;
+                slow = slow.next;
             }
             return slow;
         }
@@ -470,24 +610,24 @@
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public Node OddEvenLinkList(Node list)
+        public ListNode OddEvenLinkList(ListNode list)
         {
             if (list == null) return null;
 
             var oddHead = list;
             var odd = list;
-            var even = list.Next;
-            var evenHead = list.Next;
+            var even = list.next;
+            var evenHead = list.next;
 
-            while (even != null && even.Next != null)
+            while (even != null && even.next != null)
             {
-                odd.Next = even.Next;
-                odd = odd.Next;
-                even.Next = odd.Next;
-                even = even.Next;
+                odd.next = even.next;
+                odd = odd.next;
+                even.next = odd.next;
+                even = even.next;
             }
 
-            odd.Next = evenHead;
+            odd.next = evenHead;
             return oddHead;
         }
 
@@ -498,24 +638,24 @@
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public Node SwapNodesInPair(Node list)
+        public ListNode SwapNodesInPair(ListNode list)
         {
             if (list == null) return list;
 
             var head = list;
-            var even = list.Next;
+            var even = list.next;
             var odd = list;
 
-            while (even != null && even.Next != null)
+            while (even != null && even.next != null)
             {
-                int temp = even.Data;
-                even.Data = odd.Data;
-                odd.Data = temp;
-                even = even.Next.Next;
+                int temp = even.val;
+                even.val = odd.val;
+                odd.val = temp;
+                even = even.next.next;
 
                 // never got error as even pointer is always ahead of odd
                 // and we are checking even null and even next null in while
-                odd = odd.Next.Next;
+                odd = odd.next.next;
             }
 
             return head;
@@ -528,13 +668,13 @@
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public Node SwapNodesInKPair(Node list, int k)
+        public ListNode SwapNodesInKPair(ListNode list, int k)
         {
             if (list == null) return list;
 
             var head = list;
-            Node prev = null;
-            Node traverseStart = list;
+            ListNode prev = null;
+            ListNode traverseStart = list;
             var traverseLast = list;
 
             int count = 0;
@@ -543,17 +683,17 @@
                 count++;
                 if (count == k)
                 {
-                    var next = traverseLast.Next;
+                    var next = traverseLast.next;
 
                     // reverse -> traverseStart to traverseLast
-                    traverseLast.Next = null;
+                    traverseLast.next = null;
                     var revNode = ReverseMine(traverseStart);
 
                     traverseStart = next;
                 }
                 else
                     prev = traverseLast;
-                traverseLast = traverseLast.Next;
+                traverseLast = traverseLast.next;
             }
 
             return head;
@@ -566,82 +706,82 @@
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public Node SwapNodesInKPairNew(Node head, int k)
+        public ListNode SwapNodesInKPairNew(ListNode head, int k)
         {
             if (head == null || k == 1) return head;
 
-            Node dummy = new Node();
-            dummy.Next = head;
-            Node cur = dummy;
+            ListNode dummy = new ListNode();
+            dummy.next = head;
+            ListNode cur = dummy;
             var next = dummy;
             var prev = dummy;
             int length = 0;
 
-            while (cur.Next != null)
+            while (cur.next != null)
             {
-                cur = cur.Next;
+                cur = cur.next;
                 length++;
             }
 
             // need to dry run this block
             while (length >= k)
             {
-                cur = prev.Next;
-                next = cur.Next;
+                cur = prev.next;
+                next = cur.next;
                 for (int i = 1; i < k; i++)
                 {
-                    cur.Next = next.Next;
-                    next.Next = prev.Next;
-                    prev.Next = next;
-                    next = cur.Next;
+                    cur.next = next.next;
+                    next.next = prev.next;
+                    prev.next = next;
+                    next = cur.next;
                 }
                 prev = cur;
                 length = length - k;
             }
-            return dummy.Next;
+            return dummy.next;
         }
 
-        public Node SwapKNode(Node list, int k)
+        public ListNode SwapKNode(ListNode list, int k)
         {
             if (list == null || k == 1) return list;
 
             var head = service.GetNewNode(-100);
-            head.Next = list;
+            head.next = list;
 
             var traverse = list;
             var beforeStart = list;
-            Node start = list.Next;
-            Node end = null;
-            Node afterEnd = null;
+            ListNode start = list.next;
+            ListNode end = null;
+            ListNode afterEnd = null;
 
             int count = 0;
             while (traverse != null && count < k - 1)
             {
                 count++;
-                traverse = traverse.Next;
+                traverse = traverse.next;
                 if (count == 1)
                 {
                     beforeStart = traverse;
-                    start = traverse.Next;
+                    start = traverse.next;
                 }
                 if (count == k)
                 {
                     end = traverse;
-                    afterEnd = end.Next;
+                    afterEnd = end.next;
 
                     // reverse logic start
-                    Node curr = start;
-                    Node prev = null;
-                    Node next = null;
+                    ListNode curr = start;
+                    ListNode prev = null;
+                    ListNode next = null;
                     for (int i = 0; i < k; i++)
                     {
-                        next = curr.Next;
-                        curr.Next = prev;
+                        next = curr.next;
+                        curr.next = prev;
                         prev = curr;
                         curr = next;
                     }
-                    beforeStart.Next = prev;
-                    curr.Next = afterEnd;
+                    beforeStart.next = prev;
+                    curr.next = afterEnd;
                     // reverse logic end
                     start = afterEnd;
                     end = null;
@@ -652,18 +792,18 @@
 
         }
 
-        private Node ReverseMine(Node node)
+        private ListNode ReverseMine(ListNode node)
         {
             if (node == null) return null;
 
             var curr = node;
-            Node prev = null;
-            Node next = null;
+            ListNode prev = null;
+            ListNode next = null;
 
             while (curr != null)
             {
-                next = curr.Next;
-                curr.Next = prev;
+                next = curr.next;
+                curr.next = prev;
                 prev = curr;
                 curr = next;
             }
@@ -671,5 +811,6 @@
             return prev;
         }
 
+     
     }
 }

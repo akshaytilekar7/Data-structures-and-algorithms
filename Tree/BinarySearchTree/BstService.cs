@@ -202,7 +202,6 @@
             }
             Console.WriteLine(" SpiralPrint End ");
         }
-
         public void SpiralPrint2()
         {
             Console.WriteLine("\n SpiralPrint2 Start\n");

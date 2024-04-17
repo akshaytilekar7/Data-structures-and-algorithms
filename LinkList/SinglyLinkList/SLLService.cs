@@ -2,66 +2,66 @@
 {
     public class SLLService : ISLLService
     {
-        public readonly Node linklist;
+        public readonly ListNode linklist;
         public SLLService()
         {
             linklist = GetNewNode(-1);
         }
         public void AddFirst(int data)
         {
-            GenericInsert(linklist, GetNewNode(data), linklist.Next);
+            GenericInsert(linklist, GetNewNode(data), linklist.next);
         }
         public void AddLast(int data)
         {
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
             while (traverse != null)
             {
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
-            GenericInsert(prev, GetNewNode(data), prev.Next);
+            GenericInsert(prev, GetNewNode(data), prev.next);
         }
         public void AddAfter(int data, int newData)
         {
             if (!IsExist(data)) return;
             var node = GetNode(data);
-            GenericInsert(node, GetNewNode(newData), node.Next);
+            GenericInsert(node, GetNewNode(newData), node.next);
         }
         public void AddBefore(int data, int newData)
         {
             if (!IsExist(data)) return;
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
-            Node beforeNode = null;
+            ListNode beforeNode = null;
             while (traverse != null)
             {
-                if (traverse.Data == data)
+                if (traverse.val == data)
                     beforeNode = prev;
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
             if (beforeNode != null)
-                GenericInsert(beforeNode, GetNewNode(newData), beforeNode.Next);
+                GenericInsert(beforeNode, GetNewNode(newData), beforeNode.next);
 
         }
         public void Delete(int data)
         {
             if (!IsExist(data)) return;
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
-            Node beforeNode = null;
+            ListNode beforeNode = null;
             while (traverse != null)
             {
-                if (data == traverse.Data)
+                if (data == traverse.val)
                 {
                     beforeNode = prev;
                     break;
                 }
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
             if (beforeNode != null)
@@ -71,14 +71,14 @@
         {
             if (!IsExist(data)) return;
 
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
             while (traverse != null)
             {
-                var tempTravel = traverse.Next;
-                if (data == traverse.Data)
+                var tempTravel = traverse.next;
+                if (data == traverse.val)
                     GenericDelete(prev);
-                else prev = prev.Next; // corner case v IMP
+                else prev = prev.next; // corner case v IMP
                 traverse = tempTravel;
             }
 
@@ -86,18 +86,18 @@
         public void DeleteFirstOccurance(int data)
         {
             if (!IsExist(data)) return;
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
-            Node beforeNode = null;
+            ListNode beforeNode = null;
             while (traverse != null)
             {
-                if (traverse.Data == data)
+                if (traverse.val == data)
                 {
                     beforeNode = prev;
                     break;
                 }
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
             GenericDelete(beforeNode);
@@ -106,18 +106,18 @@
         {
             if (!IsExist(data)) return;
 
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
-            Node beforeNode = null;
+            ListNode beforeNode = null;
 
             while (traverse != null)
             {
-                if (data == traverse.Data)
+                if (data == traverse.val)
                 {
                     beforeNode = prev;
                 }
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
             GenericDelete(beforeNode);
@@ -125,56 +125,56 @@
         public int GetFirst()
         {
             if (IsEmpty()) return -1;
-            return linklist.Next.Data;
+            return linklist.next.val;
         }
         public int GetLast()
         {
             if (IsEmpty()) return -1;
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
             while (traverse != null)
             {
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
-            return prev.Data;
+            return prev.val;
         }
         public int GetLength()
         {
             int count = 0;
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             while (traverse != null)
             {
                 count++;
-                traverse = traverse.Next;
+                traverse = traverse.next;
             }
             return count;
         }
         public int GetLengthRecursive()
         {
-            return GetLengthRecursiveHelper(linklist.Next);
+            return GetLengthRecursiveHelper(linklist.next);
         }
-        private int GetLengthRecursiveHelper(Node node)
+        private int GetLengthRecursiveHelper(ListNode node)
         {
             if (node == null)
                 return 0;
-            return GetLengthRecursiveHelper(node.Next) + 1;
+            return GetLengthRecursiveHelper(node.next) + 1;
         }
-        public Node GetNode(int data)
+        public ListNode GetNode(int data)
         {
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             while (traverse != null)
             {
-                if (traverse.Data == data)
+                if (traverse.val == data)
                     return traverse;
-                traverse = traverse.Next;
+                traverse = traverse.next;
             }
             return null;
         }
         public bool IsEmpty()
         {
-            return linklist.Next == null; ;
+            return linklist.next == null; ;
         }
         public bool IsExist(int data)
         {
@@ -183,46 +183,46 @@
         public int PopFirst()
         {
             if (IsEmpty()) return -1;
-            var data = linklist.Next.Data;
+            var data = linklist.next.val;
             GenericDelete(linklist);
             return data;
         }
         public int PopLast()
         {
             if (IsEmpty()) return -1;
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             var prev = linklist;
             //while (traverse != null)
-            while (traverse.Next != null) // travel to 2nd last node // IMP
+            while (traverse.next != null) // travel to 2nd last node // IMP
             {
-                prev = prev.Next;
-                traverse = traverse.Next;
+                prev = prev.next;
+                traverse = traverse.next;
             }
 
-            int data = traverse.Data; // IMP
+            int data = traverse.val; // IMP
             GenericDelete(prev);
             return data;
         }
         public void Print(string message = "")
         {
             Console.WriteLine(message);
-            var traverse = linklist.Next;
+            var traverse = linklist.next;
             while (traverse != null)
             {
-                Console.Write($"  {traverse.Data}  ");
-                traverse = traverse.Next;
+                Console.Write($"  {traverse.val}  ");
+                traverse = traverse.next;
             }
             Console.WriteLine();
         }
 
-        public void Print(Node node)
+        public void Print(ListNode node)
         {
             Console.WriteLine();
             var traverse = node;
             while (traverse != null)
             {
-                Console.Write($"  {traverse.Data}  ");
-                traverse = traverse.Next;
+                Console.Write($"  {traverse.val}  ");
+                traverse = traverse.next;
             }
             Console.WriteLine();
         }
@@ -232,58 +232,58 @@
         /// SC O(1)
         /// </summary>
         /// <returns></returns>
-        public Node ReverseListImmutable()
+        public ListNode ReverseListImmutable()
         {
-            return ReverseListImmutable(linklist.Next);
+            return ReverseListImmutable(linklist.next);
         }
         public void ReverseListMutable()
         {
             if (IsEmpty()) return;
 
-            var cur = linklist.Next;
-            Node prev = null;
-            Node next = null;
+            var cur = linklist.next;
+            ListNode prev = null;
+            ListNode next = null;
 
             while (cur != null)
             {
-                next = cur.Next;
-                cur.Next = prev;
+                next = cur.next;
+                cur.next = prev;
                 prev = cur;
                 cur = next;
             }
 
-            linklist.Next = prev; // EASY BRO
+            linklist.next = prev; // EASY BRO
         }
 
-        public Node ReverseListImmutable(Node node)
+        public ListNode ReverseListImmutable(ListNode node)
         {
             if (IsEmpty()) return null;
 
             var cur = node;
-            Node prev = null;
-            Node next = null;
+            ListNode prev = null;
+            ListNode next = null;
 
             while (cur != null)
             {
-                next = cur.Next;
-                cur.Next = prev;
+                next = cur.next;
+                cur.next = prev;
                 prev = cur;
                 cur = next;
             }
             return prev;
         }
-        public Node ConcatImmutable(Node list1, Node List2)
+        public ListNode ConcatImmutable(ListNode list1, ListNode List2)
         {
             throw new NotImplementedException();
         }
-        public void ConcatMmutable(Node list1, Node List2)
+        public void ConcatMmutable(ListNode list1, ListNode List2)
         {
             throw new NotImplementedException();
         }
-        private void GenericInsert(Node prev, Node newNode, Node next)
+        private void GenericInsert(ListNode prev, ListNode newNode, ListNode next)
         {
-            prev.Next = newNode;
-            newNode.Next = next;
+            prev.next = newNode;
+            newNode.next = next;
         }
 
         //[Obsolete("cant use becz of PopLast method")]
@@ -292,13 +292,13 @@
         //    prev.Next = prev.Next == null ? null : next;
         //    deleteNode.Next = null;
         //}
-        public void GenericDelete(Node prev)
+        public void GenericDelete(ListNode prev)
         {
-            prev.Next = prev.Next.Next;
+            prev.next = prev.next.next;
         }
-        public Node GetNewNode(int data)
+        public ListNode GetNewNode(int data)
         {
-            return new Node() { Data = data };
+            return new ListNode() { val = data };
         }
 
     }

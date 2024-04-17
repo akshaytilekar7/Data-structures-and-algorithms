@@ -6,14 +6,15 @@
         {
             SLLService service = new SLLService();
             SLLQuestions questions = new SLLQuestions(service);
-            var arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var arr = new int[] { 1, 2, 3, 4, 5 };
 
             foreach (var item in arr)
                 service.AddLast(item);
 
             service.Print();
-            var head = questions.SwapKNode(service.linklist.Next, 2);
-            service.Print(head);
+            var node = service.GetNode(4);
+            questions.DeleteNode(ref node);
+            service.Print();
 
             //service.Print();
             //var head = questions.OddEvenLinkList(service.linklist.Next);

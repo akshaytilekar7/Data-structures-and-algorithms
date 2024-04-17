@@ -1,18 +1,17 @@
 ﻿/*
 
     SLL
-        -  only next pointer and no baclword and NO circular
+        -  only next pointer and no backword and NO circular
             
-    SCLL
+    SCLL (worst)
      -  worst LL as dosen't add any advantages
      -  one adv - from last node we can easily go to first node
      -  but its useless as we already have an pointer on first node
 
     DLL
        -   move forword and backword
-    DCLL 
+    DCLL (BEST)
         -  BEST move forword and backword + circular
-
 
 
 SLL

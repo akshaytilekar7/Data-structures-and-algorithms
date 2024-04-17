@@ -1,8 +1,8 @@
 ﻿namespace SinglyLinkList
 {
-    public class Node
+    public class ListNode
     {
-        public int Data { get; set; }
-        public Node Next { get; set; }
+        public int val { get; set; }
+        public ListNode next { get; set; }
     }
 }

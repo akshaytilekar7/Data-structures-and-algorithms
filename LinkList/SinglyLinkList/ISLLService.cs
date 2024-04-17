@@ -6,8 +6,8 @@
         void AddBefore(int data, int newData);
         void AddFirst(int data);
         void AddLast(int data);
-        Node ConcatImmutable(Node list1, Node List2);
-        void ConcatMmutable(Node list1, Node List2);
+        ListNode ConcatImmutable(ListNode list1, ListNode List2);
+        void ConcatMmutable(ListNode list1, ListNode List2);
         void Delete(int data);
         void DeleteAllOccurance(int data);
         void DeleteFirstOccurance(int data);
@@ -16,13 +16,13 @@
         int GetLast();
         int GetLength();
         int GetLengthRecursive();
-        Node GetNode(int data);
+        ListNode GetNode(int data);
         bool IsEmpty();
         bool IsExist(int data);
         int PopFirst();
         int PopLast();
         void Print(string message = "");
-        Node ReverseListImmutable();
+        ListNode ReverseListImmutable();
         void ReverseListMutable();
     }
 }
