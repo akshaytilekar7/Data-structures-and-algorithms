@@ -6,15 +6,14 @@
         {
             SLLService service = new SLLService();
             SLLQuestions questions = new SLLQuestions(service);
-            var arr = new int[] { 1, 2, 3, 4, 5 };
+            var arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
             foreach (var item in arr)
                 service.AddLast(item);
 
             service.Print();
-            var node = service.GetNode(4);
-            questions.DeleteNode(ref node);
-            service.Print();
+            var node = questions.ReverseKGroup(service.linklist.next, 3);
+            service.Print(node);
 
             //service.Print();
             //var head = questions.OddEvenLinkList(service.linklist.Next);

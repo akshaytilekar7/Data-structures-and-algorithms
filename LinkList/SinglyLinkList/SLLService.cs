@@ -215,9 +215,9 @@
             Console.WriteLine();
         }
 
-        public void Print(ListNode node)
+        public void Print(ListNode node, string message = "")
         {
-            Console.WriteLine();
+            Console.Write(message +  ": ");
             var traverse = node;
             while (traverse != null)
             {
