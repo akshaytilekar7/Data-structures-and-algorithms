@@ -255,7 +255,6 @@
             }
             return result;
         }
-
         public int GetDiameter()
         {
             return Diameter(tree.Root);
