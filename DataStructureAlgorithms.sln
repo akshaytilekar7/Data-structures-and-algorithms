@@ -82,6 +82,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Graphs", "Graphs", "{1A6B4F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeQuestions", "TreeQuestions\TreeQuestions.csproj", "{9FEC08E5-1494-43B8-A48B-C68CD36B51BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeProject", "PracticeProject\PracticeProject.csproj", "{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -404,6 +406,18 @@ Global
 		{9FEC08E5-1494-43B8-A48B-C68CD36B51BF}.Release|x64.Build.0 = Release|Any CPU
 		{9FEC08E5-1494-43B8-A48B-C68CD36B51BF}.Release|x86.ActiveCfg = Release|Any CPU
 		{9FEC08E5-1494-43B8-A48B-C68CD36B51BF}.Release|x86.Build.0 = Release|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Debug|x64.Build.0 = Debug|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Debug|x86.Build.0 = Debug|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Release|x64.Build.0 = Release|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -143,7 +143,6 @@
                 Inorder(node.Right);
             }
         }
-
         public bool IsEmpty()
         {
             return tree.Root == null;
@@ -154,7 +153,6 @@
             InorderForTestHelper(tree.Root, list);
             return list;
         }
-
         public void InorderForTestHelper(Node node, List<int> list)
         {
             if (node != null)

@@ -101,7 +101,7 @@
                 for (int i = 0; i < x; i++)
                 {
                     Node currentNode = queue.Dequeue();
-                    currentLevel.Add(currentNode.Data);
+                    currentLevel.Add(currentNode.Data); // same as print
                     if (currentNode.Left != null) queue.Enqueue(currentNode.Left);
                     if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
                 }
@@ -130,16 +130,16 @@
             while (queue.Count() > 0)
             {
                 int levelSize = queue.Count();
-                double averageLevel = 0;
+                double sum = 0;
                 for (int i = 0; i < levelSize; i++)
                 {
-                    var currentNode = queue.Dequeue();
-                    averageLevel += currentNode.Data;
-                    if (currentNode.Left != null) queue.Enqueue(currentNode.Left);
-                    if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
+                    var node = queue.Dequeue();
+                    sum += node.Data;
+                    if (node.Left != null) queue.Enqueue(node.Left);
+                    if (node.Right != null) queue.Enqueue(node.Right);
                 }
-                averageLevel = averageLevel / levelSize;
-                result.Add(averageLevel);
+                sum = sum / levelSize;
+                result.Add(sum);
             }
             return result;
         }

@@ -13,7 +13,7 @@ namespace Tree
         {
             TreeDFS treeDFS = new TreeDFS();
             var root = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)), new TreeNode(5, null, new TreeNode(6)));
-            treeDFS.Flatten(root);
+            var x = treeDFS.BinaryTreePaths(root);
             Console.ReadLine();
         }
     }

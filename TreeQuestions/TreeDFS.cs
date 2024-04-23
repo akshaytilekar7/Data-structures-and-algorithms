@@ -6,10 +6,7 @@ public class TreeDFS
     {
         if (root == null) return false;
         if (root.left == null && root.right == null && targetSum == 0) return true;
-
-        targetSum = targetSum - root.val;
-
-        return HasPathSum(root.left, targetSum) || HasPathSum(root.right, targetSum);
+        return HasPathSum(root.left, targetSum - root.val) || HasPathSum(root.right, targetSum - root.val);
     }
 
     public int KthSmallest(TreeNode root, int k)
@@ -19,7 +16,7 @@ public class TreeDFS
 
     public int KthSmallestHelper(TreeNode root, int k, int cnt)
     {
-        if (root == null) return null;
+        if (root == null) return 0;
 
         var left = KthSmallest(root.left, k);
         if (left != null) return left;
@@ -95,6 +92,16 @@ public class TreeDFS
         return Evaluate(root);
     }
 
+    private bool Evaluate2(TreeNode node, long min = int.MinValue, long max = int.MaxValue)
+    {
+        if (node == null) return true;
+
+        if (node.val >= max || node.val <= min) return false;
+
+        return Evaluate2(node.left, min, node.val) && Evaluate2(node.right, node.val, max);
+
+    }
+
     private bool Evaluate(TreeNode node, long? min = null, long? max = null)
     {
         if (node == null)
@@ -118,11 +125,11 @@ public class TreeDFS
         {
             if (current.left != null)
             {
-                var left = current.left;
-                while (left.right != null)
-                    left = left.right;
+                var x = current.left;
+                while (x.right != null)
+                    x = x.right;
 
-                left.right = current.right;
+                x.right = current.right;
                 current.right = current.left;
                 current.left = null;
             }
@@ -241,5 +248,91 @@ public class TreeDFS
 
         return Math.Max(l, r) + 1;
 
+    }
+
+    public IList<string> BinaryTreePaths(TreeNode root)
+    {
+        List<string> result = new List<string>();
+        DFS(root, "", result);
+        return result;
+    }
+
+    private void DFS(TreeNode node, string path, List<string> result)
+    {
+        if (node == null) return;
+        path += node.val.ToString();
+        if (node.left == null && node.right == null)
+            result.Add(path);
+        else
+        {
+            DFS(node.left, path, result);
+            DFS(node.right, path, result);
+        }
+    }
+
+
+    public TreeNode MergeTrees(TreeNode root1, TreeNode root2)
+    {
+        if (root1 == null && root2 == null)
+            return null;
+        
+        TreeNode result = new TreeNode((root1?.val ?? 0) + (root2?.val ?? 0));
+        result.left = MergeTrees(root1?.left, root2?.left);
+        result.right = MergeTrees(root1?.right, root2?.right);
+        return result;
+    }
+
+    static void factorial(int n)
+    {
+        int[] res = new int[500];
+
+        // Initialize result
+        res[0] = 1;
+        int res_size = 1;
+
+        // Apply simple factorial formula
+        // n! = 1 * 2 * 3 * 4...*n
+        for (int x = 2; x <= n; x++)
+            res_size = multiply(x, res, res_size);
+
+        Console.WriteLine("Factorial of "
+                          + "given number is ");
+        for (int i = res_size - 1; i >= 0; i--)
+            Console.Write(res[i]);
+    }
+
+    // This function multiplies x
+    // with the number represented
+    // by res[]. res_size is size
+    // of res[] or number of digits
+    // in the number represented by
+    // res[]. This function uses
+    // simple school mathematics for
+    // multiplication. This function
+    // may value of res_size and
+    // returns the new value of res_size
+    static int multiply(int x, int[] res, int res_size)
+    {
+        int carry = 0; // Initialize carry
+
+        // One by one multiply n with
+        // individual digits of res[]
+        for (int i = 0; i < res_size; i++)
+        {
+            int prod = res[i] * x + carry;
+            res[i] = prod % 10; // Store last digit of
+                                // 'prod' in res[]
+            carry = prod / 10; // Put rest in carry
+        }
+
+        // Put carry in res and
+        // increase result size
+        while (carry != 0)
+        {
+            res[res_size] = carry % 10;
+            carry = carry / 10;
+            res_size++;
+        }
+        return res_size;
     }
 }
