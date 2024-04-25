@@ -7,7 +7,7 @@
             var start = 0;
             var end = array.Length - 1;
 
-            while (start <= end)
+            while (start <= end) //
             {
                 var mid = (end + start) / 2;
                 if (array[mid] == value)

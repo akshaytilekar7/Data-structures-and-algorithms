@@ -6,26 +6,25 @@ public class TreeDFS
     {
         if (root == null) return false;
         if (root.left == null && root.right == null && targetSum == 0) return true;
-        return HasPathSum(root.left, targetSum - root.val) || HasPathSum(root.right, targetSum - root.val);
+        return HasPathSum(root.left, targetSum - root.val) ||
+               HasPathSum(root.right, targetSum - root.val);
     }
 
-    public int KthSmallest(TreeNode root, int k)
+    class Solution
     {
-        return KthSmallestHelper(root, k, 0);
+        int ans = int.MaxValue;
+        int count = 1;
+        public int kthSmallest(TreeNode root, int k)
+        {
+            if (root == null) return 0;
+            kthSmallest(root.left, k);
+            if (count == k)
+                ans = root.val;
+            count++;
+            kthSmallest(root.right, k);
+            return ans;
+        }
     }
-
-    public int KthSmallestHelper(TreeNode root, int k, int cnt)
-    {
-        if (root == null) return 0;
-
-        var left = KthSmallest(root.left, k);
-        if (left != null) return left;
-        cnt++;
-        if (cnt == k) return root.val;
-
-        return KthSmallest(root.right, k);
-    }
-
     int count = 0;
     int result = -100;
 
@@ -48,6 +47,24 @@ public class TreeDFS
         }
         Traverse(root.right, k);
     }
+
+    public int KthSmallest1(TreeNode root, int k)
+    {
+        return KthSmallestHelper(root, k, 0);
+    }
+
+    public int KthSmallestHelper(TreeNode root, int k, int cnt)
+    {
+        if (root == null) return 0;
+
+        var left = KthSmallest1(root.left, k);
+        if (left != null) return left;
+        cnt++;
+        if (cnt == k) return root.val;
+
+        return KthSmallest1(root.right, k);
+    }
+
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
     {
@@ -89,18 +106,18 @@ public class TreeDFS
 
     public bool IsValidBST(TreeNode root)
     {
-        return Evaluate(root);
+        return Evaluate1(root);
     }
 
-    private bool Evaluate2(TreeNode node, long min = int.MinValue, long max = int.MaxValue)
+    private bool Evaluate1(TreeNode node, long min = long.MinValue, long max = long.MaxValue)
     {
         if (node == null) return true;
 
         if (node.val >= max || node.val <= min) return false;
 
-        return Evaluate2(node.left, min, node.val) && Evaluate2(node.right, node.val, max);
-
+        return Evaluate1(node.left, min, node.val) && Evaluate1(node.right, node.val, max);
     }
+
 
     private bool Evaluate(TreeNode node, long? min = null, long? max = null)
     {
@@ -270,12 +287,11 @@ public class TreeDFS
         }
     }
 
-
     public TreeNode MergeTrees(TreeNode root1, TreeNode root2)
     {
         if (root1 == null && root2 == null)
             return null;
-        
+
         TreeNode result = new TreeNode((root1?.val ?? 0) + (root2?.val ?? 0));
         result.left = MergeTrees(root1?.left, root2?.left);
         result.right = MergeTrees(root1?.right, root2?.right);
@@ -334,5 +350,28 @@ public class TreeDFS
             res_size++;
         }
         return res_size;
+    }
+
+
+    public void FlattenLinklList(TreeNode root)
+    {
+        if (root == null)
+            return;
+
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.Push(root);
+
+        while (stack.Count() > 0)
+        {
+            TreeNode current = stack.Pop();
+            if (current.right != null)
+                stack.Push(current.right);
+            if (current.left != null)
+                stack.Push(current.left);
+
+            if (stack.Count() > 0)
+                current.right = stack.Peek();
+            current.left = null;
+        }
     }
 }

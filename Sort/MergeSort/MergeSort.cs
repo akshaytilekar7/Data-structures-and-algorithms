@@ -2,7 +2,7 @@
 {
 
     /*
-    1   closed interval 
+    1   Closed interval 
     2   Open interval 
     3   Semi open
             [nl n2] nEN :  n1 <= N <= n2
@@ -34,10 +34,6 @@
                 Merge(arr, mid + 1, end); // divide
                 MergeProcedure(arr, start, mid, end); // Merge divide element array
             }
-            //else
-            //{
-            //    Console.WriteLine($" ELSE {start}  {end}");
-            //}
         }
 
         private void MergeProcedure(int[] mainArr, int start, int mid, int end)

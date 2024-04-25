@@ -7,18 +7,17 @@
 
             StackQueueQuestions questions = new StackQueueQuestions();
 
-            int[] arr = new int[] { 11, 13, 3, 10, 7, 21, 26 };
+            Stack<int> x = new Stack<int>();
+            x.Push(100);
+            x.Push(21);
+            x.Push(34);
+            x.Push(-4);
+            x.Push(532);
 
-            var lst1 = questions.NextGreterElement(arr);
-            var lst2 = questions.NextSmallerElement(arr);
+            questions.SortStack(x);
 
-            foreach (var item in lst1)
-                Console.Write($"    {item}  ");
-
-            Console.WriteLine();
-
-            foreach (var item in lst2)
-                Console.Write($"    {item}  ");
+            while (x.Count > 0)
+                Console.Write(x.Pop() + " ");
 
             //Console.WriteLine("Valid Parent :" + questions.ValidParenthesis("({[]})"));
             //Console.WriteLine("Valid Parent :" + questions.ValidParenthesis("()"));

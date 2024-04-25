@@ -21,8 +21,12 @@
             then partionIndex++
 
         -   at last swap arr[end] with arr[partionIndex]
+        -   Intution
+            -   place pivot at right place, hiw?
+                -   all left side should be smaller than pivot
+                -   and all reight side will bigger than pivot
                 
-
+        
     */
     public class QuickSortAlgo
     {
@@ -45,7 +49,6 @@
             arr[x] = arr[y];
             arr[y] = tmp;
         }
-
         private int Partition(int[] arr, int start, int end)
         {
             int pivot = arr[end];
@@ -60,10 +63,11 @@
                 }
             }
 
+            // now start to partitionIdex - 1 all are smaller 
+            // so place pivit at right position
             Swap(arr, partitionIndex, end);
             return partitionIndex;
         }
-        
         private void QuickSorting(int[] arr, int start, int end)
         {
             if (start < end) // main

@@ -212,6 +212,19 @@
             return head.next;
         }
 
+        // REMOVE LAST NUMBER
+        //Console.WriteLine(456/10); // 45
+        //Console.WriteLine(1/10); // 0
+        //Console.WriteLine(22/10); // 2
+        //Console.WriteLine(1/10); // 0
+
+        // Console.WriteLine(""); 
+
+        // // GIVE LAST NUMBRE
+        //Console.WriteLine(456%10); // 6
+        //Console.WriteLine(1%10); // 1
+        //Console.WriteLine(22%10); // 2
+        //Console.WriteLine(1%10); // 1
         public ListNode AddTwoList(ListNode l1, ListNode l2)
         {
             if (l1 == null) return l2;
@@ -226,7 +239,7 @@
                 var d1 = l1 == null ? 0 : l1.val;
                 var d2 = l2 == null ? 0 : l2.val;
                 sum = d1 + d2 + carry;
-                carry = sum / 10; //without last number
+                carry = sum / 10; //remove last number as we carry right side
                 var lastDigit = sum % 10; // give last number
                 dummy.next = new ListNode() { val = lastDigit };
                 dummy = dummy.next;
@@ -260,6 +273,25 @@
                 slow = slow.next;
                 fast = fast.next.next;
                 if (fast == slow) return true; // at last  // IMP
+            }
+            return false;
+        }
+        /// <summary>
+        /// in short both working
+        /// while (fast != null && fast.next != null)
+        /// while (fast.next != null && fast.NEXT.NEXT != null) // IMP
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool HasCycle(ListNode head)
+        {
+            ListNode slow = head;
+            ListNode fast = head;
+            while (fast != null && fast.next != null)
+            {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) return true;
             }
             return false;
         }
@@ -300,50 +332,33 @@
         /// <summary>
         /// TC O(n) 
         /// SC O(1)
-        /// Steps
-        ///     1   Reverse  
-        ///     2   Delete nth node (find nth Node and delete it) 
-        ///     3   Reverse
-        ///     OR  
-        ///     1 Find length 
-        ///     2 travel (l - n + 1) node 
-        ///     3 delete it
+        /// NOT RECOMMANDED No node swap only values are swapping
         /// </summary>
-        /// <param name="head"></param>
+        /// <param name="linklist"></param>
         /// <returns></returns>
-        public ListNode RemoveNthNodeFromEndOfList(ListNode head, int k)
+        public ListNode SwapKthNodeFromBothEnd(ListNode head, int k)
         {
-            ListNode dummy = new ListNode();
-            dummy.next = head;
-            ListNode x = head;
-            ListNode xp = dummy;
-            ListNode y = head;
-            ListNode yp = dummy;
+            var headMain = head;
+            var fast = head;
+            var swap1 = head;
+            var swap2 = head;
 
             for (int i = 0; i < k - 1; i++)
+                fast = fast.next;
+
+            swap1 = fast;
+
+            while (fast.next != null)  // IMP fast.NEXT
             {
-                xp = x;
-                x = x.next;
+                fast = fast.next;
+                swap2 = swap2.next;   // IMP 
             }
 
-            ListNode traverse = x;
+            int temp = swap1.val;
+            swap1.val = swap2.val;
+            swap2.val = temp;
 
-            while (traverse.next != null)
-            {
-                yp = y;
-                y = y.next;
-                traverse = traverse.next;
-            }
-
-            if (x == y)
-                return head;
-
-            xp.next = y;
-            yp.next = x;
-
-            Swap(x, y);
-
-            return dummy.next;
+            return headMain;
         }
         private ListNode Delete(ListNode head, int data)
         {
@@ -397,22 +412,14 @@
         /// 1st part is always all link list
         /// 2nd part : 
         ///     For Even - exact half part we get
-        ///     For Odd  - exact half + 1 part we get, we miss 1 starting element
+        ///     For Odd  - exact half - 1 part we get, we miss 1 starting element from 2nd hafl
         /// </summary>
         /// <param name="head"></param>
         public bool IsPallindrome(ListNode linklist1)
         {
             if (linklist1 == null || linklist1.next == null) return true;
             ListNode Mid = GetMiddleNode(linklist1.next);
-
-            Console.WriteLine("1st part");
-            service.Print(linklist1);
-            Console.WriteLine("2nd part");
-            service.Print(Mid);
-
             var linklist2 = service.ReverseListImmutable(Mid);
-
-
             return Compare(linklist1, linklist2);
         }
 
@@ -541,37 +548,6 @@
             return dummy.next;
         }
 
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// </summary>
-        /// <param name="linklist"></param>
-        /// <returns></returns>
-        public ListNode SwapKthNodeFromBothEnd(ListNode head, int k)
-        {
-            var headMain = head;
-            var fast = head;
-            var swap1 = head;
-            var swap2 = head;
-
-            for (int i = 0; i < k - 1; i++)
-                fast = fast.next;
-
-            swap1 = fast;
-
-            while (fast.next != null)  // IMP fast.NEXT
-            {
-                fast = fast.next;
-                swap2 = swap2.next;   // IMP 
-            }
-
-            int temp = swap1.val;
-            swap1.val = swap2.val;
-            swap2.val = temp;
-
-            return headMain;
-        }
-
         public ListNode RemoveNthNodeFromEndOfList_1(ListNode head, int n)
         {
             int count = 1;
@@ -641,11 +617,54 @@
 
             return dummy.next;
         }
-        private void Swap(ListNode a, ListNode b)
+       
+        /// <summary>
+        /// TC O(n) 
+        /// SC O(1)
+        /// Steps
+        ///     1   Reverse  
+        ///     2   Delete nth node (find nth Node and delete it) 
+        ///     3   Reverse
+        ///     OR  
+        ///     1 Find length 
+        ///     2 travel (l - n + 1) node 
+        ///     3 delete it
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode SwapNthNodeList(ListNode head, int k)
         {
-            var tmp = a.next;
-            a.next = b.next;
-            b.next = tmp;
+            ListNode dummy = new ListNode();
+            dummy.next = head;
+            ListNode x = head;
+            ListNode xp = dummy;
+            ListNode y = head;
+            ListNode yp = dummy;
+
+            for (int i = 0; i < k - 1; i++)
+            {
+                xp = x;
+                x = x.next;
+            }
+
+            ListNode traverse = x;
+
+            while (traverse.next != null)
+            {
+                yp = y;
+                y = y.next;
+                traverse = traverse.next;
+            }
+
+            if (x == y)
+                return head;
+
+            xp.next = y;
+            yp.next = x;
+
+            Swap(x, y);
+
+            return dummy.next;
         }
 
         public ListNode SwapKthNodeFromBothEnd_1(ListNode head, int k)
@@ -735,6 +754,13 @@
             return headMain;
         }
 
+        private void Swap(ListNode a, ListNode b)
+        {
+            var tmp = a.next;
+            a.next = b.next;
+            b.next = tmp;
+        }
+
         /// <summary>
         /// TC O(m+n) 
         /// SC O(1)
@@ -750,10 +776,7 @@
             mid.next = null;  // IMP
             var list1 = head;
 
-            service.Print(list1, "list 1");
             list1 = SortLinkList(list1);
-
-            service.Print(list2, "list 2");
             list2 = SortLinkList(list2);
 
             return MergeTwoSortedList(list1, list2);
@@ -1020,6 +1043,7 @@
             }
             return slow;
         }
+
 
     }
 }

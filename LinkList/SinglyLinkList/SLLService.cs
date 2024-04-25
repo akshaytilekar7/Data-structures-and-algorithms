@@ -214,7 +214,6 @@
             }
             Console.WriteLine();
         }
-
         public void Print(ListNode node, string message = "")
         {
             Console.Write(message +  ": ");
@@ -254,7 +253,6 @@
 
             linklist.next = prev; // EASY BRO
         }
-
         public ListNode ReverseListImmutable(ListNode node)
         {
             if (IsEmpty()) return null;

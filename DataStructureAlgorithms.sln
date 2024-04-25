@@ -69,6 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriorityQueue", "PriorityQu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System Design", "System Design", "{775223C6-7FF3-4C26-87E9-2CAC343997B4}"
 	ProjectSection(SolutionItems) = preProject
+		Notations1.cs = Notations1.cs
 		sys1.cs = sys1.cs
 	EndProjectSection
 EndProject
@@ -80,9 +81,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Heaps", "Heaps", "{04A05A82
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Graphs", "Graphs", "{1A6B4FBD-B76F-4F26-9540-6022D5A32887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeQuestions", "TreeQuestions\TreeQuestions.csproj", "{9FEC08E5-1494-43B8-A48B-C68CD36B51BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeQuestions", "TreeQuestions\TreeQuestions.csproj", "{9FEC08E5-1494-43B8-A48B-C68CD36B51BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeProject", "PracticeProject\PracticeProject.csproj", "{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeProject", "PracticeProject\PracticeProject.csproj", "{9D9DAF3F-ACE6-4DA6-9435-0540EBBC0341}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
