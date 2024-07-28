@@ -1,6 +1,6 @@
 ﻿namespace SinglyLinkList
 {
-    public class SLLQuestions : ISLLQuestions
+    public class SLLQuestions
     {
         private readonly SLLService service;
         private readonly ListNode linklist;
@@ -212,7 +212,7 @@
             return head.next;
         }
 
-        // REMOVE LAST NUMBER
+        // REMOVE LAST NUMBER / Get reamianing other then last
         //Console.WriteLine(456/10); // 45
         //Console.WriteLine(1/10); // 0
         //Console.WriteLine(22/10); // 2
@@ -220,7 +220,7 @@
 
         // Console.WriteLine(""); 
 
-        // // GIVE LAST NUMBRE
+        // GIVE LAST NUMBRE
         //Console.WriteLine(456%10); // 6
         //Console.WriteLine(1%10); // 1
         //Console.WriteLine(22%10); // 2
@@ -329,37 +329,32 @@
             return null;
         }
 
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// NOT RECOMMANDED No node swap only values are swapping
-        /// </summary>
-        /// <param name="linklist"></param>
-        /// <returns></returns>
-        public ListNode SwapKthNodeFromBothEnd(ListNode head, int k)
+        public ListNode GetCycleNode2(ListNode head)
         {
-            var headMain = head;
+            if (head == null)
+                return null;
+
+            var slow = head;
             var fast = head;
-            var swap1 = head;
-            var swap2 = head;
 
-            for (int i = 0; i < k - 1; i++)
-                fast = fast.next;
-
-            swap1 = fast;
-
-            while (fast.next != null)  // IMP fast.NEXT
+            while (fast != null && fast.next != null) // Corrected condition
             {
-                fast = fast.next;
-                swap2 = swap2.next;   // IMP 
+                slow = slow.next;
+                fast = fast.next.next;
+                if (fast == slow)
+                {
+                    slow = head;
+                    while (slow != fast)
+                    {
+                        fast = fast.next;
+                        slow = slow.next;
+                    }
+                    return slow; // The start of the cycle
+                }
             }
-
-            int temp = swap1.val;
-            swap1.val = swap2.val;
-            swap2.val = temp;
-
-            return headMain;
+            return null; // No cycle
         }
+
         private ListNode Delete(ListNode head, int data)
         {
             var dummyNode = service.GetNewNode(-100);
@@ -665,6 +660,39 @@
             Swap(x, y);
 
             return dummy.next;
+        }
+
+
+        /// <summary>
+        /// TC O(n) 
+        /// SC O(1)
+        /// NOT RECOMMANDED No node swap only values are swapping
+        /// </summary>
+        /// <param name="linklist"></param>
+        /// <returns></returns>
+        public ListNode SwapKthNodeFromBothEnd(ListNode head, int k)
+        {
+            var headMain = head;
+            var fast = head;
+            var swap1 = head;
+            var swap2 = head;
+
+            for (int i = 0; i < k - 1; i++)
+                fast = fast.next;
+
+            swap1 = fast;
+
+            while (fast.next != null)  // IMP fast.NEXT
+            {
+                fast = fast.next;
+                swap2 = swap2.next;   // IMP 
+            }
+
+            int temp = swap1.val;
+            swap1.val = swap2.val;
+            swap2.val = temp;
+
+            return headMain;
         }
 
         public ListNode SwapKthNodeFromBothEnd_1(ListNode head, int k)
