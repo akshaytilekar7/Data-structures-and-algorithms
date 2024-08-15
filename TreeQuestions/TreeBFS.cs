@@ -15,16 +15,16 @@ public class TreeBFS
             var right = queue.Dequeue();
 
             if (left == null && right == null) continue;
-            
-            if(left == null || right == null) return false;
 
-            if(left.val != right.val) return false;
+            if (left == null || right == null) return false;
+
+            if (left.val != right.val) return false;
 
             queue.Enqueue(left.left);
             queue.Enqueue(right.right);
             queue.Enqueue(left.right);
             queue.Enqueue(right.left);
-            
+
             // OR
             //queue.Enqueue(left.right);
             //queue.Enqueue(right.left);
@@ -34,28 +34,46 @@ public class TreeBFS
         return true;
     }
 
+    // Two nodes of a binary tree are cousins if they have the same depth with different parents.
     public bool IsCousins(TreeNode root, int x, int y)
     {
-        if (root is null)
-            return false;
+        if (root == null) return false;
 
-        return compareNodes(root.left, root.right, x, y, root);
+        int xDepth = -1, yDepth = -1;
+        TreeNode xParent = null, yParent = null;
+
+        DepthAndParent(root, 0, null);
+        return xDepth == yDepth && xParent != yParent; // same depth and not same parents.
+
+        void DepthAndParent(TreeNode node, int depth, TreeNode parent)
+        {
+            if (node == null) return;
+
+            if (node.val == x)
+            {
+                xDepth = depth;
+                xParent = parent;
+            }
+            else if (node.val == y)
+            {
+                yDepth = depth;
+                yParent = parent;
+            }
+
+            DepthAndParent(node.left, depth + 1, node);
+            DepthAndParent(node.right, depth + 1, node);
+        }
     }
 
-    public bool compareNodes(TreeNode left, TreeNode right, int x, int y, TreeNode parent)
+    public int GetHeight(TreeNode root)
     {
-        if (left is null || right is null)
-            return false;
+        if (root == null)
+            return -1; 
 
-        if ((left.val == x && right.val == y) || (left.val == y && right.val == x))
-        {
-            if (parent.left == left && parent.right == right)
-                return false;
-            return true;
-        }
+        int leftHeight = GetHeight(root.left);
+        int rightHeight = GetHeight(root.right);
 
-        return compareNodes(left.left, right.left, x, y, parent) || compareNodes(left.right, right.right, x, y, parent) || compareNodes(left.left, right.right, x, y, parent) || compareNodes(left.right, right.left, x, y, parent) || compareNodes(left.left, left.right, x, y, left) || compareNodes(right.left, right.right, x, y, right);
-
+        return Math.Max(leftHeight, rightHeight) + 1;
     }
 
     public IList<int> RightSideView(TreeNode root)
@@ -188,6 +206,7 @@ public class TreeBFS
         return result;
     }
 
+    //the node that appears right after the given node in the level order traversal.
     public int LevelOrderSuccessor(TreeNode root, int val)
     {
         Queue<TreeNode> queue = new Queue<TreeNode>();

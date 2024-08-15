@@ -2,12 +2,13 @@
 
 public class TreeDFS
 {
-    public bool HasPathSum(TreeNode root, int targetSum)
+    // imp - targetSum == root.val
+    public bool HasPathSum2(TreeNode root, int targetSum)
     {
         if (root == null) return false;
-        if (root.left == null && root.right == null && targetSum == 0) return true;
-        return HasPathSum(root.left, targetSum - root.val) ||
-               HasPathSum(root.right, targetSum - root.val);
+        if (root.left == null && root.right == null && targetSum == root.val) return true; // Check if it's a leaf node and targetSum equals root.val
+        return HasPathSum2(root.left, targetSum - root.val) ||
+               HasPathSum2(root.right, targetSum - root.val);
     }
 
     class Solution
@@ -65,7 +66,6 @@ public class TreeDFS
         return KthSmallest1(root.right, k);
     }
 
-
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
     {
         if (root == null || root == p || root == q)
@@ -116,20 +116,6 @@ public class TreeDFS
         if (node.val >= max || node.val <= min) return false;
 
         return Evaluate1(node.left, min, node.val) && Evaluate1(node.right, node.val, max);
-    }
-
-
-    private bool Evaluate(TreeNode node, long? min = null, long? max = null)
-    {
-        if (node == null)
-            return true;
-
-        if (min != null && node.val <= min) return false;
-        if (max != null && node.val >= max) return false;
-
-        var left = Evaluate(node.left, min, node.val);
-        var right = Evaluate(node.right, node.val, max);
-        return left && right;
     }
 
     public void Flatten(TreeNode root)
@@ -311,8 +297,7 @@ public class TreeDFS
         for (int x = 2; x <= n; x++)
             res_size = multiply(x, res, res_size);
 
-        Console.WriteLine("Factorial of "
-                          + "given number is ");
+        Console.WriteLine("Factorial of given number is ");
         for (int i = res_size - 1; i >= 0; i--)
             Console.Write(res[i]);
     }
@@ -351,7 +336,6 @@ public class TreeDFS
         }
         return res_size;
     }
-
 
     public void FlattenLinklList(TreeNode root)
     {

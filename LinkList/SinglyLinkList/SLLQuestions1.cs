@@ -1,11 +1,12 @@
 ﻿namespace SinglyLinkList
 {
-    public class SLLQuestions
+    // 8 Questions
+    public class SLLQuestions1
     {
         private readonly SLLService service;
         private readonly ListNode linklist;
 
-        public SLLQuestions(SLLService service)
+        public SLLQuestions1(SLLService service)
         {
             this.service = service;
             linklist = this.service.linklist;
@@ -173,6 +174,43 @@
 
             return head.next;
 
+        }
+
+        /// <summary>
+        /// TC O(m+n) 
+        /// SC O(1)
+        /// </summary>
+        /// <param name="linklist"></param>
+        /// <returns></returns>
+        public ListNode SortLinkList(ListNode head)
+        {
+            if (head == null || head.next == null) return head;
+
+            var mid = GetMiddleNodeForMerge(head);
+            var list2 = mid.next;  // IMP
+            mid.next = null;  // IMP
+            var list1 = head;
+
+            list1 = SortLinkList(list1);
+            list2 = SortLinkList(list2);
+
+            return MergeTwoSortedList(list1, list2);
+
+        }
+        private ListNode GetMiddleNodeForMerge(ListNode linklist1)
+        {
+            ListNode slow = linklist1;
+            ListNode fast = linklist1.next; // THIS IS MAJOR CHANGE FOR MERGE?? WHY????
+            // bec if we not use next
+            // then for 2 element A and B MID will always B
+            // so in short lenght of 2 linklist can never be divided and will get error stak over flow
+            // SO used .next as it will return A 
+            while (fast != null && fast.next != null) // fast.Next != null IMP
+            {
+                fast = fast.next.next;
+                slow = slow.next;
+            }
+            return slow;
         }
 
         /// <summary>
@@ -404,7 +442,7 @@
         /// 2nd part	3    2    1
         /// 
         /// in short
-        /// 1st part is always all link list
+        /// 1ST PART IS ALWAYS ALL LINK LIST
         /// 2nd part : 
         ///     For Even - exact half part we get
         ///     For Odd  - exact half - 1 part we get, we miss 1 starting element from 2nd hafl
@@ -414,73 +452,8 @@
         {
             if (linklist1 == null || linklist1.next == null) return true;
             ListNode Mid = GetMiddleNode(linklist1.next);
-            var linklist2 = service.ReverseListImmutable(Mid);
+            var linklist2 = Reverse(Mid);
             return Compare(linklist1, linklist2);
-        }
-
-        private ListNode reverse(ListNode head)
-        {
-            if (head == null || head.next == null) { return head; }
-            ListNode prev = null;
-            while (head != null)
-            {
-                ListNode realNext = head.next;
-                head.next = prev;
-                prev = head;
-                head = realNext;
-            }
-            return prev;
-        }
-
-        public bool IsPallindrome_2(ListNode head)
-        {
-            if (head == null || head.next == null)
-                return true;
-
-            ListNode fast = head.next;
-            ListNode slow = head;
-            while (fast != null && fast.next != null)
-            {
-                fast = fast.next.next;
-                slow = slow.next;
-            }
-            slow = reverse(slow);
-            while (head != null && slow != null)
-            {
-                if (head.val != slow.val)
-                {
-                    return false;
-                }
-                head = head.next;
-                slow = slow.next;
-            }
-            return true;
-        }
-
-        public bool IsPalindrome1(ListNode head)
-        {
-            if (head == null || head.next == null)
-                return true;
-
-            var slow = head;
-            var fast = head;
-            List<int> list = new List<int>();
-            while (fast != null && fast.next != null)
-            {
-                list.Add(slow.val);
-                fast = fast.next.next;
-                slow = slow.next;
-            }
-
-            if (fast != null)
-                slow = slow.next;
-            int cnt = list.Count - 1;
-            while (slow != null)
-            {
-                if (slow.val != list[cnt--]) return false;
-                slow = slow.next;
-            }
-            return true;
         }
 
         private bool Compare(ListNode linklist1, ListNode linklist2)
@@ -505,6 +478,75 @@
             return slow;
         }
 
+        private ListNode Reverse(ListNode head)
+        {
+            if (head == null || head.next == null) { return head; }
+            ListNode prev = null;
+            while (head != null)
+            {
+                var next = head.next;
+                head.next = prev;
+                prev = head;
+                head = next;
+            }
+            return prev;
+        }
+
+        public bool IsPallindrome_2(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return true;
+
+            ListNode fast = head;
+            ListNode slow = head;
+            while (fast != null && fast.next != null)
+            {
+                fast = fast.next.next;
+                slow = slow.next;
+            }
+            slow = Reverse(slow);
+            while (slow != null)
+            {
+                if (head.val != slow.val)
+                    return false;
+                head = head.next;
+                slow = slow.next;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// not recommanded as SC O(n) and in other approcvh O(1)
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool IsPalindrome1(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return true;
+
+            var slow = head;
+            var fast = head;
+            List<int> listFirstHalf = new List<int>();
+            while (fast != null && fast.next != null)
+            {
+                listFirstHalf.Add(slow.val);
+                fast = fast.next.next;
+                slow = slow.next;
+            }
+
+            if (fast != null)
+                slow = slow.next;
+
+            int cnt = listFirstHalf.Count - 1;
+            while (slow != null)
+            {
+                if (slow.val != listFirstHalf[cnt--]) return false;
+                slow = slow.next;
+            }
+            return true;
+        }
+
         /// <summary>
         /// TC O(n) 
         /// SC O(1)
@@ -527,7 +569,7 @@
 
         public ListNode RemoveDuplicateFromSortedListInternet(ListNode head)
         {
-            var dummy = service.GetNewNode(-100);
+            var dummy = new ListNode() { val = -100 };
             dummy.next = head;
             ListNode curr = head;
             ListNode prev = dummy;
@@ -549,7 +591,7 @@
             if (head == null)
                 return null;
 
-            var reverse = service.ReverseListImmutable(head);
+            var reverse = Reverse(head);
 
             ListNode prev = null;
             var traverse = reverse;
@@ -567,6 +609,43 @@
 
             return reverse;
 
+        }
+
+        /// <summary>
+        /// NO reverse requied
+        /// SC O(1)
+        /// TC O(n) as uses a few extra pointers (dummy, fast, slow), which is constant space.
+        /// Steps
+        ///     1   Reverse  
+        ///     2   Delete nth node (find nth Node and delete it) 
+        ///     3   Reverse
+        ///     OR  
+        ///     1 Find length  BEST SOLUTION
+        ///     2 travel (l - n + 1) node 
+        ///     3 delete it
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode RemoveNthFromEnd1(ListNode head, int n)
+        {
+            ListNode dummy = new ListNode();
+            dummy.next = head;
+
+            ListNode fast = dummy;
+            ListNode slow = dummy;
+
+            for (int i = 0; i <= n; i++)
+                fast = fast.next;
+
+            while (fast != null)
+            {
+                fast = fast.next;
+                slow = slow.next;
+            }
+
+            slow.next = slow.next.next;
+
+            return dummy.next;
         }
 
         public ListNode RemoveNthFromEnd(ListNode head, int n)
@@ -589,487 +668,6 @@
 
             prev.next = prev.next.next;
             return dummy.next;
-        }
-
-        public ListNode RemoveNthFromEnd1(ListNode head, int n)
-        {
-            ListNode dummy = new ListNode();
-            dummy.next = head;
-
-            ListNode fast = dummy;
-            ListNode slow = dummy;
-
-            for (int i = 0; i <= n; i++)
-                fast = fast.next;
-
-            while (fast != null)
-            {
-                fast = fast.next;
-                slow = slow.next;
-            }
-
-            slow.next = slow.next.next;
-
-            return dummy.next;
-        }
-       
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// Steps
-        ///     1   Reverse  
-        ///     2   Delete nth node (find nth Node and delete it) 
-        ///     3   Reverse
-        ///     OR  
-        ///     1 Find length 
-        ///     2 travel (l - n + 1) node 
-        ///     3 delete it
-        /// </summary>
-        /// <param name="head"></param>
-        /// <returns></returns>
-        public ListNode SwapNthNodeList(ListNode head, int k)
-        {
-            ListNode dummy = new ListNode();
-            dummy.next = head;
-            ListNode x = head;
-            ListNode xp = dummy;
-            ListNode y = head;
-            ListNode yp = dummy;
-
-            for (int i = 0; i < k - 1; i++)
-            {
-                xp = x;
-                x = x.next;
-            }
-
-            ListNode traverse = x;
-
-            while (traverse.next != null)
-            {
-                yp = y;
-                y = y.next;
-                traverse = traverse.next;
-            }
-
-            if (x == y)
-                return head;
-
-            xp.next = y;
-            yp.next = x;
-
-            Swap(x, y);
-
-            return dummy.next;
-        }
-
-
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// NOT RECOMMANDED No node swap only values are swapping
-        /// </summary>
-        /// <param name="linklist"></param>
-        /// <returns></returns>
-        public ListNode SwapKthNodeFromBothEnd(ListNode head, int k)
-        {
-            var headMain = head;
-            var fast = head;
-            var swap1 = head;
-            var swap2 = head;
-
-            for (int i = 0; i < k - 1; i++)
-                fast = fast.next;
-
-            swap1 = fast;
-
-            while (fast.next != null)  // IMP fast.NEXT
-            {
-                fast = fast.next;
-                swap2 = swap2.next;   // IMP 
-            }
-
-            int temp = swap1.val;
-            swap1.val = swap2.val;
-            swap2.val = temp;
-
-            return headMain;
-        }
-
-        public ListNode SwapKthNodeFromBothEnd_1(ListNode head, int k)
-        {
-            ListNode dummy = new ListNode();
-            ListNode preRight = dummy;
-            ListNode preLeft = dummy;
-            ListNode right = head;
-            ListNode left = head;
-
-            for (int i = 0; i < k - 1; i++)
-            {
-                preLeft = left;
-                left = left.next;
-            }
-
-            ListNode temp = left;
-
-            while (temp.next != null)
-            {
-                preRight = right;
-                right = right.next;
-                temp = temp.next;
-            }
-
-            if (left == right)
-                return head;
-
-            preLeft.next = right;
-            preRight.next = left;
-
-            temp = left.next;
-            left.next = right.next;
-            right.next = temp;
-
-            return dummy.next;
-        }
-
-        public ListNode SwapKthNodeFromBothEnd_2(ListNode head, int k)
-        {
-            var headMain = head;
-            var fast = head;
-
-            ListNode aPrev = null;
-            ListNode aCurr = null;
-            ListNode aNext = null;
-
-            ListNode bPrev = null;
-            ListNode bCurr = head;
-            ListNode bNext = null;
-
-            for (int i = 0; i < k - 1; i++)
-            {
-                aPrev = fast;
-                fast = fast.next;
-            }
-
-            aCurr = fast;
-            aNext = aCurr.next;
-
-            while (fast.next != null)
-            {
-                bPrev = bCurr;
-                fast = fast.next;
-                bCurr = bCurr.next;
-            }
-
-            bNext = bCurr.next;
-
-            if (aCurr == bCurr) return headMain;
-
-            //aCurr.next = null;
-            //bPrev.next = null;
-
-            if (aPrev != null)
-                aPrev.next = bCurr;
-            if (aCurr.next == bCurr)
-                bCurr.next = aCurr;
-            else
-            {
-                bCurr.next = aNext;
-                if (bPrev != null)
-                    bPrev.next = aCurr;
-            }
-            aCurr.next = bNext;
-
-            return headMain;
-        }
-
-        private void Swap(ListNode a, ListNode b)
-        {
-            var tmp = a.next;
-            a.next = b.next;
-            b.next = tmp;
-        }
-
-        /// <summary>
-        /// TC O(m+n) 
-        /// SC O(1)
-        /// </summary>
-        /// <param name="linklist"></param>
-        /// <returns></returns>
-        public ListNode SortLinkList(ListNode head)
-        {
-            if (head == null || head.next == null) return head;
-
-            var mid = GetMiddleNodeForMerge(head);
-            var list2 = mid.next;  // IMP
-            mid.next = null;  // IMP
-            var list1 = head;
-
-            list1 = SortLinkList(list1);
-            list2 = SortLinkList(list2);
-
-            return MergeTwoSortedList(list1, list2);
-
-        }
-        public ListNode GetMiddleNodeForMerge(ListNode linklist1)
-        {
-            ListNode slow = linklist1;
-            ListNode fast = linklist1.next; // THIS IS MAJOR CHANGE FOR MERGE?? WHY????
-            // bec if we not use next
-            // the for 2 element A and B MID will always B
-            // so in short lenght of 2 linklist can never be divided and will get error stak over flow
-            // SO used .next as it will return A 
-            while (fast != null && fast.next != null) // fast.Next != null IMP
-            {
-                fast = fast.next.next;
-                slow = slow.next;
-            }
-            return slow;
-        }
-
-        public ListNode OddEvenList(ListNode head)
-        {
-            if (head == null) return head;
-
-            var odd = head;
-            var even = head.next;
-            var evenhead = head.next;
-
-            while (even != null)
-            {
-                odd.next = even.next;
-                odd = odd.next;
-
-                even.next = odd.next;
-                even = even.next;
-            }
-
-            odd.next = evenhead;
-            return head;
-        }
-
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// odd indices follow by even indices, EASY 
-        /// </summary>
-        /// <param name="head"></param>
-        /// <returns></returns>
-        public ListNode OddEvenLinkList(ListNode head)
-        {
-            if (head == null) return null;
-
-            var odd = head;
-            var even = head.next;
-            var evenHead = head.next;
-
-            while (even != null && even.next != null)
-            {
-                odd.next = even.next;
-                odd = odd.next;
-                even.next = odd.next;
-                even = even.next;
-            }
-
-            // we get 1 link list odd with -> 1 3 5 7  (A)
-            // and other with even -> 2 3 6 8  (B)
-            // so at last we need to attached B to end of A so will get fill list as answer
-            odd.next = evenHead;
-
-            return head;
-        }
-
-        public ListNode SwapNodesInPair(ListNode head)
-        {
-            if (head == null) return head;
-
-            var dummy = new ListNode();
-            dummy.next = head;
-
-            ListNode prev = dummy;
-            ListNode curr = head;
-            ListNode next = null;
-
-            while (curr != null && curr.next != null)
-            {
-                next = curr.next;
-                var nn = next?.next;
-                prev.next = next;
-                next.next = curr;
-                curr.next = nn;
-                prev = curr;
-                curr = nn;
-            }
-            return dummy.next;
-        }
-
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// Swap nodes in pair
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
-        public ListNode SwapValuesInPair(ListNode list)
-        {
-            if (list == null) return list;
-
-            var head = list;
-            var odd = list;
-            var even = list.next;
-
-            while (even != null && even.next != null)
-            {
-                int temp = even.val;
-                even.val = odd.val;
-                odd.val = temp;
-                even = even.next.next;
-                // never got error as even pointer is always ahead of odd
-                // and we are checking even null and even next null in while
-                odd = odd.next.next;
-            }
-
-            return head;
-        }
-
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// Swap nodes in pair NOT WORKINF
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
-        public ListNode SwapNodesInKPair(ListNode list, int k)
-        {
-            if (list == null) return list;
-
-            var head = list;
-            ListNode prev = null;
-            ListNode traverseStart = list;
-            var traverseLast = list;
-
-            int count = 0;
-            while (traverseLast != null)
-            {
-                count++;
-                if (count == k)
-                {
-                    var next = traverseLast.next;
-
-                    // reverse -> traverseStart to traverseLast
-                    traverseLast.next = null;
-                    var revNode = ReverseMine(traverseStart);
-
-                    traverseStart = next;
-                }
-                else
-                    prev = traverseLast;
-                traverseLast = traverseLast.next;
-            }
-
-            return head;
-        }
-
-        /// <summary>
-        /// TC O(n) 
-        /// SC O(1)
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
-        public ListNode ReverseKGroup(ListNode head, int k)
-        {
-            if (head == null || k <= 0) return head;
-
-            ListNode current = head;
-            ListNode prev = null;
-            int length = GetLength(head);
-            int count = length / k;
-
-            while (count > 0)
-            {
-                ListNode next = null;
-                var beforeReverseStartNode = current;
-                var beforeReversePrevNode = prev;
-
-                int x = k;
-                while (x > 0)
-                {
-                    next = current.next;
-                    current.next = prev;
-                    prev = current;
-                    current = next;
-                    x--;
-                }
-
-                // IMP 
-                if (beforeReversePrevNode == null)
-                    head = prev;
-                else
-                    beforeReversePrevNode.next = prev;
-
-                // IMP 
-                beforeReverseStartNode.next = current;
-                prev = beforeReverseStartNode;
-
-                count--;
-            }
-
-            return head;
-
-        }
-
-        public int GetLength(ListNode head)
-        {
-            ListNode node = head;
-            int length = 0;
-            while (node != null)
-            {
-                length++;
-                node = node.next;
-            }
-            return length;
-        }
-
-        private ListNode ReverseMine(ListNode node)
-        {
-            if (node == null) return null;
-
-            var curr = node;
-            ListNode prev = null;
-            ListNode next = null;
-
-            while (curr != null)
-            {
-                next = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = next;
-            }
-
-            return prev;
-        }
-
-        public ListNode GetMiddle(ListNode linklist1)
-        {
-            ListNode slow = linklist1;
-            ListNode fast = linklist1;
-            while (fast != null && fast.next != null)
-            {
-                fast = fast.next.next;
-                slow = slow.next;
-            }
-            return slow;
-        }
-
-        public ListNode GetMiddleNext(ListNode linklist1)
-        {
-            ListNode slow = linklist1;
-            ListNode fast = linklist1.next;
-            while (fast != null && fast.next != null)
-            {
-                fast = fast.next.next;
-                slow = slow.next;
-            }
-            return slow;
         }
 
 

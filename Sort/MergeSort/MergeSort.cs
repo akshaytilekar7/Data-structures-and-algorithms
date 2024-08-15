@@ -15,6 +15,13 @@
             length [a b] => b - a + 1
             length (a b) => b - a - 1
 
+
+    (a,b]: Semi-open interval, includes numbers greater than a up to and including b. => b-a
+    [a,b): Semi-closed interval, includes numbers from a up to (but not including) b. => b-a  
+    
+    [a,b]: Closed interval, includes all numbers from a to b inclusively. => b − a +1
+    (a,b): Open interval, includes all numbers strictly between a and b. => b − a −1
+
     merge - divide until single element
                 
     */

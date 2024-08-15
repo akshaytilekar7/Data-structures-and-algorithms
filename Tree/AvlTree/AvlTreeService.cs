@@ -304,7 +304,6 @@
             }
             return null;
         }
-
         public bool IsEmpty()
         {
             return tree.Root == null;
