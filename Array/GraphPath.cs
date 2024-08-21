@@ -40,6 +40,74 @@ public class GraphPath
     /// <param name="start"></param>
     /// <param name="destination"></param>
     /// <returns></returns>
+    public int HasPathShortestDistanceLength(int[][] maze, int[] start, int[] destination)
+    {
+        int rows = maze.Length;
+        int cols = maze[0].Length;
+        int[][] directions = new int[][]
+        {
+        new int[] { 0, 1 }, // right
+        new int[] { 0, -1 }, // left
+        new int[] { 1, 0 }, // down
+        new int[] { -1, 0 } // up
+        };
+
+        int[,] distance = new int[rows, cols];
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                distance[i, j] = int.MaxValue;
+
+        distance[start[0], start[1]] = 0;
+
+        var pq = new SortedSet<(int dist, int row, int col)>();
+        pq.Add((0, start[0], start[1]));
+
+        while (pq.Count > 0)
+        {
+            var (currentDist, currentRow, currentCol) = pq.Min;
+            pq.Remove(pq.Min);
+
+            if (currentRow == destination[0] && currentCol == destination[1])
+                return currentDist;
+
+            foreach (var direction in directions)
+            {
+                int newRow = currentRow;
+                int newCol = currentCol;
+                int count = 0;
+
+                while (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && maze[newRow][newCol] == 0)
+                {
+                    newRow += direction[0];
+                    newCol += direction[1];
+                    count++;
+                }
+
+                newRow -= direction[0];
+                newCol -= direction[1];
+                count--;
+
+                int newDist = currentDist + count;
+
+                if (newDist < distance[newRow, newCol])
+                {
+                    distance[newRow, newCol] = newDist;
+                    pq.Add((newDist, newRow, newCol));
+                }
+            }
+        }
+
+        return -1; // Return -1 if the destination is not reachable
+    }
+
+    /// <summary>
+    /// The Maze hit untill wall
+    /// https://leetcode.ca/all/490.html 
+    /// </summary>
+    /// <param name="maze"></param>
+    /// <param name="start"></param>
+    /// <param name="destination"></param>
+    /// <returns></returns>
     public bool HasPath(int[][] maze, int[] start, int[] destination)
     {
         var destinationRow = destination[0];
@@ -71,18 +139,15 @@ public class GraphPath
                 int newRow = currentRow;
                 int newCol = currentCol;
 
-                // Roll the ball until it hits a wall
                 while (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col && maze[newRow][newCol] == 0)
                 {
                     newRow += direction[0];
                     newCol += direction[1];
                 }
 
-                // Step back to the last valid position
                 newRow -= direction[0];
                 newCol -= direction[1];
 
-                // If this position has not been visited, add it to the queue
                 if (!visited.Contains((newRow, newCol)))
                 {
                     queue.Enqueue((newRow, newCol));
@@ -292,3 +357,5 @@ public class GraphPath
     }
 
 }
+
+// https://leetcode.com/problems/escape-a-large-maze/description/

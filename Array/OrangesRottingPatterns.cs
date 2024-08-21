@@ -44,51 +44,102 @@ public class Solution
 
     public bool CanFinish(int numCourses, int[][] prerequisites)
     {
-        List<int>[] adjencyList = new List<int>[numCourses];
+        // Step 1: Create the graph and in-degree array
+        List<int>[] graph = new List<int>[numCourses];
+        int[] inDegree = new int[numCourses];
 
         for (int i = 0; i < numCourses; i++)
-            adjencyList[i] = new List<int>();
+            graph[i] = new List<int>();
 
-        //"For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1."
-        for (int i = 0; i < prerequisites.Length; i++)
-            adjencyList[prerequisites[i][1]].Add(prerequisites[i][0]);
-
-        int[] indegree = new int[numCourses];
-
-        for (int i = 0; i < numCourses; i++)
+        foreach (var prerequisite in prerequisites)
         {
-            foreach (int j in adjencyList[i])
-                indegree[j]++;
+            int course = prerequisite[0];
+            int pre = prerequisite[1];
+            graph[pre].Add(course);
+            inDegree[course]++;
         }
 
+        // Step 2: Add inDegree = 0 in Queue
         Queue<int> queue = new Queue<int>();
-
-        for (int i = 0; i < indegree.Length; i++)
-            if (indegree[i] == 0)
+        for (int i = 0; i < numCourses; i++)
+            if (inDegree[i] == 0)
                 queue.Enqueue(i);
 
-        int nodeCount = queue.Count;
-
-        while (queue.Count != 0)
+        int count = 0;
+        while (queue.Count > 0)
         {
-            int temp = queue.Dequeue();
-            foreach (int i in adjencyList[temp])
+            int current = queue.Dequeue();
+            count++;
+
+            foreach (var neighbor in graph[current])
             {
-                // Adding the next childs or the dependent courses to the queue
-                if (--indegree[i] == 0)
-                {
-                    queue.Enqueue(i);
-                    nodeCount++;
-                    Console.WriteLine($"{i} is added to the queue for further nodes");
-                }
+                inDegree[neighbor]--;
+                if (inDegree[neighbor] == 0)
+                    queue.Enqueue(neighbor);
             }
         }
 
-        if (nodeCount == numCourses)
-            return true;
-
-        return false;
+        return count == numCourses;
     }
+
+    public int LadderLength(string beginWord, string endWord, IList<string> wordList)
+    {
+        HashSet<string> wordSet = new HashSet<string>(wordList);
+        if (!wordSet.Contains(endWord)) return 0;
+
+        Queue<string> queue = new Queue<string>();
+        queue.Enqueue(beginWord);
+
+        int level = 1;
+
+        while (queue.Count > 0)
+        {
+            int size = queue.Count;
+            for (int i = 0; i < size; i++)
+            {
+                string currentWord = queue.Dequeue();
+                List<string> neighbors = GetNeighbors(currentWord, wordSet);
+
+                foreach (var neighbor in neighbors)
+                {
+                    if (neighbor.Equals(endWord))
+                        return level + 1;
+                    queue.Enqueue(neighbor);
+                    wordSet.Remove(neighbor);
+                }
+            }
+
+            level++;
+        }
+
+        return 0;
+    }
+
+    private List<string> GetNeighbors(string srcWord, HashSet<string> wordSet)
+    {
+        List<string> neighbors = new List<string>();
+        char[] charArray = srcWord.ToCharArray();
+
+        for (int i = 0; i < charArray.Length; i++)
+        {
+            char srcOriginalChar = charArray[i];
+
+            for (char c = 'a'; c <= 'z'; c++)
+            {
+                charArray[i] = c;
+                string newWord = new string(charArray);
+
+                if (!newWord.Equals(srcWord) && wordSet.Contains(newWord))
+                    neighbors.Add(newWord);
+            }
+
+            charArray[i] = srcOriginalChar;
+        }
+
+        return neighbors;
+    }
+
+
 }
 public class OrangesRottingPatterns
 {
@@ -268,6 +319,52 @@ public class OrangesRottingPatterns
                 maxDepth = max;
         }
         return maxDepth;
+    }
+
+    public int MaximumMinimumPath(int[][] grid)
+    {
+        int rows = grid.Length;
+        int cols = grid[0].Length;
+        int[][] directions = new int[][] {
+            new int[] { 0, 1 }, // Right
+            new int[] { 1, 0 }, // Down
+            new int[] { 0, -1 }, // Left
+            new int[] { -1, 0 } // Up
+        };
+
+        // PriorityQueue to prioritize paths with larger minimum values
+        PriorityQueue<(int row, int col, int minVal), int> pq = new PriorityQueue<(int, int, int), int>(Comparer<int>.Create((a, b) => b - a));
+        bool[][] visited = new bool[rows][];
+
+        for (int i = 0; i < rows; i++)
+            visited[i] = new bool[cols];
+
+        pq.Enqueue((0, 0, grid[0][0]), grid[0][0]);
+        visited[0][0] = true;
+
+        while (pq.Count > 0)
+        {
+            var (row, col, minVal) = pq.Dequeue();
+
+            // If we reached the bottom-right corner, return the minVal (which is maximized by the PQ)
+            if (row == rows - 1 && col == cols - 1)
+                return minVal;
+
+            foreach (var dir in directions)
+            {
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+
+                if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && !visited[newRow][newCol])
+                {
+                    visited[newRow][newCol] = true;
+                    int newMinVal = Math.Min(minVal, grid[newRow][newCol]);
+                    pq.Enqueue((newRow, newCol, newMinVal), newMinVal);
+                }
+            }
+        }
+
+        return -1;
     }
 
     /// <summary>
